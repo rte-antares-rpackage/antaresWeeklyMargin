@@ -2,6 +2,7 @@
 
 export(read_hydro_usine)
 export(read_hydro_vallee)
+export(read_planning_directenergie)
 export(read_planning_edf)
 export(read_planning_psspower)
 export(read_thermal_tranche)

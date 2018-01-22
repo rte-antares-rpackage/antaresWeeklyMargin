@@ -100,3 +100,53 @@ read_planning_psspower <- function(path) {
   return(data)
 }
 
+
+
+
+
+#' Read planning from Direct Energie
+#'
+#' @param path Path to the XML file. Can be left blank, designate an XML
+#' file or directory containing XML files. If the path points to a directory,
+#' the most recent XML file is read. If the argument is not specified, a dialog
+#' box will open to select a directory. 
+#'
+#' @return a \code{data.table}
+#' @export
+#'
+#' @importFrom data.table as.data.table setnames := data.table setorderv
+#' @importFrom readxl read_excel
+#' @importFrom stringr str_extract_all
+read_planning_directenergie <- function(path) {
+  if (missing(path)) {
+    path <- choose_path()
+  }
+  path <- select_file(path, "Direct_Energie", fileext = "\\.xlsx$")
+  # data
+  data <- readxl::read_excel(path = path, sheet = 1, skip = 5)
+  data <- as.data.table(data)
+  setnames(x = data, old = names(data), new = clean_names(names(data)))
+  data <- data[!is.na(groupe)]
+  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pmax", "pmin")]
+  data <- data[, .id := .I, by = groupe]
+  # dates
+  dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 4)[3, 1], use.names = FALSE)
+  dates <- stringr::str_extract_all(string = dates, pattern = "\\d{2}/\\d{2}/\\d{4}")[[1]]
+  dates <- as.POSIXct(dates, format = "%d/%m/%Y")
+  dates <- seq.POSIXt(from = dates[1], to = dates[2], by = "hours")
+  dates <- data.table(
+    .id = rep(seq_along(unique(data$groupe)), each = length(dates)),
+    datetime = rep(dates, times = length(unique(data$groupe)))
+  )
+  # merge data+dates
+  data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
+  data <- data[, .id := NULL]
+  setorderv(x = data, cols = c("groupe", "datetime"))
+  setcolorder(x = data, neworder = c("groupe", "code_groupe", "datetime", "pmax", "pmin"))
+  return(data)
+}
+
+
+
+
+
