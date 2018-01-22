@@ -3,7 +3,7 @@
 # antaresWeeklyMargin
 
 
-> Calculate Weekly Margin.
+> Process data for Weekly Margin simulation.
 
 
 You can install the package from Github like this :
@@ -13,7 +13,7 @@ You can install the package from Github like this :
 # Install package from Github
 source("https://install-github.me/rte-antares-rpackage/antaresWeeklyMargin")
 
-library( "antaresWaterValues" )
+library( "antaresWeeklyMargin" )
 ```
 
 
