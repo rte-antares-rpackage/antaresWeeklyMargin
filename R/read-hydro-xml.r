@@ -178,31 +178,4 @@ validation_groupe <- function() {
 
 
 
-# Utils -------------------------------------------------------------------
-
-
-#' @importFrom utils choose.dir
-choose_path <- function() {
-  if (exists("choose.dir", getNamespace("utils"))) {
-    path <- utils::choose.dir(getwd(), "Select directory with xml files")
-    if (is.na(path))
-      stop("You have canceled the execution.")
-  } else {
-    path <- file.choose()
-  }
-  return(path)
-}
-
-
-select_file <- function(path, pattern = "Hydrauliques") {
-  if (dir.exists(path)) {
-    path <- list.files(path = path, pattern = "\\.xml$", full.names = TRUE)
-    path <- grep(pattern = pattern, x = path, value = TRUE)
-    if (length(path) < 1)
-      stop("No xml file found : specify complete path.", call. = FALSE)
-    path <- sort(path, decreasing = TRUE)[1]
-    message(paste("Reading file:", path))
-  }
-  return(path)
-}
 
