@@ -92,11 +92,11 @@ Don't forget to restart your R session for change to be effective !
 ## RTE DATA API
 
 You can retrieve NTC data from [RTE data API](https://data.rte-france.com/) with function `get_ntc`.
-This API require to have an account and to subscribe to a specific API (*Abonnez-vous à l'API*) by creating an application.
+This API require to have an account and to subscribe to a specific API (*Abonnez-vous à l'API*) and creating an application.
 
 Before retrieving data, you need a token :
 
-````r
+```r
 id_client <- "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 id_secret <- "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 token <- get_token(
