@@ -48,7 +48,7 @@ get_proxy_info <- function(user = NULL, proxy_pwd = NULL) {
 #' @param user Username (NNI) for proxy.
 #' @param proxy_pwd Password for proxy.
 #' 
-#' @note You'll need to restart your R session for change to be effective
+#' @note You'll need to restart your R session for change to be effective.
 #'
 #' @export
 #'
