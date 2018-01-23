@@ -54,3 +54,56 @@ clean_names <- function(x) {
 n_hours <- function(x, y) {
   abs(as.numeric(difftime(time1 = x, time2 = y, units = "hours"))) + 1
 }
+
+
+
+
+
+
+#' Get previous day from a date 
+#'
+#' @param what Name of the day to retrieve previous the specified date
+#' @param date A date, by default the current date
+#'
+#' @return a Date
+#' @export
+#'
+#' @examples
+#' 
+#' # Previous friday
+#' get_previous(what = "vendredi")
+#' 
+#' # You can abreviate
+#' get_previous(what = "ven")
+#' 
+#' # Previous saturday before previous friday
+#' get_previous(what = "samedi", date = get_previous(what = "vendredi"))
+#' 
+#' # Alternatively you can pass a number between 1-7 where 1 is Monday
+#' get_previous(what = 7)
+#' 
+get_previous <- function(what = "samedi", date = Sys.Date()) {
+  stopifnot(length(what) == 1, length(date) == 1)
+  french <- c("lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche")
+  english <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+  if (!(is.numeric(what) & what %in% 1:7)) {
+    what <- pmatch(what, french)
+    if (is.na(what)) {
+      what <- pmatch(what, english)
+    } 
+    if (is.na(what)) {
+      stop(
+        paste(
+          "'what' must be the name of a day in french or",
+          "english or a decimal number between 1-7 (Monday is 1)"
+        ), 
+        call. = FALSE
+      )
+    }
+  }
+  previous <- seq.Date(from = date - 6, to = date, by = "day")
+  previous[format(previous, format = "%u") == what]
+}
+
+
+
