@@ -11,9 +11,9 @@ get_eco2mix(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL)
 
 \item{to}{date until which to recover data.}
 
-\item{user}{Username (NNI) for proxy if needed.}
+\item{user}{Username (NNI) for proxy if needeed.}
 
-\item{proxy_pwd}{Password for proxy if needed.}
+\item{proxy_pwd}{Password for proxy if needeed.}
 }
 \value{
 a \code{data.table}
@@ -24,7 +24,12 @@ Get data from eco2mix via Open-RTE API
 \examples{
 \dontrun{
 
-# TODO
+eco2mix <- get_eco2mix(
+  from = "2018-01-06", 
+  to = "2018-01-12", 
+  user = "NNI",         # needeed in no internet connection open
+  proxy_pwd = "PASSWORD"
+)
 
 }
 }
