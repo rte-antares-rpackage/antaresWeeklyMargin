@@ -22,7 +22,7 @@
 #' eco2mix <- get_eco2mix(
 #'   from = "2018-01-06", 
 #'   to = "2018-01-12", 
-#'   user = "NNI",         # needeed in no internet connection open
+#'   user = "NNI",         # needeed if no internet connection open
 #'   proxy_pwd = "PASSWORD"
 #' )
 #' 
