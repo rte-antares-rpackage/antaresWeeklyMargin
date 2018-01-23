@@ -10,5 +10,8 @@ LazyData: true
 Imports: xml2,
     data.table,
     stringr,
-    readxl
+    readxl,
+    jsonlite,
+    crul,
+    curl
 RoxygenNote: 6.0.1

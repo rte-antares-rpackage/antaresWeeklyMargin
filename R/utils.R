@@ -56,6 +56,14 @@ n_hours <- function(x, y) {
 }
 
 
+dropNulls <- function (x)
+{
+  x[!vapply(x, is.null, FUN.VALUE = logical(1))]
+}
+
+pasteAND <- function(...) {
+  paste(..., sep = " AND ")
+}
 
 
 
