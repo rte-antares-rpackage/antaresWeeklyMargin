@@ -5,6 +5,22 @@ proxy_error <- function(url) {
 }
 
 
+#' Get proxy information
+#'
+#' @param user Optionnal, username (NNI) for proxy.
+#' @param proxy_pwd Optionnal, password for proxy.
+#'
+#' @return a list with username and password for proxy
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' # If you have set your proxy informations, 
+#' # the list should contain them
+#' get_proxy_info()
+#' 
+#' }
 get_proxy_info <- function(user = NULL, proxy_pwd = NULL) {
   res <- list()
   if (!is.null(user)) {
@@ -22,6 +38,37 @@ get_proxy_info <- function(user = NULL, proxy_pwd = NULL) {
       res$proxy_pwd <- NULL
   }
   return(res)
+}
+
+
+
+#' Setup proxy credentials
+#' 
+#'
+#' @param user Username (NNI) for proxy.
+#' @param proxy_pwd Password for proxy.
+#' 
+#' @note You'll need to restart your R session for change to be effective
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' setupProxy("MYNNI", "MY_PASSWORD")
+#' # restart your R session
+#' # info should appear in the list
+#' get_proxy_info()
+#' 
+#' }
+setupProxy <- function(user, proxy_pwd) {
+  cat(
+    paste(paste0("USR_PROXY=", user), 
+          paste0("PWD_PROXY=", proxy_pwd), sep = "\n"),
+    file = file.path(path.expand("~/"), ".Renviron"),
+    append = TRUE
+  )
+  message("Proxy info saved, please restart your R session")
 }
 
 
