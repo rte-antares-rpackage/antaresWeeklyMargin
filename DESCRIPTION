@@ -13,5 +13,6 @@ Imports: xml2,
     readxl,
     jsonlite,
     crul,
-    curl
+    curl,
+    base64enc
 RoxygenNote: 6.0.1
