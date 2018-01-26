@@ -83,9 +83,10 @@ Access to an API can be blocked by the proxy, you can set your credentials to al
 ```r
 setupProxy(user = "NNI", proxy_pwd = "MOT_DE_PASSE")
 # You need to restart your R session
-get_proxy_info()
+get_proxy_info() # check if settings are correctly set
 ```
 
+It only needs to be done once.
 Don't forget to restart your R session for change to be effective !
 
 
