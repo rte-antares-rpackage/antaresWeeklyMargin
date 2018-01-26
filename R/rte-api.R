@@ -77,6 +77,10 @@ parse_datetime <- function(x) {
   x <- gsub(pattern = "(\\d{2}):(\\d{2})$", replacement = "\\1\\2", x = x)
   as.POSIXct(x, format = "%FT%X%z")
 }
+format_datetime <- function(x) {
+  x <- format(x)
+  gsub(pattern = "(\\d{2})(\\d{2})$", replacement = "\\1:\\2", x = x)
+}
 
 
 
@@ -121,10 +125,14 @@ get_eco2mix <- function(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL) {
     )
   }
   if (!is.null(from)) {
-    from <- sprintf("date_heure>=%s", format(from, format = "%Y-%m-%d"))
+    from_ <- as.Date(from)
+    from <- from_ - 1
+    from <- sprintf("date_heure>=%s", format_datetime(from))
   }
   if (!is.null(to)) {
-    to <- sprintf("date_heure<=%s", format(to, format = "%Y-%m-%d"))
+    to_ <- as.Date(to)
+    to <- to_ + 1
+    to <- sprintf("date_heure<=%s", format_datetime(to))
   }
   q <- list(from = from, to = to)
   q <- dropNulls(q)
@@ -142,8 +150,15 @@ get_eco2mix <- function(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL) {
   dat <- as.data.table(json$records$fields)
   if (nrow(dat) == 0)
     return(dat)
-  dat <- dat[, date := as.Date(date)]
+  dat <- dat[, timestamp := date_heure]
   dat <- dat[, date_heure := parse_datetime(date_heure)]
+  dat <- dat[, date := as.Date(format(date_heure, format = "%Y-%m-%d"))]
+  if (!is.null(from)) {
+    dat <- dat[date >= from_]
+  }
+  if (!is.null(to)) {
+    dat <- dat[date <= to_]
+  }
   setcolorder(dat, c("date", "date_heure", setdiff(names(dat), c("date", "date_heure"))))
   dat
 }
@@ -299,13 +314,11 @@ get_ntc <- function(token, type = c("ANNUAL", "MONTHLY", "WEEKLY", "D-1", "CURTA
     if (is.null(end_date))
       stop("If start_date is set, end_date must be passed as well.", call. = FALSE)
     start_date <- as.POSIXct(start_date)
-    start_date <- format(start_date, format = "%FT%X%z")
-    start_date <- gsub(pattern = "(\\d{2})(\\d{2})$", replacement = "\\1:\\2", x = start_date)
+    start_date <- format_datetime(start_date)
   }
   if (!is.null(end_date)) {
     end_date <- as.POSIXct(end_date)
-    end_date <- format(end_date, format = "%FT%X%z")
-    end_date <- gsub(pattern = "(\\d{2})(\\d{2})$", replacement = "\\1:\\2", x = end_date)
+    end_date <- format_datetime(end_date)
   }
   q <- list(
     type = paste(type, collapse = ","),

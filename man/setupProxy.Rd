@@ -15,7 +15,7 @@ setupProxy(user, proxy_pwd)
 Setup proxy credentials
 }
 \note{
-You'll need to restart your R session for change to be effective
+You'll need to restart your R session for change to be effective.
 }
 \examples{
 \dontrun{
