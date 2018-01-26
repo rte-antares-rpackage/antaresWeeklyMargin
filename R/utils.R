@@ -15,14 +15,18 @@ choose_path <- function() {
 }
 
 
-select_file <- function(path, pattern = "Hydrauliques", fileext = "\\.xml$") {
+select_file <- function(path, pattern = "Hydrauliques", fileext = "\\.xml$", multiple = FALSE) {
   if (dir.exists(path)) {
     path <- list.files(path = path, pattern = fileext, full.names = TRUE)
     path <- grep(pattern = pattern, x = path, value = TRUE)
     if (length(path) < 1)
       stop("No file found : specify complete path.", call. = FALSE)
-    path <- sort(path, decreasing = TRUE)[1]
-    message(paste("Reading file:", path))
+    if (!multiple) {
+      path <- sort(path, decreasing = TRUE)[1]
+    } else {
+      path <- sort(path, decreasing = TRUE)
+    }
+    message(paste("Reading file:", path, "\n"))
   }
   return(path)
 }
@@ -48,6 +52,7 @@ clean_names <- function(x) {
   x <- gsub(pattern = char_o, replacement = "o", x = x)
   char_a <- paste(intToUtf8(224:229, multiple = TRUE), collapse = "|")
   x <- gsub(pattern = char_a, replacement = "a", x = x)
+  x <- gsub(pattern = "[[:punct:]]+", replacement = "_", x = x)
   x
 }
 
