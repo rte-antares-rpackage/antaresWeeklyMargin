@@ -88,7 +88,7 @@ read_planning_psspower <- function(path) {
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 1), use.names = FALSE)
   dates <- stringr::str_extract_all(string = dates, pattern = "\\d{2}/\\d{2}/\\d{4}")[[1]]
   dates <- as.POSIXct(dates, format = "%d/%m/%Y")
-  dates <- seq.POSIXt(from = dates[1], to = dates[2], by = "hours")
+  dates <- seq.POSIXt(from = dates[1], to = dates[2] + 23 * 60 * 60, by = "hours")
   dates <- data.table(
     .id = rep(seq_along(unique(data$groupe)), each = length(dates)),
     datetime = rep(dates, times = length(unique(data$groupe)))
@@ -135,7 +135,7 @@ read_planning_directenergie <- function(path) {
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 4)[3, 1], use.names = FALSE)
   dates <- stringr::str_extract_all(string = dates, pattern = "\\d{2}/\\d{2}/\\d{4}")[[1]]
   dates <- as.POSIXct(dates, format = "%d/%m/%Y")
-  dates <- seq.POSIXt(from = dates[1], to = dates[2], by = "hours")
+  dates <- seq.POSIXt(from = dates[1], to = dates[2] + 23 * 60 * 60, by = "hours")
   dates <- data.table(
     .id = rep(seq_along(unique(data$groupe)), each = length(dates)),
     datetime = rep(dates, times = length(unique(data$groupe)))
@@ -182,7 +182,7 @@ read_planning_trc <- function(path) {
   dates <- as.data.frame(dates)
   dates <- c(as.character(dates[4, 6]), as.character(dates[4, 10]))
   dates <- as.POSIXct(dates, format = "%Y-%m-%d")
-  dates <- seq.POSIXt(from = dates[1], to = dates[2], by = "hours")
+  dates <- seq.POSIXt(from = dates[1], to = dates[2] + 23 * 60 * 60, by = "hours")
   dates <- data.table(
     .id = rep(seq_along(unique(data$groupe)), each = length(dates)),
     datetime = rep(dates, times = length(unique(data$groupe)))
@@ -228,7 +228,7 @@ read_planning_novawatt <- function(path) {
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 4)[3, 1], use.names = FALSE)
   dates <- stringr::str_extract_all(string = dates, pattern = "\\d{2}/\\d{2}/\\d{4}")[[1]]
   dates <- as.POSIXct(dates, format = "%d/%m/%Y")
-  dates <- seq.POSIXt(from = dates[1], to = dates[2], by = "hours")
+  dates <- seq.POSIXt(from = dates[1], to = dates[2] + 23 * 60 * 60, by = "hours")
   dates <- data.table(
     .id = rep(seq_along(unique(data$groupe)), each = length(dates)),
     datetime = rep(dates, times = length(unique(data$groupe)))
@@ -273,7 +273,7 @@ read_planning_uniper <- function(path) {
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 1)[1, 1], use.names = FALSE)
   dates <- stringr::str_extract_all(string = dates, pattern = "\\d{2}/\\d{2}/\\d{4}")[[1]]
   dates <- as.POSIXct(dates, format = "%d/%m/%Y")
-  dates <- seq.POSIXt(from = dates[1], to = dates[2], by = "hours")
+  dates <- seq.POSIXt(from = dates[1], to = dates[2] + 23 * 60 * 60, by = "hours")
   dates <- data.table(
     .id = rep(seq_along(unique(data$groupe)), each = length(dates)),
     datetime = rep(dates, times = length(unique(data$groupe)))
@@ -322,7 +322,7 @@ read_planning_gdfsuez <- function(path) {
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 1)[1, 1], use.names = FALSE)
   dates <- stringr::str_extract_all(string = dates, pattern = "\\d{2}/\\d{2}/\\d{4}")[[1]]
   dates <- as.POSIXct(dates, format = "%d/%m/%Y")
-  dates <- seq.POSIXt(from = dates[1], to = dates[2], by = "hours")
+  dates <- seq.POSIXt(from = dates[1], to = dates[2] + 23 * 60 * 60, by = "hours")
   dates <- data.table(
     .id = rep(seq_along(unique(data$groupe)), each = length(dates)),
     datetime = rep(dates, times = length(unique(data$groupe)))
