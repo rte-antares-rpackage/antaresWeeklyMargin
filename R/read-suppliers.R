@@ -23,9 +23,9 @@ read_edf_sheet <- function(path, sheet) {
 
 #' Read EDF thermal file
 #'
-#' @param path Path to the XML file. Can be left blank, designate an XML
-#' file or directory containing XML files. If the path points to a directory,
-#' the most recent XML file is read. If the argument is not specified, a dialog
+#' @param path Path to the Excel file. Can be left blank, designate an Excel
+#' file or directory containing Excel files. If the path points to a directory,
+#' the most recent Excel file is read. If the argument is not specified, a dialog
 #' box will open to select a directory.
 #'
 #' @export
@@ -60,9 +60,9 @@ read_planning_edf <- function(path) {
 
 #' Read planning from PSS Power
 #'
-#' @param path Path to the XML file. Can be left blank, designate an XML
-#' file or directory containing XML files. If the path points to a directory,
-#' the most recent XML file is read. If the argument is not specified, a dialog
+#' @param path Path to the Excel file. Can be left blank, designate an Excel
+#' file or directory containing Excel files. If the path points to a directory,
+#' the most recent Excel file is read. If the argument is not specified, a dialog
 #' box will open to select a directory.
 #'
 #' @return a \code{data.table}
@@ -81,7 +81,8 @@ read_planning_psspower <- function(path) {
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "pmax", "pmin")]
+  setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 1), use.names = FALSE)
@@ -96,7 +97,7 @@ read_planning_psspower <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "datetime", "pmax", "pmin"))
   return(data)
 }
 
@@ -106,9 +107,9 @@ read_planning_psspower <- function(path) {
 
 #' Read planning from Direct Energie
 #'
-#' @param path Path to the XML file. Can be left blank, designate an XML
-#' file or directory containing XML files. If the path points to a directory,
-#' the most recent XML file is read. If the argument is not specified, a dialog
+#' @param path Path to the Excel file. Can be left blank, designate an Excel
+#' file or directory containing Excel files. If the path points to a directory,
+#' the most recent Excel file is read. If the argument is not specified, a dialog
 #' box will open to select a directory.
 #'
 #' @return a \code{data.table}
@@ -127,7 +128,8 @@ read_planning_directenergie <- function(path) {
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "pmax", "pmin")]
+  setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 4)[3, 1], use.names = FALSE)
@@ -142,7 +144,7 @@ read_planning_directenergie <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "datetime", "pmax", "pmin"))
   return(data)
 }
 
@@ -152,9 +154,9 @@ read_planning_directenergie <- function(path) {
 
 #' Read planning from Total Raffinage Chimie
 #'
-#' @param path Path to the XML file. Can be left blank, designate an XML
-#' file or directory containing XML files. If the path points to a directory,
-#' the most recent XML file is read. If the argument is not specified, a dialog
+#' @param path Path to the Excel file. Can be left blank, designate an Excel
+#' file or directory containing Excel files. If the path points to a directory,
+#' the most recent Excel file is read. If the argument is not specified, a dialog
 #' box will open to select a directory.
 #'
 #' @return a \code{data.table}
@@ -172,7 +174,8 @@ read_planning_trc <- function(path) {
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(pmax)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn_mw_", "pmax", "pmin")]
+  setnames(x = data, old = "pcn_mw_", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
   dates <- readxl::read_excel(path = path, sheet = 1, n_max = 4)
@@ -188,7 +191,7 @@ read_planning_trc <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "datetime", "pmax", "pmin"))
   return(data)
 }
 
@@ -197,9 +200,9 @@ read_planning_trc <- function(path) {
 
 #' Read planning from NovaWatt
 #'
-#' @param path Path to the XML file. Can be left blank, designate an XML
-#' file or directory containing XML files. If the path points to a directory,
-#' the most recent XML file is read. If the argument is not specified, a dialog
+#' @param path Path to the Excel file. Can be left blank, designate an Excel
+#' file or directory containing Excel files. If the path points to a directory,
+#' the most recent Excel file is read. If the argument is not specified, a dialog
 #' box will open to select a directory.
 #'
 #' @return a \code{data.table}
@@ -218,7 +221,8 @@ read_planning_novawatt <- function(path) {
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "pmax", "pmin")]
+  setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 4)[3, 1], use.names = FALSE)
@@ -233,7 +237,7 @@ read_planning_novawatt <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "datetime", "pmax", "pmin"))
   return(data)
 }
 
@@ -241,9 +245,9 @@ read_planning_novawatt <- function(path) {
 
 #' Read planning from UNIPER
 #'
-#' @param path Path to the XML file. Can be left blank, designate an XML
-#' file or directory containing XML files. If the path points to a directory,
-#' the most recent XML file is read. If the argument is not specified, a dialog
+#' @param path Path to the Excel file. Can be left blank, designate an Excel
+#' file or directory containing Excel files. If the path points to a directory,
+#' the most recent Excel file is read. If the argument is not specified, a dialog
 #' box will open to select a directory.
 #'
 #' @return a \code{data.table}
@@ -262,7 +266,8 @@ read_planning_uniper <- function(path) {
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "pmax", "pmin")]
+  setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 1)[1, 1], use.names = FALSE)
@@ -277,7 +282,7 @@ read_planning_uniper <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "datetime", "pmax", "pmin"))
   return(data)
 }
 
@@ -288,9 +293,9 @@ read_planning_uniper <- function(path) {
 
 #' Read planning from GDF-SUEZ
 #'
-#' @param path Path to the XML file. Can be left blank, designate an XML
-#' file or directory containing XML files. If the path points to a directory,
-#' the most recent XML file is read. If the argument is not specified, a dialog
+#' @param path Path to the Excel file. Can be left blank, designate an Excel
+#' file or directory containing Excel files. If the path points to a directory,
+#' the most recent Excel file is read. If the argument is not specified, a dialog
 #' box will open to select a directory.
 #'
 #' @return a \code{data.table}
@@ -310,7 +315,8 @@ read_planning_gdfsuez <- function(path) {
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   setnames(x = data, old = c("pcmax", "pcmin"), new = c("pmax", "pmin"))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "pmax", "pmin")]
+  setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
   dates <- unlist(readxl::read_excel(path = path, sheet = 1, n_max = 1)[1, 1], use.names = FALSE)
@@ -325,6 +331,55 @@ read_planning_gdfsuez <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "datetime", "pmax", "pmin"))
   return(data)
 }
+
+
+
+
+
+
+
+#' Read planning from suppliers
+#'
+#' @param path Path to the Excel file(s). Can be left blank, designate an Excel
+#' file or directory containing Excel files. If the path points to a directory,
+#' all Excel file are read. If the argument is not specified, a dialog
+#' box will open to select a directory.
+#'
+#' @return a \code{data.table}
+#' @export
+#'
+#' @importFrom data.table rbindlist
+read_planning <- function(path) {
+  if (missing(path)) {
+    path <- choose_path()
+  }
+  path <- select_file(path = path, pattern = ".", fileext = ".", multiple = TRUE, verbose = FALSE)
+  patterns <- c("GDFSUEZ", "UNIPER", "NOVAWATT", "GPHEBDOTOTAL", "Direct_Energie", "PSSPower")
+  funs <- c("read_planning_gdfsuez", "read_planning_uniper", "read_planning_novawatt",
+            "read_planning_trc", "read_planning_directenergie", "read_planning_psspower")
+  dats <- lapply(
+    X = path,
+    FUN = function(x) {
+      path_ <- gsub(pattern = ".*/", replacement = "", x = x)
+      which_fun <- lapply(X = patterns, FUN = grepl, x = path_)
+      which_fun <- unlist(which_fun, use.names = FALSE)
+      if (sum(which_fun) == 1) {
+        res <- do.call(what = funs[which_fun], list(path = x))
+        res$id <- patterns[which_fun]
+        res
+      } else {
+        NULL
+      }
+    }
+  )
+  dats <- data.table::rbindlist(l = dats, fill = TRUE)
+  return(dats)
+}
+
+
+
+
+

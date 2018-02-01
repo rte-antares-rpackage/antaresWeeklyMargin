@@ -7,9 +7,9 @@
 read_planning_uniper(path)
 }
 \arguments{
-\item{path}{Path to the XML file. Can be left blank, designate an XML
-file or directory containing XML files. If the path points to a directory,
-the most recent XML file is read. If the argument is not specified, a dialog
+\item{path}{Path to the Excel file. Can be left blank, designate an Excel
+file or directory containing Excel files. If the path points to a directory,
+the most recent Excel file is read. If the argument is not specified, a dialog
 box will open to select a directory.}
 }
 \value{

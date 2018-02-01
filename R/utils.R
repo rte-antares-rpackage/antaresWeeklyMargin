@@ -15,9 +15,10 @@ choose_path <- function() {
 }
 
 
-select_file <- function(path, pattern = "Hydrauliques", fileext = "\\.xml$", multiple = FALSE) {
+select_file <- function(path, pattern = "Hydrauliques", fileext = "\\.xml$", multiple = FALSE, verbose = TRUE) {
   if (dir.exists(path)) {
     path <- list.files(path = path, pattern = fileext, full.names = TRUE)
+    path <- path[!grepl(pattern = "/~\\$", x = path)]
     path <- grep(pattern = pattern, x = path, value = TRUE)
     if (length(path) < 1)
       stop("No file found : specify complete path.", call. = FALSE)
@@ -26,8 +27,9 @@ select_file <- function(path, pattern = "Hydrauliques", fileext = "\\.xml$", mul
     } else {
       path <- sort(path, decreasing = TRUE)
     }
-    message(paste("Reading file:", path, "\n"))
   }
+  if (verbose)
+    message(paste("Reading file:", path, "\n"))
   return(path)
 }
 
@@ -73,7 +75,7 @@ pasteAND <- function(...) {
 
 
 
-#' Get previous day from a date 
+#' Get previous day from a date
 #'
 #' @param what Name of the day to retrieve previous the specified date
 #' @param date A date, by default the current date
@@ -82,19 +84,19 @@ pasteAND <- function(...) {
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' # Previous friday
 #' get_previous(what = "vendredi")
-#' 
+#'
 #' # You can abreviate
 #' get_previous(what = "ven")
-#' 
+#'
 #' # Previous saturday before previous friday
 #' get_previous(what = "samedi", date = get_previous(what = "vendredi"))
-#' 
+#'
 #' # Alternatively you can pass a number between 1-7 where 1 is Monday
 #' get_previous(what = 7)
-#' 
+#'
 get_previous <- function(what = "samedi", date = Sys.Date()) {
   stopifnot(length(what) == 1, length(date) == 1)
   french <- c("lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche")
@@ -103,13 +105,13 @@ get_previous <- function(what = "samedi", date = Sys.Date()) {
     what <- pmatch(what, french)
     if (is.na(what)) {
       what <- pmatch(what, english)
-    } 
+    }
     if (is.na(what)) {
       stop(
         paste(
           "'what' must be the name of a day in french or",
           "english or a decimal number between 1-7 (Monday is 1)"
-        ), 
+        ),
         call. = FALSE
       )
     }
