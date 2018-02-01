@@ -22,12 +22,12 @@ read_edf_sheet <- function(path, sheet) {
 }
 
 #' Read EDF thermal file
-#' 
+#'
 #' @param path Path to the XML file. Can be left blank, designate an XML
 #' file or directory containing XML files. If the path points to a directory,
 #' the most recent XML file is read. If the argument is not specified, a dialog
 #' box will open to select a directory.
-#' 
+#'
 #' @export
 #' @return a \code{data.table}
 #'
@@ -63,7 +63,7 @@ read_planning_edf <- function(path) {
 #' @param path Path to the XML file. Can be left blank, designate an XML
 #' file or directory containing XML files. If the path points to a directory,
 #' the most recent XML file is read. If the argument is not specified, a dialog
-#' box will open to select a directory. 
+#' box will open to select a directory.
 #'
 #' @return a \code{data.table}
 #' @export
@@ -109,7 +109,7 @@ read_planning_psspower <- function(path) {
 #' @param path Path to the XML file. Can be left blank, designate an XML
 #' file or directory containing XML files. If the path points to a directory,
 #' the most recent XML file is read. If the argument is not specified, a dialog
-#' box will open to select a directory. 
+#' box will open to select a directory.
 #'
 #' @return a \code{data.table}
 #' @export
@@ -155,7 +155,7 @@ read_planning_directenergie <- function(path) {
 #' @param path Path to the XML file. Can be left blank, designate an XML
 #' file or directory containing XML files. If the path points to a directory,
 #' the most recent XML file is read. If the argument is not specified, a dialog
-#' box will open to select a directory. 
+#' box will open to select a directory.
 #'
 #' @return a \code{data.table}
 #' @export
@@ -200,7 +200,7 @@ read_planning_trc <- function(path) {
 #' @param path Path to the XML file. Can be left blank, designate an XML
 #' file or directory containing XML files. If the path points to a directory,
 #' the most recent XML file is read. If the argument is not specified, a dialog
-#' box will open to select a directory. 
+#' box will open to select a directory.
 #'
 #' @return a \code{data.table}
 #' @export
@@ -212,7 +212,7 @@ read_planning_novawatt <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, "NOVAWATT", fileext = "\\.xlsx$")
+  path <- select_file(path, "NOVAWATT", fileext = "\\.xls.*$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 5)
   data <- as.data.table(data)
@@ -244,7 +244,7 @@ read_planning_novawatt <- function(path) {
 #' @param path Path to the XML file. Can be left blank, designate an XML
 #' file or directory containing XML files. If the path points to a directory,
 #' the most recent XML file is read. If the argument is not specified, a dialog
-#' box will open to select a directory. 
+#' box will open to select a directory.
 #'
 #' @return a \code{data.table}
 #' @export
@@ -256,7 +256,7 @@ read_planning_uniper <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, "UNIPER", fileext = "\\.xlsx$")
+  path <- select_file(path, "UNIPER", fileext = "\\.xls.*$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 2)
   data <- as.data.table(data)
@@ -291,7 +291,7 @@ read_planning_uniper <- function(path) {
 #' @param path Path to the XML file. Can be left blank, designate an XML
 #' file or directory containing XML files. If the path points to a directory,
 #' the most recent XML file is read. If the argument is not specified, a dialog
-#' box will open to select a directory. 
+#' box will open to select a directory.
 #'
 #' @return a \code{data.table}
 #' @export
@@ -303,7 +303,7 @@ read_planning_gdfsuez <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, "GDFSUEZ", fileext = "\\.xlsx$")
+  path <- select_file(path, "GDFSUEZ", fileext = "\\.xls.*$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 5)
   data <- as.data.table(data)
