@@ -357,9 +357,9 @@ read_planning <- function(path) {
     path <- choose_path()
   }
   path <- select_file(path = path, pattern = ".", fileext = ".", multiple = TRUE, verbose = FALSE)
-  patterns <- c("GDFSUEZ", "UNIPER", "NOVAWATT", "GPHEBDOTOTAL", "Direct_Energie", "PSSPower")
+  patterns <- c("GDFSUEZ", "UNIPER", "NOVAWATT", "GPHEBDOTOTAL", "Direct_Energie", "PSSPower", "Politique_S")
   funs <- c("read_planning_gdfsuez", "read_planning_uniper", "read_planning_novawatt",
-            "read_planning_trc", "read_planning_directenergie", "read_planning_psspower")
+            "read_planning_trc", "read_planning_directenergie", "read_planning_psspower", "read_planning_edf")
   dats <- lapply(
     X = path,
     FUN = function(x) {
