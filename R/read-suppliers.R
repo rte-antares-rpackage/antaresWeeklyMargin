@@ -1,5 +1,23 @@
 
 
+pattern_suppliers <- function(supplier = NULL) {
+  corresp <- list(
+    gdfsuez = "planning hebdomadaire GDFSUEZ",
+    uniper = "PHEBDO_UNIPER_",
+    novawatt = "P_HEBDO_ NOVAWATT",
+    trc = "GPHEBDOTOTAL",
+    directenergie = "Direct_Energie_Bayet_Weekly_Nomination",
+    psspower = "Planning PSSPower PSS",
+    edf = "Politique_S"
+  )
+  if (is.null(supplier))
+    return(corresp)
+  corresp[[supplier]]
+}
+
+
+
+
 #' @importFrom data.table as.data.table := setorderv
 #' @importFrom readxl read_excel
 read_edf_sheet <- function(path, sheet) {
@@ -75,7 +93,7 @@ read_planning_psspower <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, "PSSPower", fileext = "\\.xlsx$")
+  path <- select_file(path, pattern_suppliers("directenergie"), fileext = "\\.xlsx$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 2)
   data <- as.data.table(data)
@@ -122,7 +140,7 @@ read_planning_directenergie <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, "Direct_Energie", fileext = "\\.xlsx$")
+  path <- select_file(path, pattern_suppliers("directenergie"), fileext = "\\.xlsx$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 5)
   data <- as.data.table(data)
@@ -168,7 +186,7 @@ read_planning_trc <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, "GPHEBDOTOTAL", fileext = "\\.xlsx$")
+  path <- select_file(path, pattern_suppliers("trc"), fileext = "\\.xlsx$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 5)
   data <- as.data.table(data)
@@ -215,7 +233,7 @@ read_planning_novawatt <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, "NOVAWATT", fileext = "\\.xls.*$")
+  path <- select_file(path, pattern_suppliers("novawatt"), fileext = "\\.xls.*$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 5)
   data <- as.data.table(data)
@@ -260,7 +278,7 @@ read_planning_uniper <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, "UNIPER", fileext = "\\.xls.*$")
+  path <- select_file(path, pattern_suppliers("uniper"), fileext = "\\.xls.*$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 2)
   data <- as.data.table(data)
@@ -308,7 +326,7 @@ read_planning_gdfsuez <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, "GDFSUEZ", fileext = "\\.xls.*$")
+  path <- select_file(path, pattern_suppliers("gdfsuez"), fileext = "\\.xls.*$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 5)
   data <- as.data.table(data)
