@@ -1,0 +1,3054 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PuissancesHydrauliquesHebdo>
+  <DocumentHeader>
+    <Identification v="9222_PuissancesHydrauliquesHebdo-fcu121217_20171212-1120"/>
+    <Version v="1"/>
+    <Type v="E03"/>
+    <ClassificationType v="A02"/>
+    <CreationDateTime v="2017-12-12T10:20:03Z"/>
+    <ProcessType v="A11"/>
+    <TimePeriodCovered v="2017-12-11T23:00Z/2017-12-25T23:00:00Z"/>
+    <Initiator v="NEO"/>
+    <Receptor v="RTE"/>
+  </DocumentHeader>
+  <Caracteristique>
+    <NomCaracteristique v="NomEtude"/>
+    <ValeurCaracteristique v="fcu121217"/>
+  </Caracteristique>
+  <Caracteristique>
+    <NomCaracteristique v="PasDeTemps"/>
+    <ValeurCaracteristique v="PT2H"/>
+  </Caracteristique>
+  <Vallee v="ADOUR">
+    <Point v="1">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="2">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="3">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="4">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="5">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="6">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="7">
+      <Puissance v="18.28"/>
+    </Point>
+    <Point v="8">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="9">
+      <Puissance v="18.4392"/>
+    </Point>
+    <Point v="10">
+      <Puissance v="18.28"/>
+    </Point>
+    <Point v="11">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="12">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="13">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="14">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="15">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="16">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="17">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="18">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="19">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="20">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="21">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="22">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="23">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="24">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="25">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="26">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="27">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="28">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="29">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="30">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="31">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="32">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="33">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="34">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="35">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="36">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="37">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="38">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="39">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="40">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="41">
+      <Puissance v="14.6655"/>
+    </Point>
+    <Point v="42">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="43">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="44">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="45">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="46">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="47">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="48">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="49">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="50">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="51">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="52">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="53">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="54">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="55">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="56">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="57">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="58">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="59">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="60">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="61">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="62">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="63">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="64">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="65">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="66">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="67">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="68">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="69">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="70">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="71">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="72">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="73">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="74">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="75">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="76">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="77">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="78">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="79">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="80">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="81">
+      <Puissance v="25.1538"/>
+    </Point>
+    <Point v="82">
+      <Puissance v="25.1538"/>
+    </Point>
+    <Point v="83">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="84">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="85">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="86">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="87">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="88">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="89">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="90">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="91">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="92">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="93">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="94">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="95">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="96">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="97">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="98">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="99">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="100">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="101">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="102">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="103">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="104">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="105">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="106">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="107">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="108">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="109">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="110">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="111">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="112">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="113">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="114">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="115">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="116">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="117">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="118">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="119">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="120">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="121">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="122">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="123">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="124">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="125">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="126">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="127">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="128">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="129">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="130">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="131">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="132">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="133">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="134">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="135">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="136">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="137">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="138">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="139">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="140">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="141">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="142">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="143">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="144">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="145">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="146">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="147">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="148">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="149">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="150">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="151">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="152">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="153">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="154">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="155">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="156">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="157">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="158">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="159">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="160">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="161">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="162">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="163">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="164">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="165">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="166">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="167">
+      <Puissance v="13.4471"/>
+    </Point>
+    <Point v="168">
+      <Puissance v="13.4471"/>
+    </Point>
+  </Vallee>
+  <Vallee v="AGOUT">
+    <Point v="1">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="2">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="3">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="4">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="5">
+      <Puissance v="62.9547"/>
+    </Point>
+    <Point v="6">
+      <Puissance v="51.9547"/>
+    </Point>
+    <Point v="7">
+      <Puissance v="32.4444"/>
+    </Point>
+    <Point v="8">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="9">
+      <Puissance v="42.4369"/>
+    </Point>
+    <Point v="10">
+      <Puissance v="55.7046"/>
+    </Point>
+    <Point v="11">
+      <Puissance v="13.5032"/>
+    </Point>
+    <Point v="12">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="13">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="14">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="15">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="16">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="17">
+      <Puissance v="40.7547"/>
+    </Point>
+    <Point v="18">
+      <Puissance v="23.3208"/>
+    </Point>
+    <Point v="19">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="20">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="21">
+      <Puissance v="40.7547"/>
+    </Point>
+    <Point v="22">
+      <Puissance v="56.7547"/>
+    </Point>
+    <Point v="23">
+      <Puissance v="22.646"/>
+    </Point>
+    <Point v="24">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="25">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="26">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="27">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="28">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="29">
+      <Puissance v="29.3625"/>
+    </Point>
+    <Point v="30">
+      <Puissance v="20.4444"/>
+    </Point>
+    <Point v="31">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="32">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="33">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="34">
+      <Puissance v="62.7547"/>
+    </Point>
+    <Point v="35">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="36">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="37">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="38">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="39">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="40">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="41">
+      <Puissance v="60.7547"/>
+    </Point>
+    <Point v="42">
+      <Puissance v="62.6261"/>
+    </Point>
+    <Point v="43">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="44">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="45">
+      <Puissance v="60.7547"/>
+    </Point>
+    <Point v="46">
+      <Puissance v="62.7547"/>
+    </Point>
+    <Point v="47">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="48">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="49">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="50">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="51">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="52">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="53">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="54">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="55">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="56">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="57">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="58">
+      <Puissance v="21.3208"/>
+    </Point>
+    <Point v="59">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="60">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="61">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="62">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="63">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="64">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="65">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="66">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="67">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="68">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="69">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="70">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="71">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="72">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="73">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="74">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="75">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="76">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="77">
+      <Puissance v="60.7547"/>
+    </Point>
+    <Point v="78">
+      <Puissance v="62.7547"/>
+    </Point>
+    <Point v="79">
+      <Puissance v="28.9622"/>
+    </Point>
+    <Point v="80">
+      <Puissance v="21.3208"/>
+    </Point>
+    <Point v="81">
+      <Puissance v="60.7547"/>
+    </Point>
+    <Point v="82">
+      <Puissance v="62.7547"/>
+    </Point>
+    <Point v="83">
+      <Puissance v="18.4458"/>
+    </Point>
+    <Point v="84">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="85">
+      <Puissance v="5.3189"/>
+    </Point>
+    <Point v="86">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="87">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="88">
+      <Puissance v="18.45"/>
+    </Point>
+    <Point v="89">
+      <Puissance v="60.7547"/>
+    </Point>
+    <Point v="90">
+      <Puissance v="40.7954"/>
+    </Point>
+    <Point v="91">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="92">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="93">
+      <Puissance v="21.3207"/>
+    </Point>
+    <Point v="94">
+      <Puissance v="62.7547"/>
+    </Point>
+    <Point v="95">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="96">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="97">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="98">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="99">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="100">
+      <Puissance v="5.1784"/>
+    </Point>
+    <Point v="101">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="102">
+      <Puissance v="20.4444"/>
+    </Point>
+    <Point v="103">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="104">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="105">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="106">
+      <Puissance v="62.7547"/>
+    </Point>
+    <Point v="107">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="108">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="109">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="110">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="111">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="112">
+      <Puissance v="18.4483"/>
+    </Point>
+    <Point v="113">
+      <Puissance v="60.7547"/>
+    </Point>
+    <Point v="114">
+      <Puissance v="43.3208"/>
+    </Point>
+    <Point v="115">
+      <Puissance v="18.445"/>
+    </Point>
+    <Point v="116">
+      <Puissance v="18.4448"/>
+    </Point>
+    <Point v="117">
+      <Puissance v="26.5834"/>
+    </Point>
+    <Point v="118">
+      <Puissance v="62.7547"/>
+    </Point>
+    <Point v="119">
+      <Puissance v="15.6958"/>
+    </Point>
+    <Point v="120">
+      <Puissance v="5.1779"/>
+    </Point>
+    <Point v="121">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="122">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="123">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="124">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="125">
+      <Puissance v="32.2192"/>
+    </Point>
+    <Point v="126">
+      <Puissance v="36.1363"/>
+    </Point>
+    <Point v="127">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="128">
+      <Puissance v="5.1766"/>
+    </Point>
+    <Point v="129">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="130">
+      <Puissance v="54.8723"/>
+    </Point>
+    <Point v="131">
+      <Puissance v="20.0013"/>
+    </Point>
+    <Point v="132">
+      <Puissance v="12.4523"/>
+    </Point>
+    <Point v="133">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="134">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="135">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="136">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="137">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="138">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="139">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="140">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="141">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="142">
+      <Puissance v="43.3785"/>
+    </Point>
+    <Point v="143">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="144">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="145">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="146">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="147">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="148">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="149">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="150">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="151">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="152">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="153">
+      <Puissance v="18.4444"/>
+    </Point>
+    <Point v="154">
+      <Puissance v="31.6934"/>
+    </Point>
+    <Point v="155">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="156">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="157">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="158">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="159">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="160">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="161">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="162">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="163">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="164">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="165">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="166">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="167">
+      <Puissance v="5.1765"/>
+    </Point>
+    <Point v="168">
+      <Puissance v="5.1765"/>
+    </Point>
+  </Vallee>
+  <Usine vallee="DORDOGNE" v="AIGL8H">
+    <Pt v="1">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="2">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="3">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="4">
+      <Puis v="49.8509"/>
+      <Rprim v="5.8813"/>
+      <Rsec v="2.2405"/>
+      <Rhyd v="40.908610112359554"/>
+    </Pt>
+    <Pt v="5">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="6">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="7">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="8">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="9">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="10">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="11">
+      <Puis v="27.8686"/>
+      <Rprim v="3.2879"/>
+      <Rsec v="1.2525"/>
+      <Rhyd v="63.87887865168539"/>
+    </Pt>
+    <Pt v="12">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="13">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="14">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="15">
+      <Puis v="0.3235"/>
+      <Rprim v="0.0382"/>
+      <Rsec v="0.0145"/>
+      <Rhyd v="92.6619606741573"/>
+    </Pt>
+    <Pt v="16">
+      <Puis v="88.9997"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="3.1348314606741574E-4"/>
+    </Pt>
+    <Pt v="17">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="18">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="19">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="20">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="21">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="22">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="23">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="24">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="25">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="26">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="27">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="28">
+      <Puis v="6.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99937303370787"/>
+    </Pt>
+    <Pt v="29">
+      <Puis v="88.9996"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="4.179775280898876E-4"/>
+    </Pt>
+    <Pt v="30">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="31">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="32">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="33">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="34">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="35">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="36">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="37">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="38">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="39">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="40">
+      <Puis v="68.9337"/>
+      <Rprim v="8.1326"/>
+      <Rsec v="3.0981"/>
+      <Rhyd v="20.96815617977528"/>
+    </Pt>
+    <Pt v="41">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="42">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="43">
+      <Puis v="88.9996"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="4.179775280898876E-4"/>
+    </Pt>
+    <Pt v="44">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="45">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="46">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="47">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="48">
+      <Puis v="4.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99958202247191"/>
+    </Pt>
+    <Pt v="49">
+      <Puis v="0.0022"/>
+      <Rprim v="3.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.9977011235955"/>
+    </Pt>
+    <Pt v="50">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="51">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="52">
+      <Puis v="0.0021"/>
+      <Rprim v="2.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.99780561797753"/>
+    </Pt>
+    <Pt v="53">
+      <Puis v="0.0011"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99885056179775"/>
+    </Pt>
+    <Pt v="54">
+      <Puis v="4.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99958202247191"/>
+    </Pt>
+    <Pt v="55">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="56">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="57">
+      <Puis v="0.0013"/>
+      <Rprim v="2.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.99864157303371"/>
+    </Pt>
+    <Pt v="58">
+      <Puis v="88.9997"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="3.1348314606741574E-4"/>
+    </Pt>
+    <Pt v="59">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="60">
+      <Puis v="2.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99979101123596"/>
+    </Pt>
+    <Pt v="61">
+      <Puis v="0.0018"/>
+      <Rprim v="2.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.99811910112359"/>
+    </Pt>
+    <Pt v="62">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="63">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="64">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="65">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="66">
+      <Puis v="0.1577"/>
+      <Rprim v="0.0186"/>
+      <Rsec v="0.0071"/>
+      <Rhyd v="92.83521235955057"/>
+    </Pt>
+    <Pt v="67">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="68">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="69">
+      <Puis v="1.9971"/>
+      <Rprim v="0.2356"/>
+      <Rsec v="0.0898"/>
+      <Rhyd v="90.91314269662921"/>
+    </Pt>
+    <Pt v="70">
+      <Puis v="8.6392"/>
+      <Rprim v="1.0192"/>
+      <Rsec v="0.3883"/>
+      <Rhyd v="83.9725213483146"/>
+    </Pt>
+    <Pt v="71">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="72">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="73">
+      <Puis v="0.0032"/>
+      <Rprim v="4.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.99665617977529"/>
+    </Pt>
+    <Pt v="74">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="75">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="76">
+      <Puis v="88.9816"/>
+      <Rprim v="10.4978"/>
+      <Rsec v="3.9992"/>
+      <Rhyd v="0.019226966292134832"/>
+    </Pt>
+    <Pt v="77">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="78">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="79">
+      <Puis v="88.9952"/>
+      <Rprim v="10.4994"/>
+      <Rsec v="3.9998"/>
+      <Rhyd v="0.005015730337078652"/>
+    </Pt>
+    <Pt v="80">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="81">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="82">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="83">
+      <Puis v="88.9997"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="3.1348314606741574E-4"/>
+    </Pt>
+    <Pt v="84">
+      <Puis v="0.0021"/>
+      <Rprim v="2.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.99780561797753"/>
+    </Pt>
+    <Pt v="85">
+      <Puis v="0.0455"/>
+      <Rprim v="0.0054"/>
+      <Rsec v="0.002"/>
+      <Rhyd v="92.95245505617977"/>
+    </Pt>
+    <Pt v="86">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="87">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="88">
+      <Puis v="88.9997"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="3.1348314606741574E-4"/>
+    </Pt>
+    <Pt v="89">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="90">
+      <Puis v="88.9997"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="3.1348314606741574E-4"/>
+    </Pt>
+    <Pt v="91">
+      <Puis v="88.9947"/>
+      <Rprim v="10.4994"/>
+      <Rsec v="3.9998"/>
+      <Rhyd v="0.0055382022471910115"/>
+    </Pt>
+    <Pt v="92">
+      <Puis v="0.0313"/>
+      <Rprim v="0.0037"/>
+      <Rsec v="0.0014"/>
+      <Rhyd v="92.96729325842696"/>
+    </Pt>
+    <Pt v="93">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="94">
+      <Puis v="88.9997"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="3.1348314606741574E-4"/>
+    </Pt>
+    <Pt v="95">
+      <Puis v="2.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99979101123596"/>
+    </Pt>
+    <Pt v="96">
+      <Puis v="0.002"/>
+      <Rprim v="2.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.99791011235955"/>
+    </Pt>
+    <Pt v="97">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="98">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="99">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="100">
+      <Puis v="0.0036"/>
+      <Rprim v="4.0E-4"/>
+      <Rsec v="2.0E-4"/>
+      <Rhyd v="92.99623820224718"/>
+    </Pt>
+    <Pt v="101">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="102">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="103">
+      <Puis v="62.4879"/>
+      <Rprim v="7.3722"/>
+      <Rsec v="2.8084"/>
+      <Rhyd v="27.703655056179777"/>
+    </Pt>
+    <Pt v="104">
+      <Puis v="7.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99926853932584"/>
+    </Pt>
+    <Pt v="105">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="106">
+      <Puis v="89.0"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="107">
+      <Puis v="0.0017"/>
+      <Rprim v="2.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.99822359550562"/>
+    </Pt>
+    <Pt v="108">
+      <Puis v="0.0059"/>
+      <Rprim v="7.0E-4"/>
+      <Rsec v="3.0E-4"/>
+      <Rhyd v="92.99383483146067"/>
+    </Pt>
+    <Pt v="109">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="110">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="111">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="112">
+      <Puis v="0.0042"/>
+      <Rprim v="5.0E-4"/>
+      <Rsec v="2.0E-4"/>
+      <Rhyd v="92.99561123595505"/>
+    </Pt>
+    <Pt v="113">
+      <Puis v="88.9998"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="2.089887640449438E-4"/>
+    </Pt>
+    <Pt v="114">
+      <Puis v="88.9943"/>
+      <Rprim v="10.4993"/>
+      <Rsec v="3.9997"/>
+      <Rhyd v="0.005956179775280899"/>
+    </Pt>
+    <Pt v="115">
+      <Puis v="88.9998"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="2.089887640449438E-4"/>
+    </Pt>
+    <Pt v="116">
+      <Puis v="0.0146"/>
+      <Rprim v="0.0017"/>
+      <Rsec v="7.0E-4"/>
+      <Rhyd v="92.98474382022472"/>
+    </Pt>
+    <Pt v="117">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="118">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="119">
+      <Puis v="0.0031"/>
+      <Rprim v="4.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.9967606741573"/>
+    </Pt>
+    <Pt v="120">
+      <Puis v="8.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99916404494383"/>
+    </Pt>
+    <Pt v="121">
+      <Puis v="0.0018"/>
+      <Rprim v="2.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.99811910112359"/>
+    </Pt>
+    <Pt v="122">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="123">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="124">
+      <Puis v="0.0021"/>
+      <Rprim v="3.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="92.99780561797753"/>
+    </Pt>
+    <Pt v="125">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="126">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="127">
+      <Puis v="83.5631"/>
+      <Rprim v="9.8586"/>
+      <Rsec v="3.7556"/>
+      <Rhyd v="5.681255056179776"/>
+    </Pt>
+    <Pt v="128">
+      <Puis v="8.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99916404494383"/>
+    </Pt>
+    <Pt v="129">
+      <Puis v="0.0231"/>
+      <Rprim v="0.0027"/>
+      <Rsec v="0.001"/>
+      <Rhyd v="92.97586179775281"/>
+    </Pt>
+    <Pt v="130">
+      <Puis v="88.9999"/>
+      <Rprim v="10.5"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="1.044943820224719E-4"/>
+    </Pt>
+    <Pt v="131">
+      <Puis v="0.0086"/>
+      <Rprim v="0.001"/>
+      <Rsec v="4.0E-4"/>
+      <Rhyd v="92.99101348314606"/>
+    </Pt>
+    <Pt v="132">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="133">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="134">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="135">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="136">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="137">
+      <Puis v="2.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99979101123596"/>
+    </Pt>
+    <Pt v="138">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="139">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="140">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="141">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="142">
+      <Puis v="15.0774"/>
+      <Rprim v="1.7788"/>
+      <Rsec v="0.6776"/>
+      <Rhyd v="77.24496404494381"/>
+    </Pt>
+    <Pt v="143">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="144">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="145">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="146">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="147">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="148">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="149">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="150">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="151">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="152">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="153">
+      <Puis v="0.0415"/>
+      <Rprim v="0.0049"/>
+      <Rsec v="0.0019"/>
+      <Rhyd v="92.95663483146068"/>
+    </Pt>
+    <Pt v="154">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="155">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="156">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="92.99989550561797"/>
+    </Pt>
+    <Pt v="157">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="158">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="159">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="160">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="161">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="162">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="163">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="164">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="165">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="166">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="167">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+    <Pt v="168">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="93.0"/>
+    </Pt>
+  </Usine>
+  <Usine vallee="DORDOGNE" v="AIGLEH">
+    <Pt v="1">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="2">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="3">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="4">
+      <Puis v="73.0001"/>
+      <Rprim v="11.2"/>
+      <Rsec v="7.0"/>
+      <Rhyd v="81.111"/>
+    </Pt>
+    <Pt v="5">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="6">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="7">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="8">
+      <Puis v="148.9998"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="2.1621621621621621E-4"/>
+    </Pt>
+    <Pt v="9">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="10">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="11">
+      <Puis v="73.1189"/>
+      <Rprim v="11.2175"/>
+      <Rsec v="7.0062"/>
+      <Rhyd v="80.979"/>
+    </Pt>
+    <Pt v="12">
+      <Puis v="2.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9998"/>
+    </Pt>
+    <Pt v="13">
+      <Puis v="16.9239"/>
+      <Rprim v="2.6326"/>
+      <Rsec v="1.8804"/>
+      <Rhyd v="141.0761"/>
+    </Pt>
+    <Pt v="14">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="15">
+      <Puis v="0.4155"/>
+      <Rprim v="0.0646"/>
+      <Rsec v="0.0462"/>
+      <Rhyd v="157.5845"/>
+    </Pt>
+    <Pt v="16">
+      <Puis v="100.9228"/>
+      <Rprim v="15.3149"/>
+      <Rsec v="8.4696"/>
+      <Rhyd v="51.66021052631579"/>
+    </Pt>
+    <Pt v="17">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="18">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="19">
+      <Puis v="148.9993"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="7.567567567567568E-4"/>
+    </Pt>
+    <Pt v="20">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="21">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="22">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="23">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="24">
+      <Puis v="120.9976"/>
+      <Rprim v="18.2733"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="30.272864864864864"/>
+    </Pt>
+    <Pt v="25">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="26">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="27">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="28">
+      <Puis v="36.0002"/>
+      <Rprim v="5.6"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="121.9998"/>
+    </Pt>
+    <Pt v="29">
+      <Puis v="148.9994"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="6.486486486486486E-4"/>
+    </Pt>
+    <Pt v="30">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="31">
+      <Puis v="148.9998"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="2.1621621621621621E-4"/>
+    </Pt>
+    <Pt v="32">
+      <Puis v="93.2335"/>
+      <Rprim v="14.1818"/>
+      <Rsec v="8.0649"/>
+      <Rhyd v="59.75421052631579"/>
+    </Pt>
+    <Pt v="33">
+      <Puis v="148.9996"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="4.3243243243243243E-4"/>
+    </Pt>
+    <Pt v="34">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="35">
+      <Puis v="148.9998"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="2.1621621621621621E-4"/>
+    </Pt>
+    <Pt v="36">
+      <Puis v="5.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="157.9995"/>
+    </Pt>
+    <Pt v="37">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="38">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="39">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="40">
+      <Puis v="73.0"/>
+      <Rprim v="11.2"/>
+      <Rsec v="7.0"/>
+      <Rhyd v="81.11111111111111"/>
+    </Pt>
+    <Pt v="41">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="42">
+      <Puis v="148.9994"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="6.486486486486486E-4"/>
+    </Pt>
+    <Pt v="43">
+      <Puis v="148.9994"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="6.486486486486486E-4"/>
+    </Pt>
+    <Pt v="44">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="45">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="46">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="47">
+      <Puis v="148.9984"/>
+      <Rprim v="22.3998"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0017297297297297297"/>
+    </Pt>
+    <Pt v="48">
+      <Puis v="57.7104"/>
+      <Rprim v="8.8859"/>
+      <Rsec v="5.7603"/>
+      <Rhyd v="98.09955555555555"/>
+    </Pt>
+    <Pt v="49">
+      <Puis v="0.0021"/>
+      <Rprim v="3.0E-4"/>
+      <Rsec v="2.0E-4"/>
+      <Rhyd v="157.9979"/>
+    </Pt>
+    <Pt v="50">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="51">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="52">
+      <Puis v="0.0022"/>
+      <Rprim v="3.0E-4"/>
+      <Rsec v="2.0E-4"/>
+      <Rhyd v="157.9978"/>
+    </Pt>
+    <Pt v="53">
+      <Puis v="0.0163"/>
+      <Rprim v="0.0025"/>
+      <Rsec v="0.0018"/>
+      <Rhyd v="157.9837"/>
+    </Pt>
+    <Pt v="54">
+      <Puis v="2.379"/>
+      <Rprim v="0.3701"/>
+      <Rsec v="0.2643"/>
+      <Rhyd v="155.621"/>
+    </Pt>
+    <Pt v="55">
+      <Puis v="2.5607"/>
+      <Rprim v="0.3983"/>
+      <Rsec v="0.2845"/>
+      <Rhyd v="155.4393"/>
+    </Pt>
+    <Pt v="56">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="57">
+      <Puis v="0.0024"/>
+      <Rprim v="4.0E-4"/>
+      <Rsec v="3.0E-4"/>
+      <Rhyd v="157.9976"/>
+    </Pt>
+    <Pt v="58">
+      <Puis v="69.0212"/>
+      <Rprim v="10.5978"/>
+      <Rsec v="6.6773"/>
+      <Rhyd v="85.532"/>
+    </Pt>
+    <Pt v="59">
+      <Puis v="0.0024"/>
+      <Rprim v="4.0E-4"/>
+      <Rsec v="3.0E-4"/>
+      <Rhyd v="157.9976"/>
+    </Pt>
+    <Pt v="60">
+      <Puis v="6.567"/>
+      <Rprim v="1.0215"/>
+      <Rsec v="0.7297"/>
+      <Rhyd v="151.433"/>
+    </Pt>
+    <Pt v="61">
+      <Puis v="0.0021"/>
+      <Rprim v="3.0E-4"/>
+      <Rsec v="2.0E-4"/>
+      <Rhyd v="157.9979"/>
+    </Pt>
+    <Pt v="62">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="63">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="64">
+      <Puis v="0.0022"/>
+      <Rprim v="3.0E-4"/>
+      <Rsec v="2.0E-4"/>
+      <Rhyd v="157.9978"/>
+    </Pt>
+    <Pt v="65">
+      <Puis v="0.0048"/>
+      <Rprim v="7.0E-4"/>
+      <Rsec v="5.0E-4"/>
+      <Rhyd v="157.9952"/>
+    </Pt>
+    <Pt v="66">
+      <Puis v="1.58"/>
+      <Rprim v="0.2458"/>
+      <Rsec v="0.1756"/>
+      <Rhyd v="156.42"/>
+    </Pt>
+    <Pt v="67">
+      <Puis v="6.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="157.9994"/>
+    </Pt>
+    <Pt v="68">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="69">
+      <Puis v="0.0359"/>
+      <Rprim v="0.0056"/>
+      <Rsec v="0.004"/>
+      <Rhyd v="157.9641"/>
+    </Pt>
+    <Pt v="70">
+      <Puis v="1.1973"/>
+      <Rprim v="0.1862"/>
+      <Rsec v="0.133"/>
+      <Rhyd v="156.8027"/>
+    </Pt>
+    <Pt v="71">
+      <Puis v="7.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="157.9993"/>
+    </Pt>
+    <Pt v="72">
+      <Puis v="6.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="157.9994"/>
+    </Pt>
+    <Pt v="73">
+      <Puis v="0.003"/>
+      <Rprim v="5.0E-4"/>
+      <Rsec v="3.0E-4"/>
+      <Rhyd v="157.997"/>
+    </Pt>
+    <Pt v="74">
+      <Puis v="0.0029"/>
+      <Rprim v="4.0E-4"/>
+      <Rsec v="3.0E-4"/>
+      <Rhyd v="157.9971"/>
+    </Pt>
+    <Pt v="75">
+      <Puis v="0.0045"/>
+      <Rprim v="7.0E-4"/>
+      <Rsec v="5.0E-4"/>
+      <Rhyd v="157.9955"/>
+    </Pt>
+    <Pt v="76">
+      <Puis v="72.9163"/>
+      <Rprim v="11.1873"/>
+      <Rsec v="6.9932"/>
+      <Rhyd v="81.20411111111112"/>
+    </Pt>
+    <Pt v="77">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="78">
+      <Puis v="148.9999"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="1.0810810810810811E-4"/>
+    </Pt>
+    <Pt v="79">
+      <Puis v="148.9962"/>
+      <Rprim v="22.3994"/>
+      <Rsec v="8.9998"/>
+      <Rhyd v="0.0041081081081081085"/>
+    </Pt>
+    <Pt v="80">
+      <Puis v="148.9995"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="5.405405405405405E-4"/>
+    </Pt>
+    <Pt v="81">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="82">
+      <Puis v="149.0"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.0"/>
+    </Pt>
+    <Pt v="83">
+      <Puis v="72.9991"/>
+      <Rprim v="11.1999"/>
+      <Rsec v="6.9999"/>
+      <Rhyd v="81.1121111111111"/>
+    </Pt>
+    <Pt v="84">
+      <Puis v="7.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="157.9993"/>
+    </Pt>
+    <Pt v="85">
+      <Puis v="2.1293"/>
+      <Rprim v="0.3312"/>
+      <Rsec v="0.2366"/>
+      <Rhyd v="155.8707"/>
+    </Pt>
+    <Pt v="86">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="87">
+      <Puis v="0.162"/>
+      <Rprim v="0.0252"/>
+      <Rsec v="0.018"/>
+      <Rhyd v="157.838"/>
+    </Pt>
+    <Pt v="88">
+      <Puis v="63.4219"/>
+      <Rprim v="9.7503"/>
+      <Rsec v="6.2234"/>
+      <Rhyd v="91.75344444444444"/>
+    </Pt>
+    <Pt v="89">
+      <Puis v="148.9998"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="2.1621621621621621E-4"/>
+    </Pt>
+    <Pt v="90">
+      <Puis v="148.999"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="8.9999"/>
+      <Rhyd v="0.001081081081081081"/>
+    </Pt>
+    <Pt v="91">
+      <Puis v="72.9989"/>
+      <Rprim v="11.1998"/>
+      <Rsec v="6.9999"/>
+      <Rhyd v="81.11233333333334"/>
+    </Pt>
+    <Pt v="92">
+      <Puis v="50.8274"/>
+      <Rprim v="7.8441"/>
+      <Rsec v="5.2022"/>
+      <Rhyd v="105.74733333333333"/>
+    </Pt>
+    <Pt v="93">
+      <Puis v="148.9979"/>
+      <Rprim v="22.3997"/>
+      <Rsec v="8.9999"/>
+      <Rhyd v="0.00227027027027027"/>
+    </Pt>
+    <Pt v="94">
+      <Puis v="148.9992"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="8.9999"/>
+      <Rhyd v="8.648648648648649E-4"/>
+    </Pt>
+    <Pt v="95">
+      <Puis v="0.0658"/>
+      <Rprim v="0.0102"/>
+      <Rsec v="0.0073"/>
+      <Rhyd v="157.9342"/>
+    </Pt>
+    <Pt v="96">
+      <Puis v="0.0015"/>
+      <Rprim v="2.0E-4"/>
+      <Rsec v="2.0E-4"/>
+      <Rhyd v="157.9985"/>
+    </Pt>
+    <Pt v="97">
+      <Puis v="0.1604"/>
+      <Rprim v="0.025"/>
+      <Rsec v="0.0178"/>
+      <Rhyd v="157.8396"/>
+    </Pt>
+    <Pt v="98">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="99">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="100">
+      <Puis v="4.6249"/>
+      <Rprim v="0.7194"/>
+      <Rsec v="0.5139"/>
+      <Rhyd v="153.3751"/>
+    </Pt>
+    <Pt v="101">
+      <Puis v="148.9991"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="9.729729729729729E-4"/>
+    </Pt>
+    <Pt v="102">
+      <Puis v="148.9993"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="7.567567567567568E-4"/>
+    </Pt>
+    <Pt v="103">
+      <Puis v="72.9941"/>
+      <Rprim v="11.1991"/>
+      <Rsec v="6.9995"/>
+      <Rhyd v="81.11766666666666"/>
+    </Pt>
+    <Pt v="104">
+      <Puis v="0.0296"/>
+      <Rprim v="0.0046"/>
+      <Rsec v="0.0033"/>
+      <Rhyd v="157.9704"/>
+    </Pt>
+    <Pt v="105">
+      <Puis v="148.9992"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="8.648648648648649E-4"/>
+    </Pt>
+    <Pt v="106">
+      <Puis v="148.9997"/>
+      <Rprim v="22.4"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="3.243243243243243E-4"/>
+    </Pt>
+    <Pt v="107">
+      <Puis v="0.0016"/>
+      <Rprim v="3.0E-4"/>
+      <Rsec v="2.0E-4"/>
+      <Rhyd v="157.9984"/>
+    </Pt>
+    <Pt v="108">
+      <Puis v="0.0023"/>
+      <Rprim v="4.0E-4"/>
+      <Rsec v="3.0E-4"/>
+      <Rhyd v="157.9977"/>
+    </Pt>
+    <Pt v="109">
+      <Puis v="1.7829"/>
+      <Rprim v="0.2773"/>
+      <Rsec v="0.1981"/>
+      <Rhyd v="156.2171"/>
+    </Pt>
+    <Pt v="110">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="111">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="112">
+      <Puis v="36.0002"/>
+      <Rprim v="5.6"/>
+      <Rsec v="4.0"/>
+      <Rhyd v="121.9998"/>
+    </Pt>
+    <Pt v="113">
+      <Puis v="148.9993"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="7.567567567567568E-4"/>
+    </Pt>
+    <Pt v="114">
+      <Puis v="148.9949"/>
+      <Rprim v="22.3992"/>
+      <Rsec v="8.9997"/>
+      <Rhyd v="0.005513513513513513"/>
+    </Pt>
+    <Pt v="115">
+      <Puis v="148.9979"/>
+      <Rprim v="22.3997"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="0.00227027027027027"/>
+    </Pt>
+    <Pt v="116">
+      <Puis v="0.0039"/>
+      <Rprim v="6.0E-4"/>
+      <Rsec v="4.0E-4"/>
+      <Rhyd v="157.9961"/>
+    </Pt>
+    <Pt v="117">
+      <Puis v="148.9987"/>
+      <Rprim v="22.3998"/>
+      <Rsec v="8.9999"/>
+      <Rhyd v="0.0014054054054054054"/>
+    </Pt>
+    <Pt v="118">
+      <Puis v="148.9992"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="8.9999"/>
+      <Rhyd v="8.648648648648649E-4"/>
+    </Pt>
+    <Pt v="119">
+      <Puis v="0.1456"/>
+      <Rprim v="0.0226"/>
+      <Rsec v="0.0162"/>
+      <Rhyd v="157.8544"/>
+    </Pt>
+    <Pt v="120">
+      <Puis v="0.0032"/>
+      <Rprim v="5.0E-4"/>
+      <Rsec v="3.0E-4"/>
+      <Rhyd v="157.9968"/>
+    </Pt>
+    <Pt v="121">
+      <Puis v="0.0012"/>
+      <Rprim v="2.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="157.9988"/>
+    </Pt>
+    <Pt v="122">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="123">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="124">
+      <Puis v="7.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="1.0E-4"/>
+      <Rhyd v="157.9993"/>
+    </Pt>
+    <Pt v="125">
+      <Puis v="148.998"/>
+      <Rprim v="22.3997"/>
+      <Rsec v="8.9999"/>
+      <Rhyd v="0.002162162162162162"/>
+    </Pt>
+    <Pt v="126">
+      <Puis v="148.9994"/>
+      <Rprim v="22.3999"/>
+      <Rsec v="9.0"/>
+      <Rhyd v="6.486486486486486E-4"/>
+    </Pt>
+    <Pt v="127">
+      <Puis v="72.819"/>
+      <Rprim v="11.1726"/>
+      <Rsec v="6.9853"/>
+      <Rhyd v="81.31222222222222"/>
+    </Pt>
+    <Pt v="128">
+      <Puis v="0.0242"/>
+      <Rprim v="0.0038"/>
+      <Rsec v="0.0027"/>
+      <Rhyd v="157.9758"/>
+    </Pt>
+    <Pt v="129">
+      <Puis v="1.4597"/>
+      <Rprim v="0.2271"/>
+      <Rsec v="0.1622"/>
+      <Rhyd v="156.5403"/>
+    </Pt>
+    <Pt v="130">
+      <Puis v="148.9882"/>
+      <Rprim v="22.3983"/>
+      <Rsec v="8.9993"/>
+      <Rhyd v="0.012756756756756757"/>
+    </Pt>
+    <Pt v="131">
+      <Puis v="0.3364"/>
+      <Rprim v="0.0523"/>
+      <Rsec v="0.0374"/>
+      <Rhyd v="157.6636"/>
+    </Pt>
+    <Pt v="132">
+      <Puis v="0.265"/>
+      <Rprim v="0.0412"/>
+      <Rsec v="0.0294"/>
+      <Rhyd v="157.735"/>
+    </Pt>
+    <Pt v="133">
+      <Puis v="0.056"/>
+      <Rprim v="0.0087"/>
+      <Rsec v="0.0062"/>
+      <Rhyd v="157.944"/>
+    </Pt>
+    <Pt v="134">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="135">
+      <Puis v="3.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9997"/>
+    </Pt>
+    <Pt v="136">
+      <Puis v="0.0498"/>
+      <Rprim v="0.0077"/>
+      <Rsec v="0.0055"/>
+      <Rhyd v="157.9502"/>
+    </Pt>
+    <Pt v="137">
+      <Puis v="0.0571"/>
+      <Rprim v="0.0089"/>
+      <Rsec v="0.0063"/>
+      <Rhyd v="157.9429"/>
+    </Pt>
+    <Pt v="138">
+      <Puis v="3.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9997"/>
+    </Pt>
+    <Pt v="139">
+      <Puis v="3.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9997"/>
+    </Pt>
+    <Pt v="140">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="141">
+      <Puis v="0.2011"/>
+      <Rprim v="0.0313"/>
+      <Rsec v="0.0223"/>
+      <Rhyd v="157.7989"/>
+    </Pt>
+    <Pt v="142">
+      <Puis v="36.7477"/>
+      <Rprim v="5.7132"/>
+      <Rsec v="4.0606"/>
+      <Rhyd v="121.2523"/>
+    </Pt>
+    <Pt v="143">
+      <Puis v="4.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9996"/>
+    </Pt>
+    <Pt v="144">
+      <Puis v="2.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9998"/>
+    </Pt>
+    <Pt v="145">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="146">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="147">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="148">
+      <Puis v="0.05"/>
+      <Rprim v="0.0078"/>
+      <Rsec v="0.0055"/>
+      <Rhyd v="157.95"/>
+    </Pt>
+    <Pt v="149">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="150">
+      <Puis v="1.0E-4"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9999"/>
+    </Pt>
+    <Pt v="151">
+      <Puis v="0.0478"/>
+      <Rprim v="0.0074"/>
+      <Rsec v="0.0053"/>
+      <Rhyd v="157.9522"/>
+    </Pt>
+    <Pt v="152">
+      <Puis v="0.3087"/>
+      <Rprim v="0.048"/>
+      <Rsec v="0.0343"/>
+      <Rhyd v="157.6913"/>
+    </Pt>
+    <Pt v="153">
+      <Puis v="7.1777"/>
+      <Rprim v="1.1165"/>
+      <Rsec v="0.7975"/>
+      <Rhyd v="150.8223"/>
+    </Pt>
+    <Pt v="154">
+      <Puis v="4.0E-4"/>
+      <Rprim v="1.0E-4"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="157.9996"/>
+    </Pt>
+    <Pt v="155">
+      <Puis v="0.1547"/>
+      <Rprim v="0.0241"/>
+      <Rsec v="0.0172"/>
+      <Rhyd v="157.8453"/>
+    </Pt>
+    <Pt v="156">
+      <Puis v="0.0491"/>
+      <Rprim v="0.0076"/>
+      <Rsec v="0.0054"/>
+      <Rhyd v="157.9509"/>
+    </Pt>
+    <Pt v="157">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="158">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="159">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="160">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="161">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="162">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="163">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="164">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="165">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="166">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="167">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+    <Pt v="168">
+      <Puis v="0.0"/>
+      <Rprim v="0.0"/>
+      <Rsec v="0.0"/>
+      <Rhyd v="158.0"/>
+    </Pt>
+  </Usine>
+</PuissancesHydrauliquesHebdo>

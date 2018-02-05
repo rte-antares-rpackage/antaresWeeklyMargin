@@ -16,3 +16,5 @@ Imports: xml2,
     curl,
     base64enc
 RoxygenNote: 6.0.1
+Suggests: 
+    testthat
