@@ -149,7 +149,7 @@ validation_groupe <- function() {
                     "SSCHAH", "SSCOGH", "SSCOMH", "SSCROH", "SSCROP", "SSDALH", "SSEG5H",
                     "SSESTH", "SSGENH", "SSGUIH", "SSMC H", "SSNICH", "SSTU8H", "SSTULH",
                     "TIGNEH", "TRUELH", "TUCOYH", "V.ARCH", "V.BENH", "VERN5H", "VINONH",
-                    "VINTRH", "VLAROH", "VLEJOH", "VOUGLH", "VOUGLP")
+                    "VINTRH", "VLAROH", "VLEJOH", "VOUGLH", "VOUGLP", "XTESTX", "YTESTY")
   selection <- c("1", "1", "1", "1", "1", "0", "0", "1", "0", "1", "0", "0",
                  "1", "0", "1", "1", "1", "1", "1", "0", "1", "0", "0", "1", "1",
                  "1", "0", "0", "1", "1", "1", "0", "0", "0", "1", "1", "0", "1",
@@ -165,7 +165,7 @@ validation_groupe <- function() {
                  "1", "1", "1", "1", "1", "1", "1", "0", "1", "1", "1", "1", "1",
                  "1", "1", "1", "0", "0", "0", "1", "1", "1", "1", "1", "0", "1",
                  "1", "0", "1", "0", "1", "1", "1", "1", "1", "0", "1", "0", "1",
-                 "1", "0", "1", "0", "1", "1")
+                 "1", "0", "1", "0", "1", "1", "0", "0")
   data.frame(
     groupe_hydro = groupe_hydro,
     selection = selection,

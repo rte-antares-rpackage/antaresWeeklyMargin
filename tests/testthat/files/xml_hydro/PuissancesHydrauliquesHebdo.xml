@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PuissancesHydrauliquesHebdo>
   <DocumentHeader>
-    <Identification v="9222_PuissancesHydrauliquesHebdo-fcu121217_20171212-1120"/>
+    <Identification v="AAAA00000BBBBBBB11111111"/>
     <Version v="1"/>
-    <Type v="E03"/>
-    <ClassificationType v="A02"/>
+    <Type v="EEEE"/>
+    <ClassificationType v="AAAA"/>
     <CreationDateTime v="2017-12-12T10:20:03Z"/>
     <ProcessType v="A11"/>
     <TimePeriodCovered v="2017-12-11T23:00Z/2017-12-25T23:00:00Z"/>
-    <Initiator v="NEO"/>
+    <Initiator v="NNN"/>
     <Receptor v="RTE"/>
   </DocumentHeader>
   <Caracteristique>
     <NomCaracteristique v="NomEtude"/>
-    <ValeurCaracteristique v="fcu121217"/>
+    <ValeurCaracteristique v="abc1234"/>
   </Caracteristique>
   <Caracteristique>
     <NomCaracteristique v="PasDeTemps"/>
     <ValeurCaracteristique v="PT2H"/>
   </Caracteristique>
-  <Vallee v="ADOUR">
+  <Vallee v="AAAAA">
     <Point v="1">
       <Puissance v="13.4471"/>
     </Point>
@@ -525,7 +525,7 @@
       <Puissance v="13.4471"/>
     </Point>
   </Vallee>
-  <Vallee v="AGOUT">
+  <Vallee v="BBBBB">
     <Point v="1">
       <Puissance v="5.1765"/>
     </Point>
@@ -1031,7 +1031,7 @@
       <Puissance v="5.1765"/>
     </Point>
   </Vallee>
-  <Usine vallee="DORDOGNE" v="AIGL8H">
+  <Usine vallee="DDDDDD" v="XTESTX">
     <Pt v="1">
       <Puis v="0.0"/>
       <Rprim v="0.0"/>
@@ -2041,7 +2041,7 @@
       <Rhyd v="93.0"/>
     </Pt>
   </Usine>
-  <Usine vallee="DORDOGNE" v="AIGLEH">
+  <Usine vallee="DDDDDD" v="YTESTY">
     <Pt v="1">
       <Puis v="0.0"/>
       <Rprim v="0.0"/>

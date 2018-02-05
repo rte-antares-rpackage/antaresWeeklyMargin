@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PuissancesThermiquesHebdo>
   <DocumentHeader>
-    <Identification v="9221_PuissancesThermiquesHebdo-fcu131217_20171213-1136"/>
+    <Identification v="AAAAAA0000000BBBBBBB111111111"/>
     <Version v="1"/>
     <Type v="E03"/>
-    <ClassificationType v="A02"/>
+    <ClassificationType v="AAAAA"/>
     <CreationDateTime v="2017-12-13T10:36:13Z"/>
     <ProcessType v="A11"/>
     <TimePeriodCovered v="2017-12-12T23:00Z/2017-12-26T23:00:00Z"/>
-    <Initiator v="NEO"/>
+    <Initiator v="NNN"/>
     <Receptor v="RTE"/>
   </DocumentHeader>
   <Caracteristique>
-    <NomCaracteristique v="NomEtude"/>
-    <ValeurCaracteristique v="fcu131217"/>
+    <NomCaracteristique v="NENENENE"/>
+    <ValeurCaracteristique v="FFFFFFF"/>
   </Caracteristique>
   <Caracteristique>
     <NomCaracteristique v="PasDeTemps"/>
     <ValeurCaracteristique v="PT2H"/>
   </Caracteristique>
-  <Tranche v="ARRI5T 1">
+  <Tranche v="AAAAAAA">
     <Pt v="1">
       <Puis v="0.0"/>
       <Rprim v="0.0"/>
@@ -861,7 +861,7 @@
       <Rsec v="0.0"/>
     </Pt>
   </Tranche>
-  <Tranche v="ARRI5T 2">
+  <Tranche v="BBBBBBBB">
     <Pt v="1">
       <Puis v="0.0"/>
       <Rprim v="0.0"/>
