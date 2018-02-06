@@ -161,13 +161,13 @@ read_planning_psspower <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, pattern_suppliers("directenergie"), fileext = "\\.xlsx$")
+  path <- select_file(path, pattern_suppliers("psspower"), fileext = "\\.xlsx$")
   # data
   data <- readxl::read_excel(path = path, sheet = 1, skip = 2)
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("comb_", "groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
   setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
@@ -183,7 +183,7 @@ read_planning_psspower <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "code_essai", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = suppliers_vars())
   return(data)
 }
 
@@ -214,7 +214,7 @@ read_planning_directenergie <- function(path) {
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("comb_", "groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
   setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
@@ -230,7 +230,7 @@ read_planning_directenergie <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "code_essai", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = suppliers_vars())
   return(data)
 }
 
@@ -260,8 +260,9 @@ read_planning_trc <- function(path) {
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(pmax)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn_mw_", "code_essai", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("site", "groupe", "code_groupe", "pcn_mw_", "code_essai", "pmax", "pmin")]
   setnames(x = data, old = "pcn_mw_", new = "pmd")
+  setnames(x = data, old = "site", new = "comb_")
   data <- data[, .id := .I, by = groupe]
   # dates
   dates <- readxl::read_excel(path = path, sheet = 1, n_max = 4)
@@ -277,7 +278,7 @@ read_planning_trc <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "code_essai", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = suppliers_vars())
   return(data)
 }
 
@@ -307,7 +308,7 @@ read_planning_novawatt <- function(path) {
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("comb_", "groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
   setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
@@ -323,7 +324,7 @@ read_planning_novawatt <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "code_essai", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = suppliers_vars())
   return(data)
 }
 
@@ -352,7 +353,7 @@ read_planning_uniper <- function(path) {
   data <- as.data.table(data)
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("comb_", "groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
   setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
@@ -368,7 +369,7 @@ read_planning_uniper <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "code_essai", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = suppliers_vars())
   return(data)
 }
 
@@ -401,7 +402,7 @@ read_planning_gdfsuez <- function(path) {
   setnames(x = data, old = names(data), new = clean_names(names(data)))
   setnames(x = data, old = c("pcmax", "pcmin"), new = c("pmax", "pmin"))
   data <- data[!is.na(groupe)]
-  data <- data[, .SD, .SDcols = c("groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
+  data <- data[, .SD, .SDcols = c("comb_", "groupe", "code_groupe", "pcn", "code_essai", "pmax", "pmin")]
   setnames(x = data, old = "pcn", new = "pmd")
   data <- data[, .id := .I, by = groupe]
   # dates
@@ -417,13 +418,15 @@ read_planning_gdfsuez <- function(path) {
   data <- merge(x = dates, y = data, by = ".id", all.x = TRUE)
   data <- data[, .id := NULL]
   setorderv(x = data, cols = c("groupe", "datetime"))
-  setcolorder(x = data, neworder = c("groupe", "code_groupe", "pmd", "code_essai", "datetime", "pmax", "pmin"))
+  setcolorder(x = data, neworder = suppliers_vars())
   return(data)
 }
 
 
 
-
+suppliers_vars <- function() {
+  c("comb_", "groupe", "code_groupe", "pmd", "code_essai", "datetime", "pmax", "pmin")
+}
 
 
 
