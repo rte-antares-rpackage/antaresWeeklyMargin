@@ -37,7 +37,11 @@ select_file <- function(path, pattern = "Hydrauliques", fileext = "\\.xml$", mul
 
 
 locf <-  function(x) {
-  x[cummax((!is.na(x)) * seq_along(x))]
+  if (all(is.na(x))) {
+    x
+  } else {
+    x[cummax((!is.na(x)) * seq_along(x))]
+  }
 }
 
 
@@ -119,6 +123,5 @@ get_previous <- function(what = "samedi", date = Sys.Date()) {
   previous <- seq.Date(from = date - 6, to = date, by = "day")
   previous[format(previous, format = "%u") == what]
 }
-
 
 
