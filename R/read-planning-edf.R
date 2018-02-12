@@ -51,7 +51,7 @@ read_edf_sheet <- function(path, sheet) {
   data <- data[, .id := seq_len(.N)]
   data <- data[rep(.id, n_hours(debut, fin))]
   data <- data[, datetime := seq.POSIXt(from = min(debut), to = max(fin), by = "hours"), by = list(.id)]
-  data <- data[, datetime := as.POSIXct(round.POSIXt(datetime - 1, units = "hours"))]
+  data <- data[, datetime := as.POSIXct(round.POSIXt(datetime - 1, units = "hours"), tz = "Europe/Paris")]
   data <- data[, debut := NULL]
   data <- data[, fin := NULL]
   data <- data[, .id := NULL]
@@ -61,7 +61,7 @@ read_edf_sheet <- function(path, sheet) {
   dates_h <- unlist(dates_h, use.names = FALSE)
   dates_h <- stringr::str_extract_all(string = dates_h, pattern = "\\d{2}/\\d{2}/\\d{4}")[[1]]
   dates_h <- as.POSIXct(dates_h, format = "%d/%m/%Y")
-  data <- data[datetime > dates_h[1] &  datetime <= dates_h[2] + 24 * 60 * 60]
+  data <- data[datetime >= dates_h[1] &  datetime < dates_h[2] + 24 * 60 * 60]
 
   # dedup
   data <- unique(x = data, by = c("groupe", "code_groupe", "datetime"), fromLast = TRUE)
