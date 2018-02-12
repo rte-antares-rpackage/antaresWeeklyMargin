@@ -31,12 +31,7 @@ read_edf_sheet <- function(path, sheet) {
   ), by = code_groupe]
   data <- data[val_asr == TRUE]
   data <- data[, val_asr := NULL]
-  # check code essai AND
-  data <- data[, val_and := check_code_essai(
-    x = code_essai, code = "AND", possible.values = c("^AND")
-  ), by = code_groupe]
-  data <- data[val_and == TRUE]
-  data <- data[, val_and := NULL]
+
 
   # LIM/LIMIT
   data <- data[, val_llim := check_lim_limit(x = code_essai), by = code_groupe]
@@ -55,6 +50,29 @@ read_edf_sheet <- function(path, sheet) {
   data <- data[, debut := NULL]
   data <- data[, fin := NULL]
   data <- data[, .id := NULL]
+
+  # check code essai indispo
+  data <- data[, val_indispo := check_code_essai(code_essai, "INDISPO", "INDISPO"), by = list(code_groupe, datetime)]
+  data <- data[val_indispo == TRUE]
+  data <- data[, val_indispo := NULL]
+
+  # check code essai fortuit
+  data <- data[, val_fortuit := check_code_essai(code_essai, "F", "^F$"), by = list(code_groupe, datetime)]
+  data <- data[val_fortuit == TRUE]
+  data <- data[, val_fortuit := NULL]
+
+  # check code essai arret garanti prolonge
+  data <- data[, val_agp := check_code_essai(code_essai, "AGP", "^AGP$"), by = list(code_groupe, datetime)]
+  data <- data[val_agp == TRUE]
+  data <- data[, val_agp := NULL]
+
+  # check code essai AND
+  data <- data[, val_and := check_code_essai(
+    x = code_essai, code = "AND", possible.values = c("^AND")
+  ), by = list(code_groupe, datetime)]
+  data <- data[val_and == TRUE]
+  data <- data[, val_and := NULL]
+
 
   # date header
   dates_h <- readxl::read_excel(path = path, sheet = sheet, n_max = 5)[4, 4]
