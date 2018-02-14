@@ -15,9 +15,9 @@ choose_path <- function() {
 }
 
 
-select_file <- function(path, pattern = "Hydrauliques", fileext = "\\.xml$", multiple = FALSE, verbose = TRUE) {
+select_file <- function(path, pattern = "Hydrauliques", fileext = "\\.xml$", multiple = FALSE, recursive = FALSE, verbose = TRUE) {
   if (dir.exists(path)) {
-    path <- list.files(path = path, pattern = fileext, full.names = TRUE)
+    path <- list.files(path = path, pattern = fileext, full.names = TRUE, recursive = recursive)
     path <- path[!grepl(pattern = "/~\\$", x = path)]
     path <- grep(pattern = pattern, x = path, value = TRUE)
     if (length(path) < 1)
