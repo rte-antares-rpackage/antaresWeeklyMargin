@@ -1,20 +1,26 @@
 Package: antaresWeeklyMargin
 Title: Setup an Antares Study for Weekly Margin Simulation
-Version: 0.0.0.9330
-Authors@R: person("Victor", "Perrier", email = "victor.perrier@dreamRs.fr", role = c("aut", "cre"))
+Version: 0.0.0.9400
+Authors@R: c(
+    person("Victor", "Perrier", email = "victor.perrier@dreamRs.fr", role = c("aut")),
+    person("Fabiola", "Aravena-Rojas", email = "fabiola.aravena-rojas@rte-france.com", role = c("aut", "cre")),
+    person("RTE", role = c("cph", "fnd"))
+  )
 Description: Read hydro and thermal XML files from suppliers, retrieve data from RTE APIs.
 Depends: R (>= 3.1.0)
 License: GPL (>= 2) | file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: xml2,
+Imports: 
+    xml2,
     data.table,
     stringr,
     readxl,
     jsonlite,
     crul,
     curl,
-    base64enc
+    base64enc,
+    dygraphs
 RoxygenNote: 6.0.1
 Suggests: 
     testthat
