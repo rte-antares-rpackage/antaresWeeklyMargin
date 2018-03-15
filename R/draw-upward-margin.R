@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @importFrom dygraphs dygraph dyRangeSelector dyLegend dyHighlight dyCSS dySeries dyOptions dyAxis %>%
-#' @importFrom data.table :=
+#' @importFrom data.table := as.xts.data.table
 #'
 #' @examples
 #' \dontrun{
@@ -54,7 +54,8 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
                       # , "orange"
     )
 
-    graph_margin <- dygraph(upward_margin, paste0("Initial Remaining Capacity ",toupper(area), " - Week", num_week)) %>%
+    graph_margin <- dygraph(data = as.xts.data.table(upward_margin),
+                            main = paste0("Initial Remaining Capacity ",toupper(area), " - Week", num_week)) %>%
       dyRangeSelector() %>%
       dyLegend(show="always") %>%
       dyHighlight(highlightCircleSize = 3)%>%
@@ -87,7 +88,8 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
                       # , "orange"
     )
 
-    graph_margin <- dygraph(upward_margin, paste0("Final Remaining Capacity ",toupper(area)," - Week", num_week)) %>%
+    graph_margin <- dygraph(data = as.xts.data.table(upward_margin),
+                            main = paste0("Final Remaining Capacity ",toupper(area)," - Week", num_week)) %>%
       dyRangeSelector() %>%
       dyLegend(show="always") %>%
       dyHighlight(highlightCircleSize = 3)%>%

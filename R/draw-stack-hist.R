@@ -9,7 +9,7 @@
 #'
 #' @importFrom dygraphs dygraph dyRangeSelector dyOptions dyAxis %>%
 #' @importFrom htmlwidgets JS
-#' @importFrom data.table data.table dcast setcolorder :=
+#' @importFrom data.table data.table dcast setcolorder := as.xts.data.table
 #'
 #' @examples
 #' \dontrun{
@@ -58,8 +58,9 @@ draw_stack_hist <- function(marge_seule, marge_inter, area = NULL) {
     x = code_scenario_,
     neworder = c("DATE_UTC", rev(c("RED", "BROWN", "ORANGE", "YELLOW", "GREEN")))
   )
-
-  graph <- dygraph(data = code_scenario_, main = paste0("Remaining capacity ", toupper(area))) %>%
+  # setDF(code_scenario_)
+  # str(code_scenario_)
+  graph <- dygraph(data = as.xts.data.table(code_scenario_), main = paste0("Remaining capacity ", toupper(area))) %>%
     dyRangeSelector()%>%
     dyAxis(
       name = 'y', label = "Pourcentage (%)",
