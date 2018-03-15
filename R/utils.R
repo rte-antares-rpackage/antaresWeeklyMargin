@@ -77,6 +77,10 @@ pasteAND <- function(...) {
 }
 
 
+num_equal <- function(x, y, tol = sqrt(.Machine$double.eps)) {
+  abs(x - y) < tol
+}
+
 
 
 #' Get previous day from a date

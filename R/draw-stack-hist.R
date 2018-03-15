@@ -26,120 +26,64 @@ draw_stack_hist <- function(marge_seule, marge_inter, area = NULL) {
 
   marge_inter <- marge_inter[, lapply(.SD, function(x) { x[-1 <= x & x <= 0] <- 0; x })]
 
-  level_seule <- apply(
-    X = marge_seule,
-    MARGIN = c(1, 2),
-    FUN = function(x) {
-      if (x<=0) {-1} else {1}
-    })
+  level_seule <- marge_seule[, lapply(.SD, function(x) {
+    ((x <= 0) * 2 - 1) * -1
+  })]
 
-  level_interco <- apply(
-    X = marge_inter,
-    MARGIN = c(1, 2),
-    FUN = function(x) {
-      if (x < 0) {
-        -10
-      } else if ( x == 0) {
-        0
-      } else {
-        10
-      }
-    })
+  level_interco <- marge_inter[, lapply(.SD, function(x) {
+    sign(x) * 10
+  })]
 
   code_scenario <- level_interco + level_seule
 
   # Scenario Rouge : Les deux marges sont negatives
-  code_scenario_rouge <- apply(
-    X = code_scenario,
-    MARGIN = c(1,2),
-    FUN = function(x) {
-      if (x == -9) {
-        stop("Attention il y a un sc\u00e9nario avec la marge inter < 0 et la marge seule > 0")
-      } else if(x == -11) {
-        1
-      } else {
-        0
-      }
-    })
-  freq_rouge <- apply(
-    X = code_scenario_rouge,
-    MARGIN = 1,
-    FUN = function(x) {
-      sum(x) / ncol(code_scenario) * 100
-    })
+  code_scenario_rouge <- code_scenario[, lapply(.SD, function(x) {
+    if (any(num_equal(x, -9))) {
+      stop("Attention il y a un sc\u00e9nario avec la marge inter < 0 et la marge seule > 0")
+    } else {
+      num_equal(x, -11) * 1
+    }
+  })]
+  code_scenario_rouge[, .id := seq_len(.N)]
+  code_scenario_rouge <- melt(data = code_scenario_rouge, id.vars = ".id")
+  code_scenario_rouge <- code_scenario_rouge[, list(freq = sum(value) / length(value) * 100), by = .id]
+  freq_rouge <- unlist(code_scenario_rouge[, freq], use.names = FALSE)
 
   # Scenario Marron : Marge pays seul negative, et marge pays interconnecte egal a zero
-  code_scenario_marron  <- apply(
-    X = code_scenario,
-    MARGIN = c(1, 2),
-    FUN = function(x) {
-      if(x == -1) {
-        1
-      } else {
-        0
-      }
-    })
-  freq_marron <- apply(
-    X = code_scenario_marron,
-    MARGIN = 1,
-    FUN = function(x) {
-      sum(x) / ncol(code_scenario) * 100
-    }
-  )
+  code_scenario_marron <- code_scenario[, lapply(.SD, function(x) {
+    num_equal(x, -1) * 1
+  })]
+  code_scenario_marron[, .id := seq_len(.N)]
+  code_scenario_marron <- melt(data = code_scenario_marron, id.vars = ".id")
+  code_scenario_marron <- code_scenario_marron[, list(freq = sum(value) / length(value) * 100), by = .id]
+  freq_marron <- unlist(code_scenario_marron[, freq], use.names = FALSE)
 
   # Scenario Orange : Marge pays seul positive, et marge pays interconnecte egal a zero
-  code_scenario_orange  <- apply(
-    X = code_scenario,
-    MARGIN = c(1, 2),
-    FUN = function(x) {
-      if (x == 1) {
-        1
-      } else {
-        0
-      }
-    })
-  freq_orange <- apply(
-    X = code_scenario_orange,
-    MARGIN = 1,
-    FUN = function(x) {
-      sum(x) / ncol(code_scenario) * 100
-    })
+  code_scenario_orange <- code_scenario[, lapply(.SD, function(x) {
+    num_equal(x, 1) * 1
+  })]
+  code_scenario_orange[, .id := seq_len(.N)]
+  code_scenario_orange <- melt(data = code_scenario_orange, id.vars = ".id")
+  code_scenario_orange <- code_scenario_orange[, list(freq = sum(value) / length(value) * 100), by = .id]
+  freq_orange <- unlist(code_scenario_orange[, freq], use.names = FALSE)
 
   # Scenario Jaune : Marge pays seul negative, et marge pays interconnecte positive
-  code_scenario_jaune  <- apply(
-    X = code_scenario,
-    MARGIN = c(1, 2),
-    FUN = function(x) {
-      if (x == 9) {
-        1
-      } else {
-        0
-      }
-    })
-  freq_jaune <- apply(
-    X = code_scenario_jaune,
-    MARGIN = 1,
-    FUN = function(x) {
-      sum(x) / ncol(code_scenario) * 100
-    })
+  code_scenario_jaune <- code_scenario[, lapply(.SD, function(x) {
+    num_equal(x, 9) * 1
+  })]
+  code_scenario_jaune[, .id := seq_len(.N)]
+  code_scenario_jaune <- melt(data = code_scenario_jaune, id.vars = ".id")
+  code_scenario_jaune <- code_scenario_jaune[, list(freq = sum(value) / length(value) * 100), by = .id]
+  freq_jaune <- unlist(code_scenario_jaune[, freq], use.names = FALSE)
 
   # Scenario Rouge : Les deux marges sont positives
-  code_scenario_vert <- apply(
-    X = code_scenario,
-    MARGIN = c(1, 2),
-    FUN = function(x) {
-      if (x == 11) {
-        1
-      } else {
-        0
-      }
-    })
-  freq_vert <- apply(
-    X = code_scenario_vert,
-    MARGIN = 1,
-    FUN = function(x) {
-      sum(x) / ncol(code_scenario) * 100
-    })
+  code_scenario_vert <- code_scenario[, lapply(.SD, function(x) {
+    num_equal(x, 11) * 1
+  })]
+  code_scenario_vert[, .id := seq_len(.N)]
+  code_scenario_vert <- melt(data = code_scenario_vert, id.vars = ".id")
+  code_scenario_vert <- code_scenario_vert[, list(freq = sum(value) / length(value) * 100), by = .id]
+  freq_vert <- unlist(code_scenario_vert[, freq], use.names = FALSE)
 
   code_scenario_couleur_dy <- data.table(
     DATE_UTC = date,
