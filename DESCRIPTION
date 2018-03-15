@@ -20,7 +20,8 @@ Imports:
     crul,
     curl,
     base64enc,
-    dygraphs
+    dygraphs,
+    antaresViz
 RoxygenNote: 6.0.1
 Suggests: 
     testthat
