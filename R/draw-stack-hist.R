@@ -9,7 +9,7 @@
 #'
 #' @importFrom dygraphs dygraph dyRangeSelector dyOptions dyAxis %>%
 #' @importFrom htmlwidgets JS
-#' @importFrom data.table data.table
+#' @importFrom data.table data.table dcast setcolorder :=
 #'
 #' @examples
 #' \dontrun{
@@ -36,65 +36,30 @@ draw_stack_hist <- function(marge_seule, marge_inter, area = NULL) {
 
   code_scenario <- level_interco + level_seule
 
-  # Scenario Rouge : Les deux marges sont negatives
-  code_scenario_rouge <- code_scenario[, lapply(.SD, function(x) {
-    if (any(num_equal(x, -9))) {
-      stop("Attention il y a un sc\u00e9nario avec la marge inter < 0 et la marge seule > 0")
-    } else {
-      num_equal(x, -11) * 1
-    }
-  })]
-  code_scenario_rouge[, .id := seq_len(.N)]
-  code_scenario_rouge <- melt(data = code_scenario_rouge, id.vars = ".id")
-  code_scenario_rouge <- code_scenario_rouge[, list(freq = sum(value) / length(value) * 100), by = .id]
-  freq_rouge <- unlist(code_scenario_rouge[, freq], use.names = FALSE)
+  code_scenario[, .id := seq_len(.N)]
+  code_scenario_ <- melt(data = code_scenario, id.vars = ".id")
 
-  # Scenario Marron : Marge pays seul negative, et marge pays interconnecte egal a zero
-  code_scenario_marron <- code_scenario[, lapply(.SD, function(x) {
-    num_equal(x, -1) * 1
-  })]
-  code_scenario_marron[, .id := seq_len(.N)]
-  code_scenario_marron <- melt(data = code_scenario_marron, id.vars = ".id")
-  code_scenario_marron <- code_scenario_marron[, list(freq = sum(value) / length(value) * 100), by = .id]
-  freq_marron <- unlist(code_scenario_marron[, freq], use.names = FALSE)
+  # any(num_equal(code_scenario_$value, -9))
 
-  # Scenario Orange : Marge pays seul positive, et marge pays interconnecte egal a zero
-  code_scenario_orange <- code_scenario[, lapply(.SD, function(x) {
-    num_equal(x, 1) * 1
-  })]
-  code_scenario_orange[, .id := seq_len(.N)]
-  code_scenario_orange <- melt(data = code_scenario_orange, id.vars = ".id")
-  code_scenario_orange <- code_scenario_orange[, list(freq = sum(value) / length(value) * 100), by = .id]
-  freq_orange <- unlist(code_scenario_orange[, freq], use.names = FALSE)
-
-  # Scenario Jaune : Marge pays seul negative, et marge pays interconnecte positive
-  code_scenario_jaune <- code_scenario[, lapply(.SD, function(x) {
-    num_equal(x, 9) * 1
-  })]
-  code_scenario_jaune[, .id := seq_len(.N)]
-  code_scenario_jaune <- melt(data = code_scenario_jaune, id.vars = ".id")
-  code_scenario_jaune <- code_scenario_jaune[, list(freq = sum(value) / length(value) * 100), by = .id]
-  freq_jaune <- unlist(code_scenario_jaune[, freq], use.names = FALSE)
-
-  # Scenario Rouge : Les deux marges sont positives
-  code_scenario_vert <- code_scenario[, lapply(.SD, function(x) {
-    num_equal(x, 11) * 1
-  })]
-  code_scenario_vert[, .id := seq_len(.N)]
-  code_scenario_vert <- melt(data = code_scenario_vert, id.vars = ".id")
-  code_scenario_vert <- code_scenario_vert[, list(freq = sum(value) / length(value) * 100), by = .id]
-  freq_vert <- unlist(code_scenario_vert[, freq], use.names = FALSE)
-
-  code_scenario_couleur_dy <- data.table(
-    DATE_UTC = date,
-    GREEN = freq_vert,
-    YELLOW = freq_jaune,
-    ORANGE = freq_orange,
-    BROWN = freq_marron,
-    RED = freq_rouge
+  code_scenario_[, couleurs := NA_character_]
+  code_scenario_[num_equal(value, -11), couleurs := "RED"]
+  code_scenario_[num_equal(value, -1), couleurs := "BROWN"]
+  code_scenario_[num_equal(value, 1), couleurs := "ORANGE"]
+  code_scenario_[num_equal(value, 9), couleurs := "YELLOW"]
+  code_scenario_[num_equal(value, 11), couleurs := "GREEN"]
+  code_scenario_ <- code_scenario_[, list(freq = .N), by = list(.id, couleurs)]
+  code_scenario_[, freq := freq / ncol(code_scenario) * 100]
+  code_scenario_[, couleurs := factor(x = couleurs, levels = c("RED", "BROWN", "ORANGE", "YELLOW", "GREEN"))]
+  code_scenario_ <- dcast(data = code_scenario_, formula = .id ~ couleurs, value.var = "freq", drop = FALSE)
+  code_scenario_[is.na(code_scenario_)] <- 0
+  code_scenario_[, .id := NULL]
+  code_scenario_[, DATE_UTC := date]
+  setcolorder(
+    x = code_scenario_,
+    neworder = c("DATE_UTC", rev(c("RED", "BROWN", "ORANGE", "YELLOW", "GREEN")))
   )
 
-  graph <- dygraph(code_scenario_couleur_dy, main = paste0("Remaining capacity ", toupper(area))) %>%
+  graph <- dygraph(data = code_scenario_, main = paste0("Remaining capacity ", toupper(area))) %>%
     dyRangeSelector()%>%
     dyAxis(
       name = 'y', label = "Pourcentage (%)",
