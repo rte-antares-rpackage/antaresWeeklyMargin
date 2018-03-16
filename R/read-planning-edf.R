@@ -34,9 +34,9 @@ read_edf_sheet <- function(path, sheet) {
 
 
   # LIM/LIMIT
-  data <- data[, val_llim := check_lim_limit(x = code_essai), by = code_groupe]
-  data <- data[val_llim == TRUE]
-  data <- data[, val_llim := NULL]
+  # data <- data[, val_llim := check_lim_limit(x = code_essai), by = code_groupe]
+  # data <- data[val_llim == TRUE]
+  # data <- data[, val_llim := NULL]
 
 
   # Delete REDEM
@@ -47,6 +47,7 @@ read_edf_sheet <- function(path, sheet) {
   data <- data[rep(.id, n_hours(debut, fin))]
   data <- data[, datetime := seq.POSIXt(from = min(debut), to = max(fin), by = "hours"), by = list(.id)]
   data <- data[, datetime := as.POSIXct(round.POSIXt(datetime - 1, units = "hours"), tz = "Europe/Paris")]
+  data <- data[format(datetime) != format(fin)]
   data <- data[, debut := NULL]
   data <- data[, fin := NULL]
   data <- data[, .id := NULL]
