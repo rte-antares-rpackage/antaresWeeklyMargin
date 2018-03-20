@@ -1,6 +1,6 @@
 
 
-#' @importFrom data.table as.data.table := setorderv
+#' @importFrom data.table as.data.table := setorderv %like%
 #' @importFrom readxl read_excel
 read_edf_sheet <- function(path, sheet) {
   data <- readxl::read_excel(path = path, sheet = sheet, skip = 5)
@@ -40,7 +40,7 @@ read_edf_sheet <- function(path, sheet) {
 
 
   # Delete REDEM
-  data <- data[code_essai != "^REDEM.*"]
+  data <- data[!code_essai %like% "^REDEM.*"]
 
   # expand dates
   data <- data[, .id := seq_len(.N)]
