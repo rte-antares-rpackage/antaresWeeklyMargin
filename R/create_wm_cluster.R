@@ -48,7 +48,7 @@ create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
     area = "fr",
     cluster_name = first(code_groupe),
     group = co_comb[[first(comb_)]],
-    unit = 1,
+    unitcount = 1L,
     enabled = TRUE,
     nominalcapacity = max(pmax, na.rm = TRUE),
     `min-stable-power` = min(pmin, na.rm = TRUE),
@@ -80,6 +80,7 @@ create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
         ncol = 6
       )
       res <- c(res, descr_clusters(clus_d))
+      res$cluster_name <- clean_names(res$cluster_name)
       res
     }
   )
