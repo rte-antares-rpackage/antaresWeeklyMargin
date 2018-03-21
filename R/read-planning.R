@@ -138,6 +138,7 @@ read_planning <- function(path) {
     }
   )
   dats <- data.table::rbindlist(l = dats, fill = TRUE)
+  dats[is.na(code_groupe), code_groupe := groupe]
   return(dats)
 }
 
