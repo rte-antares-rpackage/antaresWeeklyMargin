@@ -23,7 +23,8 @@ Imports:
     dygraphs,
     htmlwidgets,
     antaresViz,
-    antaresRead
+    antaresRead,
+    antaresEditObject
 RoxygenNote: 6.0.1
 Suggests: 
     testthat

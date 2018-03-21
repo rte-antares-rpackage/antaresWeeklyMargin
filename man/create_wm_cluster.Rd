@@ -18,7 +18,14 @@ Create clusters for Weekly Margins simulation
 \examples{
 \dontrun{
 
-# TODO
+# set path to your simulation
+opts <- setSimulationPath(path = "path/", simulation = "input")
+
+# Read data from suppliers
+sup <- read_planning()
+
+# create clusters
+clusters_crea <- create_wm_cluster(dat, opts)
 
 }
 }

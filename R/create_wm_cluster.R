@@ -10,11 +10,19 @@
 #'
 #' @importFrom data.table first
 #' @importFrom antaresRead simOptions
+#' @importFrom antaresEditObject createCluster
 #'
 #' @examples
 #' \dontrun{
 #'
-#' # TODO
+#' # set path to your simulation
+#' opts <- setSimulationPath(path = "path/", simulation = "input")
+#'
+#' # Read data from suppliers
+#' sup <- read_planning()
+#'
+#' # create clusters
+#' clusters_crea <- create_wm_cluster(dat, opts)
 #'
 #' }
 create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
@@ -30,12 +38,15 @@ create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
     "F" = "oil",
     "C" = "Hard coal",
     "D" = "oil",
-    "TAC G" = "gas"
+    "TAC G" = "gas",
+    "V" = "gas",
+    "H" = "Hard coal",
+    "RN" = "gas"
   )
 
   clusdata <- data[, list(
     area = "fr",
-    cluster_name = first(groupe),
+    cluster_name = first(code_groupe),
     group = co_comb[[first(comb_)]],
     unit = 1,
     enabled = TRUE,
@@ -57,10 +68,39 @@ create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
     FUN = function(i) {
       res <- as.list(clusdata[i, .SD, .SDcols = names(clusdata)[-1]])
       res$prepro_modulation <- res$prepro_modulation[[1]]
+      res$opts <- opts
+      clus_d <- corr_groupe_descr(res$cluster_name)
+      res$prepro_data <- matrix(
+        data = c(
+          rep(7, times = 365),
+          rep(1, times = 365),
+          rep(fo_rate(clus_d), times = 365),
+          rep(0, times = 365 * 3)
+        ),
+        ncol = 6
+      )
+      res <- c(res, descr_clusters(clus_d))
       res
     }
   )
-  # lapply(l, do.call, what = "createCluster")
+  tryCreateCluster <- function(args) {
+    # Sys.sleep(0.1)
+    # try(stop("erreur"), silent = TRUE)
+    try(do.call(createCluster, args), silent = TRUE)
+  }
+
+  ok <- 0; ko <- 0
+  cat(sprintf("Creating %s clusters\n", length(clusdata)))
+  for (i in seq_along(clusdata)) {
+    resclus <- tryCreateCluster(clusdata[[i]])
+    if ("try-error" %in% class(resclus)) {
+      ko <- ko + 1
+    } else  {
+      ok <- ok + 1
+    }
+    cat(sprintf("\rOK: %s | FAILED: %s", formatC(x = ok, width = 3), formatC(x = ko, width = 3)))
+  }
+  cat("\ncluster creation completed")
 
   return(clusdata)
 }
