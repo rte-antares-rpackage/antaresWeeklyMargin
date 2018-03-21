@@ -19,10 +19,10 @@
 #' opts <- setSimulationPath(path = "path/", simulation = "input")
 #'
 #' # Read data from suppliers
-#' sup <- read_planning()
+#' plannings <- read_planning()
 #'
 #' # create clusters
-#' clusters_crea <- create_wm_cluster(dat, opts)
+#' clusters_crea <- create_wm_cluster(plannings, opts)
 #'
 #' }
 create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
