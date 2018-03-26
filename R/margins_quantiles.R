@@ -45,7 +45,8 @@ margins_quantiles <- function(margin) {
 #' Flextable format for margins quantiles
 #'
 #' @param margin Output from \code{\link{margins_quantiles}}.
-#' @param layout Vertical or horizontal table
+#' @param layout Vertical or horizontal table.
+#' @param language Language to use : \code{fr} or \code{en}.
 #'
 #' @return a \code{flextable} object
 #' @export
@@ -62,11 +63,34 @@ margins_quantiles <- function(margin) {
 #' ft_margins_quantiles(res)
 #'
 #' }
-ft_margins_quantiles <- function(margin, layout = c("horizontal", "vertical")) {
+ft_margins_quantiles <- function(margin, layout = c("horizontal", "vertical"), language = c("fr", "en")) {
 
   layout <- match.arg(layout)
+  language <- match.arg(language)
   margin <- data.table::copy(margin)
-  margin[, jour := factor(x = jour, levels = c("lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"))]
+
+  if (language == "fr") {
+    lab_j <- c("Lundi", "Mardi", "Mercredi", "Jeudi",
+               "Vendredi", "Samedi", "Dimanche")
+    lab_v <- c("M\u00e9diane", "Quantile 1%", "Quantile 4%", "Quantile 10%")
+    odd_d <- c("Lundi", "Mercredi", "Vendredi", "Dimanche")
+  } else {
+    lab_j <- c("Monday", "Tuesday", "Wednesday", "Thursday",
+               "Friday", "Saturday", "Sunday")
+    lab_v <- c("Median", "Quantile 1%", "Quantile 4%", "Quantile 10%")
+    odd_d <- c("Monday", "Wednesday", "Friday", "Sunday")
+  }
+
+  margin[, jour := factor(
+    x = jour,
+    levels = c("lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"),
+    labels = lab_j
+  )]
+  margin[, variable := factor(
+    x = variable,
+    levels = c("mediane", "q1", "q4", "q10"),
+    labels = lab_v
+  )]
   margin[, value := formatC(value, big.mark = " ", digits = 0, format = "f")]
 
   if (layout == "horizontal") {
@@ -82,8 +106,8 @@ ft_margins_quantiles <- function(margin, layout = c("horizontal", "vertical")) {
     ft <- flextable::merge_h(ft, part = "header")
     ft <- flextable::merge_v(ft, part = "header", j = 2:15)
     ft <- flextable::theme_zebra(ft, odd_header = "transparent", even_header = "transparent")
-    ft <- flextable::fontsize(ft, size = 11, part = "all")
-    ft <- flextable::fontsize(ft, i = 1:2, size = 12, part = "header")
+    ft <- flextable::fontsize(ft, size = 12, part = "all")
+    ft <- flextable::fontsize(ft, i = 1:2, size = 14, part = "header")
     ft <- flextable::color(ft, i = 1:2, color = "#007FA6", part = "header")
     ft <- flextable::hline(ft, border = officer::fp_border(width = .75, color = "#007FA6"), part = "body" )
     ft <- flextable::hline(ft, border = officer::fp_border(width = 2, color = "#007FA6"), part = "header" )
@@ -97,11 +121,11 @@ ft_margins_quantiles <- function(margin, layout = c("horizontal", "vertical")) {
     ft <- flextable::merge_v(ft, part = "body", j = 1)
     ft <- flextable::bg(
       x = ft,
-      i = which(as.character(margin$jour) %in% c("lundi", "mercredi", "vendredi", "dimanche")),
+      i = which(as.character(margin$jour) %in% odd_d),
       bg = "#EFEFEF", part = "body"
     )
-    ft <- flextable::fontsize(ft, size = 11, part = "all")
-    ft <- flextable::fontsize(ft, size = 12, part = "header")
+    ft <- flextable::fontsize(ft, size = 12, part = "all")
+    ft <- flextable::fontsize(ft, size = 14, part = "header")
     ft <- flextable::color(ft, color = "#007FA6", part = "header")
     ft <- flextable::hline(ft, border = officer::fp_border(width = .75, color = "#007FA6"), part = "body" )
     ft <- flextable::hline_top(ft, j = NULL, border = officer::fp_border(width = 2, color = "#007FA6"), part = "header")

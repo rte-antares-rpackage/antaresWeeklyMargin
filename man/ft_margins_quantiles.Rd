@@ -4,12 +4,15 @@
 \alias{ft_margins_quantiles}
 \title{Flextable format for margins quantiles}
 \usage{
-ft_margins_quantiles(margin, layout = c("horizontal", "vertical"))
+ft_margins_quantiles(margin, layout = c("horizontal", "vertical"),
+  language = c("fr", "en"))
 }
 \arguments{
 \item{margin}{Output from \code{\link{margins_quantiles}}.}
 
-\item{layout}{Vertical or horizontal table}
+\item{layout}{Vertical or horizontal table.}
+
+\item{language}{Language to use : \code{fr} or \code{en}.}
 }
 \value{
 a \code{flextable} object
