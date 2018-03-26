@@ -3,6 +3,7 @@
 export(create_wm_cluster)
 export(draw_mono)
 export(draw_prod_MC)
+export(draw_series)
 export(draw_stack_hist)
 export(draw_upward_margin)
 export(get_eco2mix)
