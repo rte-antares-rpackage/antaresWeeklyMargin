@@ -11,7 +11,8 @@
 #' @return a \code{dygraphs} htmlwidget.
 #' @export
 #'
-#' @importFrom dygraphs dygraph dyRangeSelector dyLegend dyHighlight dyCSS dySeries dyOptions dyAxis %>%
+#' @importFrom dygraphs dygraph dyRangeSelector dyLegend dyHighlight dyCSS
+#'  dySeries dyOptions dyAxis dyLimit %>%
 #' @importFrom data.table := as.xts.data.table
 #'
 #' @examples
@@ -68,7 +69,8 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
       #dySeries("EFFECTIVE_IRC", strokeWidth = 2) %>%
       dyOptions(colors = c(pal_couleurs)) %>%
       dyOptions(useDataTimezone = TRUE)  %>%
-      dyAxis("y", label = "MW")
+      dyAxis("y", label = "MW") %>%
+      dyLimit(limit = 0, color = "red")
 
     #Configuration du graphique si les marges a graphiquer sont les marges area interconnecte
     #Les lignes de code associes a la courbe du realise sont desactivees (commentees)
@@ -102,7 +104,8 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
       # dySeries("EFFECTIVE_FRC", strokeWidth = 2) %>%
       dyOptions(colors = c(pal_couleurs)) %>%
       dyOptions(useDataTimezone = TRUE)  %>%
-      dyAxis("y", label = "MW")
+      dyAxis("y", label = "MW") %>%
+      dyLimit(limit = 0, color = "red")
   }
 
   #Pour montrer le graphique sur la fênetre VIEWER
