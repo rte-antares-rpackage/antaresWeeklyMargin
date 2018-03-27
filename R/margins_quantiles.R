@@ -20,23 +20,24 @@ margins_quantiles <- function(margin) {
 
   margin <- copy(margin)
   margin[, jour := format(DATE_UTC, format = "%A")]
+  margin[, date := format(DATE_UTC, format = "%Y-%m-%d")]
   margin[, heure := format(DATE_UTC, format = "%Hh")]
   margin <- margin[heure %chin% c("09h", "19h")]
 
   margin <- melt(
     data = margin,
-    id.vars = c("DATE_UTC", "jour", "heure"),
-    measure.vars = setdiff(names(margin), c("DATE_UTC", "jour", "heure"))
+    id.vars = c("DATE_UTC", "date", "jour", "heure"),
+    measure.vars = setdiff(names(margin), c("DATE_UTC", "date", "jour", "heure"))
   )
   margin <- margin[, list(
     mediane = median(value),
     q1 = quantile(value, probs = 1/100),
     q4 = quantile(value, probs = 4/100),
     q10 = quantile(value, probs = 10/100)
-  ), by = list(jour, heure)]
+  ), by = list(date, jour, heure)]
   melt(
     data = margin,
-    id.vars = c("jour", "heure"),
+    id.vars = c("jour", "date", "heure"),
     measure.vars = c("mediane", "q1", "q4", "q10")
   )
 }
@@ -69,23 +70,28 @@ ft_margins_quantiles <- function(margin, layout = c("horizontal", "vertical"), l
   language <- match.arg(language)
   margin <- copy(margin)
 
+  margin <- margin[order(format(as.Date(date), "%u"), heure)]
+  ordre <- order(unique(margin$date))
+  margin$date <- NULL
+
   if (language == "fr") {
     lab_j <- c("Lundi", "Mardi", "Mercredi", "Jeudi",
-               "Vendredi", "Samedi", "Dimanche")
+               "Vendredi", "Samedi", "Dimanche")[ordre]
     lab_v <- c("M\u00e9diane", "Quantile 1%", "Quantile 4%", "Quantile 10%")
-    odd_d <- c("Lundi", "Mercredi", "Vendredi", "Dimanche")
     var_t <- c("Jour", "Heure")
   } else {
     lab_j <- c("Monday", "Tuesday", "Wednesday", "Thursday",
-               "Friday", "Saturday", "Sunday")
+               "Friday", "Saturday", "Sunday")[ordre]
     lab_v <- c("Median", "Quantile 1%", "Quantile 4%", "Quantile 10%")
-    odd_d <- c("Monday", "Wednesday", "Friday", "Sunday")
+
     var_t <- c("Day", "Hour")
   }
 
+  odd_d <- lab_j[c(1, 3, 5, 7)]
+
   margin[, jour := factor(
     x = jour,
-    levels = c("lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"),
+    levels = c("lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche")[ordre],
     labels = lab_j
   )]
   margin[, variable := factor(
@@ -124,7 +130,7 @@ ft_margins_quantiles <- function(margin, layout = c("horizontal", "vertical"), l
     ft <- merge_v(ft, part = "body", j = 1)
     ft <- bg(
       x = ft,
-      i = which(as.character(margin$jour) %in% odd_d),
+      i = which(as.character(margin[[var_t[1]]]) %in% odd_d),
       bg = "#EFEFEF", part = "body"
     )
     ft <- fontsize(ft, size = 12, part = "all")
