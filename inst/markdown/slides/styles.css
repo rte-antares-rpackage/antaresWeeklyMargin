@@ -1,0 +1,61 @@
+
+body { font-family: 'Palatino Linotype', serif; }
+
+.remark-slide-content {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+.title-slide {
+  background-image: url(imgs/fond_1.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title-slide .remark-slide-number {
+  display: none;
+}
+
+.back1 {
+  background-image: url(imgs/fond_1.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.back2 {
+  background-image: url(imgs/fond_2.png);
+  background-color: #00A6D9;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #FFFFFF;
+}
+
+
+/* Two-column layout */
+.left-column {
+  width: 75%;
+  float: left;
+}
+.right-column {
+  width: 25%;
+  float: right;
+}
+
+#wrapper {
+  display: flex;
+}
+#left {
+  flex: 0 0 80%;
+}
+#right {
+  flex: 1;
+}

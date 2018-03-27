@@ -1,0 +1,298 @@
+---
+title: "<img style='float:right;' src='imgs/RTE_logo.png'></img><h5>March 2018</h5><h2>Short and Mid-Term Adequacy - SMTA</h2><h5>fabiola.aravena-rojas@rte-france.com<br/>frederic.breant@rte-france.com</h5>"
+author: ""
+date: ""
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+# packages
+library( antaresViz )
+library( antaresWeeklyMargin )
+library( data.table )
+library( dygraphs )
+library( magrittr )
+
+# datas
+marge_seul_fr <- readRDS(file = "datas/marge_seul_fr.Rdata")
+marge_seul_fr_e <- marge_seul_fr[, c(1, sample.int(n = 2040, size = 200) + 1)]
+data_fr <- readRDS("datas/data_fr.Rdata")
+marge_inter_fr <- readRDS(file = "datas/marge_inter_fr.Rdata")
+data_all <- readRDS(file = "datas/data_all_mc1199_B.Rdata")
+mono_cwe <- readRDS(file = "datas/mono_cwe.rds")
+mono_cwe_20161110 <- readRDS(file = "datas/mono_cwe_20161110.rds")
+mono_france <- readRDS(file = "datas/mono_france.rds")
+load("datas/ml.rda")
+```
+
+<style>
+h1, h2, h3, h4 {
+ color: #00A7DE;
+}
+</style>
+
+<br/><br/><br/><br/><br/>
+
+
+# Hypothesis
+
+
+<br/>
+
+## Load
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_series(data_fr, "LOAD")
+```
+
+<br/>
+
+51 Forecast scenarios Meteologica
+
+
+<br/>
+
+## Wind Production
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_series(data_fr, "WIND")
+```
+
+<br/>
+
+51 Forecast scenarios Meteologica
+
+
+<br/>
+
+## Solar Production
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_series(data_fr, "SOLAR")
+```
+
+<br/>
+
+51 Forecast scenarios Meteologica
+
+
+<br/>
+
+# Results : margins analysis
+
+
+<br/>
+
+### Initial Remaining Capacity - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
+
+<br/>
+
+ * A large number of scenarios with negative values of initial remaining capacity during peak-hours on weekdays
+ * Deterministic forecast is consistent with the results
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_upward_margin(
+  upward_margin = marge_seul_fr_e, 
+  area = "fr",
+  type = "seul",
+  nb_MC = ncol(marge_seul_fr_e) - 1, 
+  num_week = 45
+)
+```
+
+<br/>
+<br/>
+
+Table of quantiles :
+
+```{r, echo=FALSE}
+marg <- margins_quantiles(marge_seul_fr_e)
+ft_margins_quantiles(marg, layout = "horizontal", language = "en")
+```
+
+
+<br/>
+
+### Final Remaining Capacity - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
+
+<br/>
+
+ * Variability of final remaining capacity for France increases with time
+
+<br/>
+
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_upward_margin(
+  upward_margin = marge_inter_fr, 
+  area = "fr",
+  type = "inter",
+  nb_MC = ncol(marge_seul_fr_e) - 1, 
+  num_week = 45
+)
+```
+
+<br/>
+<br/>
+
+Table of quantiles :
+
+```{r, echo=FALSE}
+marg_i <- margins_quantiles(marge_inter_fr)
+ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
+```
+
+<br/>
+
+### Remaining Capacity Analysis - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
+
+<br/>
+
+Risk of unserved energy in France.
+
+<br/>
+
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_stack_hist(marge_seul_fr, marge_inter_fr, "fr")
+```
+
+<span style="color: #008000; font-size: 70%;">available power in the country > needs</span> - 
+<span style="color: #FFFF00; font-size: 70%;">imports are required</span> - 
+<span style="color: #FFA500; font-size: 70%;">power still available in the country, but final remaining capacity = 0</span> - 
+<span style="color: #CD853F; font-size: 70%;">imports are required & final remaining capacity = 0</span> - 
+<span style="color: #FF0000; font-size: 70%;">inadequacy</span>
+
+
+<br/>
+<br/>
+
+
+# Detailed results : scenarii analysis
+
+
+<br/>
+
+### Monotone échanges
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_mono(mono_cwe_20161110, main = "Monotone des flux vers CWE, 10/11/2016 17:00 UTC")
+```
+
+
+<br/>
+<br/>
+
+### Imports / Exports
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_mono(mono_france, main = "Monotone des flux imports/exports pour France, 10/11/2016 17:00 UTC")
+```
+
+
+<br/>
+<br/>
+
+
+### Flux FR -> CW
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_mono(mono_cwe, main = "Monotone des flux FR - CWE")
+```
+
+
+<br/>
+<br/>
+
+
+# Example of scenario 1199
+
+
+<br/>
+
+### Analysis scenario 1199 – Flows 
+
+
+<br/>
+
+```{r out.width='100%', fig.height=6, comment=NA, results='asis', eval=require('dygraphs'), echo=FALSE}
+antaresViz::exchangesStack(data_all$links, area = "fr", interactive = FALSE)#$widgets[[1]]$widget[[1]]
+```
+
+<br/>
+
+
+<ul>
+<li>France exports during the weekend.</li>
+<li>During the weekdays France is a net importer.</li>
+<li>During the day France exports to Belgium, except during hours of inadequacy as it was the case of 10 Nov 2016 17:00 UTC (no more flows between the 2 countries)</li>
+</ul>
+
+
+
+<br/>
+<br/>
+
+### Analysis scenario 1199 – Production
+
+
+<br/>
+
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_prod_MC(data_fr, date_i = "2016-11-05", mc_year = 1199)#$widgets[[1]]$widget[[1]]
+```
+
+<br/>
+
+<ul>
+<li>In France, thermal production is low because of unavailability of nuclear plants.</li>
+<li>Because of that, France is a net importer during the weekdays.</li>
+<li>We can also observe time steps where there are unsupplied energy.</li>
+<li>Water is pumped during off-peak hours but it is not enough to avoid inadequacy.</li>
+</ul>
+
+
+<br/>
+<br/>
+
+### Analysis scenario 1199 – Map
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('leaflet'), echo=FALSE}
+plotMap(
+  x = data_all, mapLayout = ml, interactive = FALSE,
+  colLinkVar = "abs_loadFactor", sizeLinkVar = "FLOW LIN.",
+  colAreaVar = "marges_inter", labelAreaVar = "marges_inter",
+  options = plotMapOptions(
+    areaDefaultSize = 50,
+    areaColorScaleOpts = colorScaleOptions(
+      breaks = c(-3000, 0, 0.1, 70000),
+      colors = c("#ff0000", "#cd853f", "#008000", "#008000")
+    ),
+    linkColorScaleOpts = colorScaleOptions(
+      breaks = c(0, 0.25, 0.5, 0.75, 0.999, 1),
+      colors = c("#88cc8a","#a4ce3b","#ffff30", "#f49518", "#ff0000")
+    )
+  )
+)
+```
+
