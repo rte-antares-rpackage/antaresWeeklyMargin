@@ -3,6 +3,7 @@
 #'
 #' @param data a \code{data.table} obtained from \code{\link{read_planning}}.
 #' @param start If specified, data will be filtered from given date to 7 days after.
+#' @param rm_prev_clus Remove previous clusters before creating new ones.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -10,8 +11,8 @@
 #' @export
 #'
 #' @importFrom data.table first
-#' @importFrom antaresRead simOptions
-#' @importFrom antaresEditObject createCluster
+#' @importFrom antaresRead simOptions readClusterDesc
+#' @importFrom antaresEditObject createCluster removeCluster
 #'
 #' @examples
 #' \dontrun{
@@ -26,7 +27,7 @@
 #' clusters_crea <- create_wm_cluster(plannings, opts)
 #'
 #' }
-create_wm_cluster <- function(data, start = NULL, opts = antaresRead::simOptions()) {
+create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, opts = antaresRead::simOptions()) {
 
   if (!all(c("comb_", "pmin", "pmax", "code_groupe") %in% names(data))) {
     stop("Invalid argument data, use output from read_planning.")
@@ -42,6 +43,21 @@ create_wm_cluster <- function(data, start = NULL, opts = antaresRead::simOptions
   n_168 <- data[, .N, by = code_groupe]
   if (!all(n_168$N == 168)) {
     stop("Not all groups have 168 observations !", call. = FALSE)
+  }
+
+  if (rm_prev_clus) {
+    oldclus <- antaresRead::readClusterDesc()
+    oldclus <- oldclus[area == "fr", cluster]
+    oldclus <- as.character(oldclus)
+    if (length(oldclus) > 0) {
+      for (oldcluster in oldclus) {
+        antaresEditObject::removeCluster(
+          area = "fr",
+          cluster_name = oldcluster,
+          add_prefix = FALSE
+        )
+      }
+    }
   }
 
   co_comb <- list(
