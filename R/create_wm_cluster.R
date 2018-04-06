@@ -2,6 +2,7 @@
 #' Create clusters for Weekly Margins simulation
 #'
 #' @param data a \code{data.table} obtained from \code{\link{read_planning}}.
+#' @param start If specified, data will be filtered from given date to 7 days after.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -25,10 +26,22 @@
 #' clusters_crea <- create_wm_cluster(plannings, opts)
 #'
 #' }
-create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
+create_wm_cluster <- function(data, start = NULL, opts = antaresRead::simOptions()) {
 
   if (!all(c("comb_", "pmin", "pmax", "code_groupe") %in% names(data))) {
     stop("Invalid argument data, use output from read_planning.")
+  }
+
+  if (!is.null(start)) {
+    start <- as.Date(start)
+    data <- copy(data)
+    data <- data[as.Date(datetime, tz = "Europe/Paris") >= start]
+    data <- data[as.Date(datetime) < start + 7]
+  }
+
+  n_168 <- data[, .N, by = code_groupe]
+  if (!all(n_168$N == 168)) {
+    stop("Not all groups have 168 observations !", call. = FALSE)
   }
 
   co_comb <- list(
@@ -50,13 +63,13 @@ create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
     group = co_comb[[first(comb_)]],
     unitcount = 1L,
     enabled = TRUE,
-    nominalcapacity = max(pmax, na.rm = TRUE),
+    nominalcapacity = pmd[1],
     `min-stable-power` = min(pmin, na.rm = TRUE),
     prepro_modulation = list(
       matrix(
         data = c(
           rep(1, times = 365 * 24 * 2), # two first columns
-          (pmax/max(pmax, na.rm = TRUE))[rep(1, 168)], rep(0, 365 * 24 - 168),
+          (pmax/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
           rep(0, times = 365 * 24 * 1) # fourth column
         ), ncol = 4
       )
@@ -68,6 +81,7 @@ create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
     FUN = function(i) {
       res <- as.list(clusdata[i, .SD, .SDcols = names(clusdata)[-1]])
       res$prepro_modulation <- res$prepro_modulation[[1]]
+      res$prepro_modulation[is.na(res$prepro_modulation)] <- 0
       res$opts <- opts
       clus_d <- corr_groupe_descr(res$cluster_name)
       res$prepro_data <- matrix(
@@ -96,6 +110,8 @@ create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
     resclus <- tryCreateCluster(clusdata[[i]])
     if ("try-error" %in% class(resclus)) {
       ko <- ko + 1
+      clusdata[[i]] <- resclus
+      # message(attr(resclus, "condition"))
     } else  {
       ok <- ok + 1
     }
@@ -103,7 +119,7 @@ create_wm_cluster <- function(data, opts = antaresRead::simOptions()) {
   }
   cat("\ncluster creation completed")
 
-  return(clusdata)
+  return(invisible(clusdata))
 }
 
 

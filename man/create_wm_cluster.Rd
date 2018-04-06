@@ -4,10 +4,12 @@
 \alias{create_wm_cluster}
 \title{Create clusters for Weekly Margins simulation}
 \usage{
-create_wm_cluster(data, opts = antaresRead::simOptions())
+create_wm_cluster(data, start = NULL, opts = antaresRead::simOptions())
 }
 \arguments{
 \item{data}{a \code{data.table} obtained from \code{\link{read_planning}}.}
+
+\item{start}{If specified, data will be filtered from given date to 7 days after.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

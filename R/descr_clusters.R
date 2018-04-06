@@ -53,7 +53,6 @@ descr_clusters <- function(name) {
       `market-bid-cost` = 25.9
     ),
     gas_ocgt_old = list(
-      `min-stable-power` = 60.99,
       spinning = 2,
       co2 = 0.58,
       `marginal-cost` = 42.91,
@@ -62,7 +61,6 @@ descr_clusters <- function(name) {
       `market-bid-cost` = 42.91
     ),
     gas_ocgt_new = list(
-      `min-stable-power` = 44.58,
       spinning = 2,
       co2 = 0.49,
       `marginal-cost` = 35.76,
@@ -71,7 +69,6 @@ descr_clusters <- function(name) {
       `market-bid-cost` = 35.76
     ),
     light_oil = list(
-      `min-stable-power` = 47.53,
       `min-up-time` = 3L,
       `min-down-time` = 3L,
       spinning = 2, co2 = 0.78,
