@@ -4,12 +4,15 @@
 \alias{get_eco2mix}
 \title{Get data from eco2mix via Open-RTE API}
 \usage{
-get_eco2mix(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL)
+get_eco2mix(from = NULL, to = NULL, resource = c("tr", "cons"),
+  user = NULL, proxy_pwd = NULL)
 }
 \arguments{
 \item{from}{date from which to retrieve data.}
 
 \item{to}{date until which to recover data.}
+
+\item{resource}{resource to use between real time ("tr") or consolidated data ("cons").}
 
 \item{user}{Username (NNI) for proxy if needeed.}
 
@@ -25,8 +28,8 @@ Get data from eco2mix via Open-RTE API
 \dontrun{
 
 eco2mix <- get_eco2mix(
-  from = "2018-01-06", 
-  to = "2018-01-12", 
+  from = "2018-01-06",
+  to = "2018-01-12",
   user = "NNI",         # needeed if no internet connection open
   proxy_pwd = "PASSWORD"
 )

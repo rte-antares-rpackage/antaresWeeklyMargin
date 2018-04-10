@@ -15,11 +15,11 @@ proxy_error <- function(url) {
 #'
 #' @examples
 #' \dontrun{
-#' 
-#' # If you have set your proxy informations, 
+#'
+#' # If you have set your proxy informations,
 #' # the list should contain them
 #' get_proxy_info()
-#' 
+#'
 #' }
 get_proxy_info <- function(user = NULL, proxy_pwd = NULL) {
   res <- list()
@@ -43,27 +43,27 @@ get_proxy_info <- function(user = NULL, proxy_pwd = NULL) {
 
 
 #' Setup proxy credentials
-#' 
+#'
 #'
 #' @param user Username (NNI) for proxy.
 #' @param proxy_pwd Password for proxy.
-#' 
+#'
 #' @note You'll need to restart your R session for change to be effective.
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' 
+#'
 #' setupProxy("MYNNI", "MY_PASSWORD")
 #' # restart your R session
 #' # info should appear in the list
 #' get_proxy_info()
-#' 
+#'
 #' }
 setupProxy <- function(user, proxy_pwd) {
   cat(
-    paste(paste0("USR_PROXY=", user), 
+    paste(paste0("USR_PROXY=", user),
           paste0("PWD_PROXY=", proxy_pwd), sep = "\n"),
     file = file.path(path.expand("~/"), ".Renviron"),
     append = TRUE
@@ -92,12 +92,13 @@ format_datetime <- function(x) {
 #'
 #' @param from date from which to retrieve data.
 #' @param to date until which to recover data.
+#' @param resource resource to use between real time ("tr") or consolidated data ("cons").
 #' @param user Username (NNI) for proxy if needeed.
 #' @param proxy_pwd Password for proxy if needeed.
 #'
 #' @return a \code{data.table}
 #' @export
-#' 
+#'
 #' @importFrom crul HttpClient proxy
 #' @importFrom curl ie_get_proxy_for_url
 #' @importFrom data.table as.data.table setcolorder :=
@@ -105,22 +106,28 @@ format_datetime <- function(x) {
 #'
 #' @examples
 #' \dontrun{
-#' 
+#'
 #' eco2mix <- get_eco2mix(
-#'   from = "2018-01-06", 
-#'   to = "2018-01-12", 
+#'   from = "2018-01-06",
+#'   to = "2018-01-12",
 #'   user = "NNI",         # needeed if no internet connection open
 #'   proxy_pwd = "PASSWORD"
 #' )
-#' 
+#'
 #' }
-get_eco2mix <- function(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL) {
+get_eco2mix <- function(from = NULL, to = NULL, resource = c("tr", "cons"), user = NULL, proxy_pwd = NULL) {
+  resource <- match.arg(resource)
+  if (resource == "tr") {
+    dataset <- "eco2mix_national_tr"
+  } else {
+    dataset <- "eco2mix_national_cons_def"
+  }
   url <- "https://opendata.rte-france.com/api/records/1.0/search/"
   cli <- crul::HttpClient$new(url = url)
   proxy <- get_proxy_info(user, proxy_pwd)
   if (!is.null(proxy$user) & !is.null(proxy$proxy_pwd)) {
     cli$proxies <- crul::proxy(
-      url = curl::ie_get_proxy_for_url("https://httpbin.org/get"), 
+      url = curl::ie_get_proxy_for_url("https://httpbin.org/get"),
       user = proxy$user, pwd = proxy$proxy_pwd
     )
   }
@@ -138,7 +145,7 @@ get_eco2mix <- function(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL) {
   q <- dropNulls(q)
   q <- Reduce(pasteAND, q)
   res <- try(cli$get(query = list(
-    dataset = "eco2mix_national_tr",
+    dataset = dataset,
     rows = -1, sort = "-date_heure",
     q = q
   )), silent = TRUE)
@@ -170,6 +177,7 @@ get_eco2mix <- function(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL) {
 #'
 #' @param from date from which to retrieve data, if \code{NULL} set to previous saturday before previous friday.
 #' @param to date until which to recover data, if \code{NULL} set to previous friday.
+#' @param resource resource to use between real time ("tr") or consolidated data ("cons").
 #' @param user Username (NNI) for proxy if needed.
 #' @param proxy_pwd Password for proxy if needed.
 #'
@@ -178,18 +186,18 @@ get_eco2mix <- function(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL) {
 #'
 #' @examples
 #' \dontrun{
-#' 
+#'
 #' fil_eau <- get_hydraulique_fil_de_l_eau_eclusee(
 #'   user = "NNI", proxy_pwd = "PASSWORD"
 #' )
-#' 
+#'
 #' }
-get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL) {
+get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, resource = "tr", user = NULL, proxy_pwd = NULL) {
   if (is.null(from))
     from <- get_previous(what = "samedi", date = get_previous(what = "vendredi"))
   if (is.null(to))
     to <- get_previous(what = "vendredi")
-  eco2mix <- get_eco2mix(from, to, user, proxy_pwd)
+  eco2mix <- get_eco2mix(from = from, to = to, resource = resource, user = user, proxy_pwd = proxy_pwd)
   eco2mix <- eco2mix[, .SD, .SDcols = c("date", "date_heure", "hydraulique_fil_de_l_eau_eclusee")]
   eco2mix <- eco2mix[format(date_heure, format = "%M") == "00"]
   return(eco2mix)
@@ -212,16 +220,16 @@ get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, user = 
 
 #' Get a token to access RTE data API
 #'
-#' @param key a base64 encoded string or a list containing 
-#' 'client_id' and 'client_secret'. To get those credentials 
-#' you need an account on \url{https://data.rte-france.com} and 
+#' @param key a base64 encoded string or a list containing
+#' 'client_id' and 'client_secret'. To get those credentials
+#' you need an account on \url{https://data.rte-france.com} and
 #' to create an application for the concerned API.
 #' @param user Username (NNI) for proxy if needeed.
 #' @param proxy_pwd Password for proxy if needeed.
 #'
 #' @return a list with the access token
 #' @export
-#' 
+#'
 #' @importFrom jsonlite fromJSON
 #' @importFrom curl ie_get_proxy_for_url
 #' @importFrom crul HttpClient proxy
@@ -229,18 +237,18 @@ get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, user = 
 #'
 #' @examples
 #' \dontrun{
-#' 
+#'
 #' # To create a token you can use id_client and id_secret
 #' id_client <- "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 #' id_secret <- "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 #' token <- get_token(
 #'   key = list(id_client = id_client, id_secret = id_secret)
 #' )
-#' 
+#'
 #' # or the base64 encoded key
 #' key <- "WFhYWFgtWFhYWFgtWFhYWFgtWFhYWFgtWFhYWFg="
 #' token <- get_token(key)
-#' 
+#'
 #' }
 get_token <- function(key, user = NULL, proxy_pwd = NULL) {
   if (is.list(key))
@@ -254,7 +262,7 @@ get_token <- function(key, user = NULL, proxy_pwd = NULL) {
   proxy <- get_proxy_info(user, proxy_pwd)
   if (!is.null(proxy$user) & !is.null(proxy$proxy_pwd)) {
     cli$proxies <- crul::proxy(
-      url = curl::ie_get_proxy_for_url("https://httpbin.org/get"), 
+      url = curl::ie_get_proxy_for_url("https://httpbin.org/get"),
       user = proxy$user, pwd = proxy$proxy_pwd
     )
   }
@@ -273,9 +281,9 @@ get_token <- function(key, user = NULL, proxy_pwd = NULL) {
 #' Retrieve NTC data via RTE data API
 #'
 #' @param token Token obtained with \code{\link{get_token}}.
-#' @param type NTC due type, mandatory, one or several 
+#' @param type NTC due type, mandatory, one or several
 #' between 'ANNUAL', 'MONTHLY', 'WEEKLY', 'D-1', 'CURTAILED'.
-#' @param start_date Optional, starting date to filter results, 
+#' @param start_date Optional, starting date to filter results,
 #' if used, \code{end_date} must be set as well.
 #' @param end_date Optional, ending date to filter results.
 #' @param country_eic_code Country code.
@@ -284,7 +292,7 @@ get_token <- function(key, user = NULL, proxy_pwd = NULL) {
 #'
 #' @return a \code{data.table}.
 #' @export
-#' 
+#'
 #' @importFrom crul HttpClient proxy
 #' @importFrom curl ie_get_proxy_for_url
 #' @importFrom data.table as.data.table rbindlist :=
@@ -292,24 +300,24 @@ get_token <- function(key, user = NULL, proxy_pwd = NULL) {
 #'
 #' @examples
 #' \dontrun{
-#' 
+#'
 #' # First you need a token
 #' id_client <- "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 #' id_secret <- "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 #' token <- get_token(
 #'   key = list(id_client = id_client, id_secret = id_secret)
 #' )
-#' 
+#'
 #' # Then you can retrieve NTC data
 #' ntc <- get_ntc(token = token, type = c("ANNUAL", "MONTHLY"))
-#' 
+#'
 #' }
 get_ntc <- function(token, type = c("ANNUAL", "MONTHLY", "WEEKLY", "D-1", "CURTAILED"),
                     start_date = NULL, end_date = NULL, country_eic_code = NULL,
                     user = NULL, proxy_pwd = NULL) {
-  
+
   type <- match.arg(type, several.ok = TRUE)
-  
+
   if (!is.null(start_date)) {
     if (is.null(end_date))
       stop("If start_date is set, end_date must be passed as well.", call. = FALSE)
@@ -326,7 +334,7 @@ get_ntc <- function(token, type = c("ANNUAL", "MONTHLY", "WEEKLY", "D-1", "CURTA
     country_eic_code = country_eic_code
   )
   q <- dropNulls(q)
-  
+
   cli <- crul::HttpClient$new(
     url = "https://digital.iservices.rte-france.com/open_api/ntc/v1/ntc",
     headers = list(
@@ -337,7 +345,7 @@ get_ntc <- function(token, type = c("ANNUAL", "MONTHLY", "WEEKLY", "D-1", "CURTA
   proxy <- get_proxy_info(user, proxy_pwd)
   if (!is.null(proxy$user) & !is.null(proxy$proxy_pwd)) {
     cli$proxies <- crul::proxy(
-      url = curl::ie_get_proxy_for_url("https://httpbin.org/get"), 
+      url = curl::ie_get_proxy_for_url("https://httpbin.org/get"),
       user = proxy$user, pwd = proxy$proxy_pwd
     )
   }
@@ -345,7 +353,7 @@ get_ntc <- function(token, type = c("ANNUAL", "MONTHLY", "WEEKLY", "D-1", "CURTA
   res$raise_for_status()
   txt <- res$parse("UTF-8")
   json <- jsonlite::fromJSON(txt)
-  
+
   data <- json[[1]]
   data <- as.data.table(data)
   values <- rbindlist(l = data$values, idcol = TRUE)

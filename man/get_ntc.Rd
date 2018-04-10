@@ -11,10 +11,10 @@ get_ntc(token, type = c("ANNUAL", "MONTHLY", "WEEKLY", "D-1", "CURTAILED"),
 \arguments{
 \item{token}{Token obtained with \code{\link{get_token}}.}
 
-\item{type}{NTC due type, mandatory, one or several 
+\item{type}{NTC due type, mandatory, one or several
 between 'ANNUAL', 'MONTHLY', 'WEEKLY', 'D-1', 'CURTAILED'.}
 
-\item{start_date}{Optional, starting date to filter results, 
+\item{start_date}{Optional, starting date to filter results,
 if used, \code{end_date} must be set as well.}
 
 \item{end_date}{Optional, ending date to filter results.}

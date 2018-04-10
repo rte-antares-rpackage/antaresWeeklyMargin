@@ -20,7 +20,7 @@ Get proxy information
 \examples{
 \dontrun{
 
-# If you have set your proxy informations, 
+# If you have set your proxy informations,
 # the list should contain them
 get_proxy_info()
 
