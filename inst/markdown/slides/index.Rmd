@@ -26,7 +26,19 @@ library( magrittr )
 marge_seul_fr <- readRDS(file = "datas/marge_seul_fr.Rdata")
 marge_seul_fr_e <- marge_seul_fr[, c(1, sample.int(n = 2040, size = 200) + 1)]
 data_fr <- readRDS("datas/data_fr.Rdata")
+
+corr_time <- data.table(
+  timeId = seq_len(168),
+  time = as.POSIXct(
+    format(seq(as.POSIXct("2016-11-05"), by=("+1 hour"), length.out = 168)),
+    format="%Y-%m-%d %H:%M:%S", tz="UTC"
+  )
+)
+data_fr <- data_fr[, time := NULL]
+data_fr <- merge(x = data_fr, y = corr_time)
+
 marge_inter_fr <- readRDS(file = "datas/marge_inter_fr.Rdata")
+marge_inter_fr_e <- marge_inter_fr[, c(1, sample.int(n = 2040, size = 200) + 1)]
 data_all <- readRDS(file = "datas/data_all_mc1199_B.Rdata")
 mono_cwe <- readRDS(file = "datas/mono_cwe.rds")
 mono_cwe_20161110 <- readRDS(file = "datas/mono_cwe_20161110.rds")
@@ -103,6 +115,16 @@ draw_upward_margin(
 
 ---
 
+### Table of quantiles
+
+```{r, echo=FALSE}
+marg <- margins_quantiles(marge_seul_fr)
+ft_margins_quantiles(marg, layout = "horizontal", language = "en")
+```
+
+
+---
+
 ### Final Remaining Capacity - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
 
  * Variability of final remaining capacity for France increases with time
@@ -110,13 +132,25 @@ draw_upward_margin(
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
 draw_upward_margin(
-  upward_margin = marge_seul_fr_e, 
+  upward_margin = marge_inter_fr_e, 
   area = "fr",
   type = "inter",
-  nb_MC = ncol(marge_seul_fr_e) - 1, 
+  nb_MC = ncol(marge_inter_fr_e) - 1, 
   num_week = 45
 )
 ```
+
+
+
+---
+
+### Table of quantiles
+
+```{r, echo=FALSE}
+marg <- margins_quantiles(marge_inter_fr)
+ft_margins_quantiles(marg, layout = "vertical", language = "en")
+```
+
 
 
 ---

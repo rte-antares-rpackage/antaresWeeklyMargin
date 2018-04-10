@@ -79,7 +79,7 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, opts = an
     group = co_comb[[first(comb_)]],
     unitcount = 1L,
     enabled = TRUE,
-    nominalcapacity = pmd[1],
+    nominalcapacity = max(pmax, na.rm = TRUE),
     `min-stable-power` = min(pmin, na.rm = TRUE),
     prepro_modulation = list(
       matrix(
