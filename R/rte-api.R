@@ -198,7 +198,7 @@ get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, resourc
   if (is.null(to))
     to <- get_previous(what = "vendredi")
   eco2mix <- get_eco2mix(from = from, to = to, resource = resource, user = user, proxy_pwd = proxy_pwd)
-  eco2mix <- eco2mix[, .SD, .SDcols = c("date", "date_heure", "hydraulique_fil_de_l_eau_eclusee")]
+  eco2mix <- eco2mix[, .SD, .SDcols = c("date", "date_heure", "hydraulique_fil_eau_eclusee")]
   eco2mix <- eco2mix[format(date_heure, format = "%M") == "00"]
   return(eco2mix)
 }
