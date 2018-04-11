@@ -177,7 +177,6 @@ get_eco2mix <- function(from = NULL, to = NULL, resource = c("tr", "cons"), user
 #'
 #' @param from date from which to retrieve data, if \code{NULL} set to previous saturday before previous friday.
 #' @param to date until which to recover data, if \code{NULL} set to previous friday.
-#' @param resource resource to use between real time ("tr") or consolidated data ("cons").
 #' @param user Username (NNI) for proxy if needed.
 #' @param proxy_pwd Password for proxy if needed.
 #'
@@ -192,14 +191,19 @@ get_eco2mix <- function(from = NULL, to = NULL, resource = c("tr", "cons"), user
 #' )
 #'
 #' }
-get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, resource = "tr", user = NULL, proxy_pwd = NULL) {
+get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, user = NULL, proxy_pwd = NULL) {
   if (is.null(from))
     from <- get_previous(what = "samedi", date = get_previous(what = "vendredi"))
   if (is.null(to))
     to <- get_previous(what = "vendredi")
-  eco2mix <- get_eco2mix(from = from, to = to, resource = resource, user = user, proxy_pwd = proxy_pwd)
-  eco2mix <- eco2mix[, .SD, .SDcols = c("date", "date_heure", "hydraulique_fil_eau_eclusee")]
-  eco2mix <- eco2mix[format(date_heure, format = "%M") == "00"]
+  eco2mix_tr <- get_eco2mix(from = from, to = to, resource = "tr", user = user, proxy_pwd = proxy_pwd)
+  eco2mix_tr <- eco2mix_tr[, .SD, .SDcols = c("date", "date_heure", "hydraulique_fil_eau_eclusee")]
+  eco2mix_tr <- eco2mix_tr[format(date_heure, format = "%M") == "00"]
+  eco2mix_cons <- get_eco2mix(from = from, to = to, resource = "cons", user = user, proxy_pwd = proxy_pwd)
+  eco2mix_cons <- eco2mix_cons[, .SD, .SDcols = c("date", "date_heure", "hydraulique_fil_eau_eclusee")]
+  eco2mix_cons <- eco2mix_cons[format(date_heure, format = "%M") == "00"]
+  eco2mix <- rbind(eco2mix_tr, eco2mix_cons)
+  eco2mix <- eco2mix[order(date_heure)]
   return(eco2mix)
 }
 
