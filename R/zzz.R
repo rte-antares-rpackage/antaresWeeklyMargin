@@ -8,4 +8,5 @@ utils::globalVariables(c(".SD", ".I", ".N", "groupe", "code_groupe",
                          "val_indispo", "freq", "DATE_UTC", "couleurs",
                          "BALANCE", "COAL", "GAS", "H. ROR", "LIGNITE", "LOAD", "MISC. DTG", "MISC. NDG", "MIX. FUEL",
                          "NUCLEAR", "OIL", "ROW BAL.", "SOLAR", "WIND", "lac", "mcYear", "pump_d", "pump_w", "turb_d",
-                         "turb_w", "jour", "variable", "area", "cluster", "ouvrage"))
+                         "turb_w", "jour", "variable", "area", "cluster", "ouvrage",
+                         "country", "type"))
