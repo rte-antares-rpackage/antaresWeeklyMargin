@@ -35,6 +35,8 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
     data <- copy(data)
     data <- data[as.Date(datetime, tz = "Europe/Paris") >= start]
     data <- data[as.Date(datetime, tz = "Europe/Paris") < start + 7]
+    vars_en <- sprintf("ENS%02d", 0:50)
+    data <- data[country == "UK", (vars_en) := lapply(.SD, sum), by = list(datetime, country, type), .SDcols = vars_en]
     data <- unique(data, by = c("datetime", "country", "type"))
   }
 
@@ -62,6 +64,9 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
   leftover <- as.data.table(matrix(data = rep(0, 51 * (8760 - 168)), ncol = 51))
   setnames(x = leftover, old = names(leftover), new = sprintf("ENS%02d", 0:50))
 
+  empty <- as.data.table(matrix(data = rep(0, 51 * 8760), ncol = 51))
+  setnames(x = empty, old = names(empty), new = sprintf("ENS%02d", 0:50))
+
   total <- uniqueN(data[, list(country, type)])
   i <- 1
 
@@ -79,6 +84,8 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
       data.table::fwrite(x = load, file = path_load, sep = "\t", row.names = FALSE, col.names = FALSE)
 
       i <- i + 1
+    } else {
+      data.table::fwrite(x = empty, file = path_load, sep = "\t", row.names = FALSE, col.names = FALSE)
     }
 
     # Wind
@@ -93,6 +100,8 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
       data.table::fwrite(x = wind, file = path_wind, sep = "\t", row.names = FALSE, col.names = FALSE)
 
       i <- i + 1
+    } else {
+      data.table::fwrite(x = empty, file = path_load, sep = "\t", row.names = FALSE, col.names = FALSE)
     }
 
     # Solar
@@ -107,6 +116,8 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
       data.table::fwrite(x = solar, file = path_solar, sep = "\t", row.names = FALSE, col.names = FALSE)
 
       i <- i + 1
+    } else {
+      data.table::fwrite(x = empty, file = path_load, sep = "\t", row.names = FALSE, col.names = FALSE)
     }
   }
 

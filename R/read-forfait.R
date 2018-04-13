@@ -2,21 +2,20 @@
 
 #' Read EDF forfait file
 #'
-#' @param path Path to the XML file. Can be left blank, designate an XML
-#' file or directory containing XML files. If the path points to a directory,
-#' the most recent XML file is read. If the argument is not specified, a dialog
+#' @param path Path to the RPT and RPD Excel files. Can be left blank, designate an Excel
+#' file or directory containing Excel files. If the argument is not specified, a dialog
 #' box will open to select a directory.
 #'
 #' @return a \code{data.table}
 #' @export
-#' 
+#'
 #' @importFrom data.table rbindlist
 #'
 #' @examples
 #' \dontrun{
-#' 
-#' # TODO
-#' 
+#'
+#' hydro_forfait <- read_forfait_oa(path = "inputs/hydro_forfait/")
+#'
 #' }
 read_forfait_oa <- function(path) {
   if (missing(path)) {
