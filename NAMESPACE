@@ -3,6 +3,7 @@
 export(create_markdown)
 export(create_wm_cluster)
 export(create_wm_misc)
+export(create_wm_ror)
 export(create_wm_ts)
 export(draw_mono)
 export(draw_prod_MC)
