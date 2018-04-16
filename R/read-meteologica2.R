@@ -7,7 +7,7 @@
 #' @return a \code{data.table}
 #' @export
 #'
-#' @importFrom stringr str_which str_replace str_extract
+#' @importFrom stringr str_which str_replace str_extract str_detect
 #' @importFrom data.table rbindlist
 #'
 #' @examples
@@ -20,9 +20,12 @@ read_meteologica2 <- function(path, country = NULL) {
   if (missing(path)) {
     path <- choose_path()
   }
+  old.wd <- getwd()
+  setwd(path)
+  on.exit(setwd(old.wd))
   patterns <- c("PhotovoltaicPower", "Wind", "PowerDemand", "PV")
   path <- select_file(
-    path = path,
+    path = ".",
     pattern = "",
     fileext = "\\.csv$",
     multiple = TRUE,
@@ -32,8 +35,12 @@ read_meteologica2 <- function(path, country = NULL) {
   if (!is.null(country)) {
     path <- path[str_which(string = tolower(path), pattern = tolower(country))]
   }
-  list_countries <- c("Austria", "Belgium", "France", "Germany", "Ireland", "Italy",
-                      "Netherlands", "Portugal", "Spain", "Switzerland", "UK")
+  path <- path[!str_detect(string = tolower(path), pattern = "offshore")]
+  path <- path[!str_detect(string = tolower(path), pattern = "onshore")]
+  path <- path[!str_detect(string = tolower(path), pattern = "livefeed")]
+  list_countries <- c("Austria", "Belgium", "France", "Germany", "Italy",
+                      "Netherlands", "Portugal", "Spain", "Switzerland", "UK",
+                      "RepublicOfIreland", "NorthernIreland")
   res <- lapply(
     X = path,
     FUN = function(x) {

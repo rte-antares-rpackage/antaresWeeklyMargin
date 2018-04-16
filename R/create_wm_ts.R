@@ -50,7 +50,9 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
     "Belgium" = "be",
     "France" = "fr",
     "Germany" = "de",
-    "Ireland" = "ie",
+    # "Ireland" = "ie",
+    "RepublicOfIreland" = "ie",
+    "NorthernIreland" = "ni",
     "Italy" = "it",
     "Netherlands" = "nl",
     "Portugal" = "pt",
@@ -59,6 +61,7 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
     "UK" = "gb"
   )
   data[, area := unlist(match_countries, use.names = FALSE)[chmatch(x = country, table = names(match_countries))]]
+  data <- data[!is.na(area)]
   sprintf("ENS%02d", 0:50)
 
   leftover <- as.data.table(matrix(data = rep(0, 51 * (8760 - 168)), ncol = 51))
