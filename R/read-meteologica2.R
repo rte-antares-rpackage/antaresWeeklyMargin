@@ -17,23 +17,27 @@
 #'
 #' }
 read_meteologica2 <- function(path, country = NULL) {
+
   if (missing(path)) {
     path <- choose_path()
   }
+
   if (dir.exists(path)) {
     old.wd <- getwd()
     setwd(path)
     on.exit(setwd(old.wd))
+    path <- select_file(
+      path = ".",
+      pattern = "",
+      fileext = "\\.csv$",
+      multiple = TRUE,
+      recursive = TRUE,
+      verbose = FALSE
+    )
   }
+
   patterns <- c("PhotovoltaicPower", "Wind", "PowerDemand", "PV")
-  path <- select_file(
-    path = ".",
-    pattern = "",
-    fileext = "\\.csv$",
-    multiple = TRUE,
-    recursive = TRUE,
-    verbose = FALSE
-  )
+
   if (!is.null(country)) {
     path <- path[str_which(string = tolower(path), pattern = tolower(country))]
   }
@@ -56,6 +60,8 @@ read_meteologica2 <- function(path, country = NULL) {
       country <- list_countries[stringr::str_detect(string = x, pattern = list_countries)]
       dat$country <- country
       dat$file_name <- stringr::str_extract(string = x, pattern = "(?<=/)[^/]+$")
+      dat$file_date <- stringr::str_extract(string = dat$file_name, pattern = "[:digit:]{12}")
+      dat$file_date <- as.POSIXct(x = dat$file_date, format = "%Y%m%d%H%M", tz = "Europe/Paris")
       dat
     }
   )
