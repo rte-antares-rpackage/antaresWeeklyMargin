@@ -183,6 +183,8 @@ get_eco2mix <- function(from = NULL, to = NULL, resource = c("tr", "cons"), user
 #' @return a \code{data.table}
 #' @export
 #'
+#' @importFrom data.table rbindlist
+#'
 #' @examples
 #' \dontrun{
 #'
@@ -196,14 +198,14 @@ get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, user = 
     from <- get_previous(what = "samedi", date = get_previous(what = "vendredi"))
   if (is.null(to))
     to <- get_previous(what = "vendredi")
+  vars <- c("date", "date_heure", "hydraulique_fil_eau_eclusee")
   eco2mix_tr <- get_eco2mix(from = from, to = to, resource = "tr", user = user, proxy_pwd = proxy_pwd)
-  eco2mix_tr <- eco2mix_tr[, .SD, .SDcols = c("date", "date_heure", "hydraulique_fil_eau_eclusee")]
-  eco2mix_tr <- eco2mix_tr[format(date_heure, format = "%M") == "00"]
+  eco2mix_tr <- eco2mix_tr[, .SD, .SDcols = intersect(names(eco2mix_tr), vars)]
   eco2mix_cons <- get_eco2mix(from = from, to = to, resource = "cons", user = user, proxy_pwd = proxy_pwd)
-  eco2mix_cons <- eco2mix_cons[, .SD, .SDcols = c("date", "date_heure", "hydraulique_fil_eau_eclusee")]
-  eco2mix_cons <- eco2mix_cons[format(date_heure, format = "%M") == "00"]
-  eco2mix <- rbind(eco2mix_tr, eco2mix_cons)
+  eco2mix_cons <- eco2mix_cons[, .SD, .SDcols = intersect(names(eco2mix_cons), vars)]
+  eco2mix <- rbindlist(list(eco2mix_tr, eco2mix_cons), fill = TRUE)
   eco2mix <- eco2mix[order(date_heure)]
+  eco2mix <- eco2mix[format(date_heure, format = "%M") == "00"]
   return(eco2mix)
 }
 
