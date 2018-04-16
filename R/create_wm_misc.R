@@ -16,7 +16,14 @@
 #' @examples
 #' \dontrun{
 #'
-#' # todo
+#' # set path to your simulation
+#' opts <- setSimulationPath(path = "path/to/simulation/", simulation = "input")
+#'
+#' # Read OA files
+#' oa <- read_forfait_oa(path = "path/to/hydro_forfait/")
+#'
+#' # Create ROR series in Antares
+#' create_wm_misc(data = oa, start = "2018-01-04")
 #'
 #' }
 create_wm_misc <- function(data, start = NULL, opts = antaresRead::simOptions()) {

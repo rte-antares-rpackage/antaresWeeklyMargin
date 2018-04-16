@@ -2,7 +2,8 @@
 #' Create ROR for Weekly Margins simulation
 #'
 #' @param data a \code{data.table} obtained from \code{\link{read_forfait_oa}}.
-#' @param start If specified, data will be filtered from given date to 7 days after.
+#' @param start Starting day of the simulation, data between previous \code{startday}
+#'  and next \code{startday}-1, by default between \code{samedi} and \code{vendredi}.
 #' @param startday Day of week to start simulation.
 #' @param opts
 #'   List of simulation parameters returned by the function
@@ -17,7 +18,14 @@
 #' @examples
 #' \dontrun{
 #'
-#' # todo
+#' # set path to your simulation
+#' opts <- setSimulationPath(path = "path/to/simulation/", simulation = "input")
+#'
+#' # Read OA files
+#' oa <- read_forfait_oa(path = "path/to/hydro_forfait/")
+#'
+#' # Create ROR series in Antares
+#' create_wm_ror(data = oa, start = "2018-01-04")
 #'
 #' }
 create_wm_ror <- function(data, start = NULL, startday = "samedi", opts = antaresRead::simOptions()) {
