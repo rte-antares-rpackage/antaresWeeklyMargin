@@ -20,9 +20,11 @@ read_meteologica2 <- function(path, country = NULL) {
   if (missing(path)) {
     path <- choose_path()
   }
-  old.wd <- getwd()
-  setwd(path)
-  on.exit(setwd(old.wd))
+  if (dir.exists(path)) {
+    old.wd <- getwd()
+    setwd(path)
+    on.exit(setwd(old.wd))
+  }
   patterns <- c("PhotovoltaicPower", "Wind", "PowerDemand", "PV")
   path <- select_file(
     path = ".",
@@ -53,10 +55,13 @@ read_meteologica2 <- function(path, country = NULL) {
       # country <- str_extract(string = country, pattern = sprintf(".+(?=-%s)", type))
       country <- list_countries[stringr::str_detect(string = x, pattern = list_countries)]
       dat$country <- country
+      dat$file_name <- stringr::str_extract(string = x, pattern = "(?<=/)[^/]+$")
       dat
     }
   )
-  rbindlist(l = res)
+  res <- rbindlist(l = res)
+  res <- res[order(datetime, -file_name)]
+  return(res)
 }
 
 #' @importFrom stringr str_extract str_subset

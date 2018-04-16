@@ -37,6 +37,7 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
     data <- data[as.Date(datetime, tz = "Europe/Paris") < start + 7]
     vars_en <- sprintf("ENS%02d", 0:50)
     data <- data[country == "UK", (vars_en) := lapply(.SD, sum), by = list(datetime, country, type), .SDcols = vars_en]
+    data <- data[order(datetime, -file_name)]
     data <- unique(data, by = c("datetime", "country", "type"))
   }
 
@@ -104,7 +105,7 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
 
       i <- i + 1
     } else {
-      data.table::fwrite(x = empty, file = path_load, sep = "\t", row.names = FALSE, col.names = FALSE)
+      data.table::fwrite(x = empty, file = path_wind, sep = "\t", row.names = FALSE, col.names = FALSE)
     }
 
     # Solar
@@ -120,7 +121,7 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
 
       i <- i + 1
     } else {
-      data.table::fwrite(x = empty, file = path_load, sep = "\t", row.names = FALSE, col.names = FALSE)
+      data.table::fwrite(x = empty, file = path_solar, sep = "\t", row.names = FALSE, col.names = FALSE)
     }
   }
 

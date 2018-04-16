@@ -10,4 +10,6 @@ utils::globalVariables(c(".SD", ".I", ".N", "groupe", "code_groupe",
                          "NUCLEAR", "OIL", "ROW BAL.", "SOLAR", "WIND", "lac", "mcYear", "pump_d", "pump_w", "turb_d",
                          "turb_w", "jour", "variable", "area", "cluster", "ouvrage",
                          "country", "type",
-                         "CHP", "Other", "Waste", "cogeneration_continue", "cogeneration_mdse_dispatchable_"))
+                         "CHP", "Other", "Waste", "cogeneration_continue", "cogeneration_mdse_dispatchable_",
+                         "file_name",
+                         "Total_fil_eau", "file_name", "hydraulique_fil_eau_eclusee", "hydraulique_tiers"))
