@@ -72,6 +72,7 @@ read_meteologica2 <- function(path, country = NULL) {
 
 #' @importFrom stringr str_extract str_subset
 #' @importFrom data.table fread setnames :=
+#' @importFrom lubridate with_tz
 read_meteologica2_file <- function(path) {
   skip_ <- readLines(con = path, n = 10)
   skip_ <- grep(pattern = "From yyyy-mm-dd hh:mm", x = skip_) - 1
@@ -86,8 +87,23 @@ read_meteologica2_file <- function(path) {
       pattern = "ENS\\d{2}"
     )
   )
-  setnames(x = dat, old = "From yyyy-mm-dd hh:mm", new = "datetime")
+  setnames(x = dat, old = c("From yyyy-mm-dd hh:mm", "UTC offset from (UTC+/-hhmm)"), new = c("datetime", "tz"))
+
+  # format datetime
+  # dat <- dat[, datetime := as.POSIXct(datetime, tz = "Europe/Paris")]
+  dat[, tz := gsub(pattern = "UTC", replacement = "", x = tz)]
+  dat[, datetime := paste0(datetime, tz)]
+
+  dat[, datetime := as.POSIXct(x = datetime, format = "%Y-%m-%d %H:%M%z", tz = "UTC")]
+  dat[, datetime := lubridate::with_tz(time = datetime, tzone = "Europe/Paris")]
+
   dat <- dat[, .SD, .SDcols = c("datetime", sprintf("ENS%02d", 0:50))]
-  dat <- dat[, datetime := as.POSIXct(datetime, tz = "Europe/Paris")]
+
   dat
 }
+
+
+
+
+
+
