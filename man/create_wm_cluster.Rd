@@ -5,7 +5,7 @@
 \title{Create clusters for Weekly Margins simulation}
 \usage{
 create_wm_cluster(data, start = NULL, rm_prev_clus = TRUE,
-  opts = antaresRead::simOptions())
+  sort_other_clus = TRUE, opts = antaresRead::simOptions())
 }
 \arguments{
 \item{data}{a \code{data.table} obtained from \code{\link{read_planning}}.}
@@ -13,6 +13,8 @@ create_wm_cluster(data, start = NULL, rm_prev_clus = TRUE,
 \item{start}{If specified, data will be filtered from given date to 7 days after.}
 
 \item{rm_prev_clus}{Remove previous clusters before creating new ones.}
+
+\item{sort_other_clus}{Reorder rows of other clusters data.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

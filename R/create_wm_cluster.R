@@ -4,6 +4,7 @@
 #' @param data a \code{data.table} obtained from \code{\link{read_planning}}.
 #' @param start If specified, data will be filtered from given date to 7 days after.
 #' @param rm_prev_clus Remove previous clusters before creating new ones.
+#' @param sort_other_clus Reorder rows of other clusters data.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -27,7 +28,7 @@
 #' clusters_crea <- create_wm_cluster(plannings, opts)
 #'
 #' }
-create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, opts = antaresRead::simOptions()) {
+create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_other_clus = TRUE, opts = antaresRead::simOptions()) {
 
   if (!all(c("comb_", "pmin", "pmax", "code_groupe") %in% names(data))) {
     stop("Invalid argument data, use output from read_planning.")
@@ -46,11 +47,16 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, opts = an
   }
 
   if (rm_prev_clus) {
-    oldclus <- antaresRead::readClusterDesc()
+    oldclus <- antaresRead::readClusterDesc(opts = opts)
     oldclus <- oldclus[area == "fr", cluster]
     oldclus <- as.character(oldclus)
+    l_max_o <- max(nchar(oldclus))
+    cat("\nRemoving older clusters\n")
     if (length(oldclus) > 0) {
       for (oldcluster in oldclus) {
+        cat(sprintf("\rRemoving: %s (%s%%)",
+                    format(oldcluster, width = l_max_o + 3),
+                    round(which(oldclus == oldcluster)/length(oldclus)*100)))
         antaresEditObject::removeCluster(
           area = "fr",
           cluster_name = oldcluster,
@@ -121,7 +127,7 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, opts = an
   }
 
   ok <- 0; ko <- 0
-  cat(sprintf("Creating %s clusters\n", length(clusdata)))
+  cat(sprintf("\nCreating %s clusters\n", length(clusdata)))
   for (i in seq_along(clusdata)) {
     resclus <- tryCreateCluster(clusdata[[i]])
     if ("try-error" %in% class(resclus)) {
@@ -135,8 +141,74 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, opts = an
   }
   cat("\ncluster creation completed")
 
+
+  if (sort_other_clus) {
+    cat("\nReordering rows of other clusters\n")
+    othclus <- antaresRead::readClusterDesc(opts = opts)
+    othclus <- othclus[area != "fr"]
+    n_othclus <- nrow(othclus)
+    l_max <- othclus[, max(nchar(as.character(cluster)))]
+    for (i in seq_len(n_othclus)) {
+      clusname <- othclus[i, as.character(cluster)]
+      cat(sprintf("\rReordering: %s (%s%%)", format(clusname, width = l_max + 3), round(i/n_othclus*100)))
+      sort_cluster(
+        area = othclus[i, area],
+        cluster_name = clusname,
+        start_wm = start,
+        start_sim = opts$start,
+        inputPath = opts$inputPath
+      )
+    }
+  }
+
   return(invisible(clusdata))
 }
 
+
+
+
+
+# Change rows order in cluster data
+sort_cluster <- function(area, cluster_name, start_wm, start_sim, inputPath) {
+
+  start_wm <- as.Date(start_wm)
+  start_sim <- as.Date(as.character(start_sim))
+
+  # Indice data daily
+  ind_day_wm <- difftime(time1 = start_wm, time2 = start_sim, units = "days")
+  ind_day_wm <- as.numeric(ind_day_wm)
+  ind_day_wm <- seq(from = ind_day_wm, length.out = 14, by = 1)
+
+  # Indice data hourly
+  ind_hour_wm <- difftime(time1 = start_wm, time2 = start_sim, units = "hours")
+  ind_hour_wm <- as.numeric(ind_hour_wm)
+  ind_hour_wm <- seq(from = ind_hour_wm, length.out = 14*24, by = 1)
+
+  # Prepro data
+  prepro_data_path <- file.path(inputPath, "thermal", "prepro", area, cluster_name, "data.txt")
+  if (file.size(prepro_data_path) > 0) {
+    prepro_data <- data.table::fread(file = prepro_data_path)
+    prepro_data <- prepro_data[c(ind_day_wm, setdiff(seq_len(nrow(prepro_data)), ind_day_wm))]
+    data.table::fwrite(x = prepro_data, file = prepro_data_path, sep = "\t", row.names = FALSE, col.names = FALSE)
+  }
+
+  # Modulation data
+  prepro_modu_path <- file.path(inputPath, "thermal", "prepro", area, cluster_name, "modulation.txt")
+  if (file.size(prepro_modu_path) > 0) {
+    prepro_modu <- data.table::fread(file = prepro_modu_path)
+    prepro_modu <- prepro_data[c(ind_hour_wm, setdiff(seq_len(nrow(prepro_modu)), ind_hour_wm))]
+    data.table::fwrite(x = prepro_modu, file = prepro_modu_path, sep = "\t", row.names = FALSE, col.names = FALSE)
+  }
+
+  # Series data
+  series_path <- file.path(inputPath, "thermal", "series", area, cluster_name, "series.txt")
+  if (file.size(series_path) > 0) {
+    series <- data.table::fread(file = series_path)
+    series <- series[c(ind_hour_wm, setdiff(seq_len(nrow(series)), ind_hour_wm))]
+    data.table::fwrite(x = series, file = series_path, sep = "\t", row.names = FALSE, col.names = FALSE)
+  }
+
+  return(invisible())
+}
 
 
