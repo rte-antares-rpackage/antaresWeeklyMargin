@@ -38,9 +38,10 @@ prepro_mod <- fread(file = file.path(inputPath, "thermal", "prepro", aclus, clus
 str(prepro_mod)
 
 c(ind_day_wm, setdiff(seq_len(nrow(prepro_data)), ind_day_wm))
-prepro_data[c(ind_day_wm, setdiff(seq_len(nrow(prepro_data)), ind_day_wm))]
 
 
+prepro_data[setdiff(seq_len(nrow(prepro_data)), ind_day_wm)] <- 0
+prepro_data <- prepro_data[c(ind_day_wm, setdiff(seq_len(nrow(prepro_data)), ind_day_wm))]
 
 series <- fread(file = file.path(inputPath, "thermal", "series", aclus, clus, "series.txt"))
 str(series)
