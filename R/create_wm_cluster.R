@@ -189,9 +189,10 @@ sort_cluster <- function(area, cluster_name, start_wm, start_sim, n_days = 7, fi
   prepro_data_path <- file.path(inputPath, "thermal", "prepro", area, cluster_name, "data.txt")
   if (file.size(prepro_data_path) > 0) {
     prepro_data <- data.table::fread(file = prepro_data_path)
-    if (fill_zero) {
-      prepro_data[setdiff(seq_len(nrow(prepro_data)), ind_day_wm)] <- 0
-    }
+    # if (fill_zero) {
+    #   prepro_data[setdiff(seq_len(nrow(prepro_data)), ind_day_wm)] <- 0
+    # }
+    ind_data <- c(ind_day_wm, rep(tail(ind_day_wm, 1), times = nrow(prepro_data) - length(ind_day_wm)))
     prepro_data <- prepro_data[c(ind_day_wm, setdiff(seq_len(nrow(prepro_data)), ind_day_wm))]
     data.table::fwrite(x = prepro_data, file = prepro_data_path, sep = "\t", row.names = FALSE, col.names = FALSE)
   }
@@ -200,10 +201,11 @@ sort_cluster <- function(area, cluster_name, start_wm, start_sim, n_days = 7, fi
   prepro_modu_path <- file.path(inputPath, "thermal", "prepro", area, cluster_name, "modulation.txt")
   if (file.size(prepro_modu_path) > 0) {
     prepro_modu <- data.table::fread(file = prepro_modu_path)
-    if (fill_zero) {
-      prepro_modu[setdiff(seq_len(nrow(prepro_modu)), ind_hour_wm)] <- 0
-    }
-    prepro_modu <- prepro_modu[c(ind_hour_wm, setdiff(seq_len(nrow(prepro_modu)), ind_hour_wm))]
+    # if (fill_zero) {
+    #   prepro_modu[setdiff(seq_len(nrow(prepro_modu)), ind_hour_wm)] <- 0
+    # }
+    ind_modu <- c(ind_hour_wm, rep(tail(ind_hour_wm, 1), times = nrow(prepro_modu) - length(ind_hour_wm)))
+    prepro_modu <- prepro_modu[ind_modu]
     data.table::fwrite(x = prepro_modu, file = prepro_modu_path, sep = "\t", row.names = FALSE, col.names = FALSE)
   }
 
@@ -214,8 +216,8 @@ sort_cluster <- function(area, cluster_name, start_wm, start_sim, n_days = 7, fi
     # if (fill_zero) {
     #   series[setdiff(seq_len(nrow(series)), ind_hour_wm)] <- 0
     # }
-    ind <- c(ind_hour_wm, rep(ind_hour_wm[length(ind_hour_wm)], times = length(setdiff(seq_len(nrow(series)), ind_hour_wm))))
-    series <- series[ind]
+    ind_series <- c(ind_hour_wm, rep(tail(ind_hour_wm, 1), times = nrow(series) - length(ind_hour_wm)))
+    series <- series[ind_series]
     data.table::fwrite(x = series, file = series_path, sep = "\t", row.names = FALSE, col.names = FALSE)
   }
 
