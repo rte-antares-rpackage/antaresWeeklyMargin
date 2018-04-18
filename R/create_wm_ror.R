@@ -42,8 +42,10 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", opts = antare
   date_fin_fil <- get_previous(endday, date = start)
 
   # Get data
+  cat("Retrieving data from API...")
   fil_eau_ini <- get_hydraulique_fil_de_l_eau_eclusee(from = date_ini_fil, to = date_fin_fil)
   fil_eau_ini[, date := NULL]
+  cat("\rRetrieving data from API - Done!\n")
 
   if (nrow(fil_eau_ini) < 168){
     fill_info_aux <- fil_eau_ini[(nrow(fil_eau_ini) - 24 + 1):nrow(fil_eau_ini), ]
@@ -58,6 +60,7 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", opts = antare
 
   fil_eau_ini[, date_heure := date_heure + 7 * 24 * 60 * 60]
 
+  cat("Writing ROR for fr...")
   forfaits_oa <- copy(data)
 
   hydro_tiers <- forfaits_oa[date_heure >= as.POSIXct(start), c("date_heure","hydraulique_tiers")]
@@ -71,4 +74,5 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", opts = antare
     x = matrix_ror, row.names = FALSE, col.names = FALSE, sep = "\t",
     file = paste0(inputPath, "/hydro/series/fr/ror.txt")
   )
+  cat("\rWriting ROR for fr - Done!\n")
 }

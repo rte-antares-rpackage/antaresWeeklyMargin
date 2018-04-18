@@ -57,6 +57,8 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", opts = antare
 
   for (i in liste_pays){
 
+    cat(sprintf("%s - Writing NTC for %s\n", paste0(round(which(liste_pays == i)/length(liste_pays)*100), "%"), i))
+
     nom_pays <- grep(pattern = toupper(i), x = names(ntc_planet), value = TRUE)
     ntc_pays <- ntc_planet[, .SD, .SDcols = c("date_heure", nom_pays)]
 

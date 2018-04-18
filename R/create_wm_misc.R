@@ -28,6 +28,7 @@
 #' }
 create_wm_misc <- function(data, start = NULL, opts = antaresRead::simOptions()) {
 
+  cat("Writing MISC-GEN for fr...")
   inputPath <- opts$inputPath
 
   if (!is.null(start)) {
@@ -56,6 +57,7 @@ create_wm_misc <- function(data, start = NULL, opts = antaresRead::simOptions())
     x = matrix_misc, row.names = FALSE, col.names = FALSE, sep = "\t",
     file = paste0(inputPath, "/misc-gen/miscgen-fr.txt")
   )
+  cat("\rWriting MISC-GEN for fr - Done!\n")
   return(invisible())
 }
 
