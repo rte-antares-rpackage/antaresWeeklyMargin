@@ -211,10 +211,11 @@ sort_cluster <- function(area, cluster_name, start_wm, start_sim, n_days = 7, fi
   series_path <- file.path(inputPath, "thermal", "series", area, cluster_name, "series.txt")
   if (file.size(series_path) > 0) {
     series <- data.table::fread(file = series_path)
-    if (fill_zero) {
-      series[setdiff(seq_len(nrow(series)), ind_hour_wm)] <- 0
-    }
-    series <- series[c(ind_hour_wm, setdiff(seq_len(nrow(series)), ind_hour_wm))]
+    # if (fill_zero) {
+    #   series[setdiff(seq_len(nrow(series)), ind_hour_wm)] <- 0
+    # }
+    ind <- c(ind_hour_wm, rep(ind_hour_wm[length(ind_hour_wm)], times = length(setdiff(seq_len(nrow(series)), ind_hour_wm))))
+    series <- series[ind]
     data.table::fwrite(x = series, file = series_path, sep = "\t", row.names = FALSE, col.names = FALSE)
   }
 
