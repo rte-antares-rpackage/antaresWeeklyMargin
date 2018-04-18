@@ -193,7 +193,7 @@ sort_cluster <- function(area, cluster_name, start_wm, start_sim, n_days = 7, fi
     #   prepro_data[setdiff(seq_len(nrow(prepro_data)), ind_day_wm)] <- 0
     # }
     ind_data <- c(ind_day_wm, rep(tail(ind_day_wm, 1), times = nrow(prepro_data) - length(ind_day_wm)))
-    prepro_data <- prepro_data[c(ind_day_wm, setdiff(seq_len(nrow(prepro_data)), ind_day_wm))]
+    prepro_data <- prepro_data[ind_data]
     data.table::fwrite(x = prepro_data, file = prepro_data_path, sep = "\t", row.names = FALSE, col.names = FALSE)
   }
 

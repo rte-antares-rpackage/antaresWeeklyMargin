@@ -33,6 +33,8 @@ ind_hour_wm <- seq(from = ind_hour_wm, length.out = 14*24, by = 1)
 
 prepro_data <- fread(file = file.path(inputPath, "thermal", "prepro", aclus, clus, "data.txt"))
 str(prepro_data)
+ind_data <- c(ind_day_wm, rep(tail(ind_day_wm, 1), times = nrow(prepro_data) - length(ind_day_wm)))
+prepro_data <- prepro_data[ind_data]
 
 prepro_mod <- fread(file = file.path(inputPath, "thermal", "prepro", aclus, clus, "modulation.txt"))
 str(prepro_mod)

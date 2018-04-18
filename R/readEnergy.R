@@ -8,7 +8,7 @@
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
 #'
-#' @return
+#' @return a \code{data.table}
 #' @export
 #'
 #' @importFrom antaresRead getAreas

@@ -15,6 +15,9 @@ readEnergy(area, timeStep = "daily", opts = antaresRead::simOptions())
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}
 }
+\value{
+a \code{data.table}
+}
 \description{
 Read energy data for an area
 }
