@@ -203,7 +203,7 @@ sort_cluster <- function(area, cluster_name, start_wm, start_sim, n_days = 7, fi
     if (fill_zero) {
       prepro_modu[setdiff(seq_len(nrow(prepro_modu)), ind_hour_wm)] <- 0
     }
-    prepro_modu <- prepro_data[c(ind_hour_wm, setdiff(seq_len(nrow(prepro_modu)), ind_hour_wm))]
+    prepro_modu <- prepro_modu[c(ind_hour_wm, setdiff(seq_len(nrow(prepro_modu)), ind_hour_wm))]
     data.table::fwrite(x = prepro_modu, file = prepro_modu_path, sep = "\t", row.names = FALSE, col.names = FALSE)
   }
 
