@@ -161,7 +161,12 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
     }
   }
 
-  return(invisible(clusdata))
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+
+  invisible(res)
 }
 
 
@@ -184,7 +189,7 @@ sort_cluster <- function(area, cluster_name, start_wm, start_sim, n_days = 7, fi
   # Indice data hourly
   ind_hour_wm <- difftime(time1 = start_wm, time2 = start_sim, units = "hours")
   ind_hour_wm <- as.numeric(ind_hour_wm)
-  ind_hour_wm <- seq(from = ind_hour_wm, length.out = n_days*24, by = 1)
+  ind_hour_wm <- seq(from = ind_hour_wm, length.out = n_days*24, by = 1) + 1
 
   # Prepro data
   prepro_data_path <- file.path(inputPath, "thermal", "prepro", area, cluster_name, "data.txt")

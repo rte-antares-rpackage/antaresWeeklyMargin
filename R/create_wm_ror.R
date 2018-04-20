@@ -106,7 +106,7 @@ reorder_hourly <- function(path, start_wm, start_sim, n_days = 7) {
   # Indice data hourly
   ind_hour_wm <- difftime(time1 = start_wm, time2 = start_sim, units = "hours")
   ind_hour_wm <- as.numeric(ind_hour_wm)
-  ind_hour_wm <- seq(from = ind_hour_wm, length.out = n_days*24, by = 1)
+  ind_hour_wm <- seq(from = ind_hour_wm, length.out = n_days*24, by = 1) + 1
 
   if (file.size(path) > 0) {
     data_ <- data.table::fread(file = path)
