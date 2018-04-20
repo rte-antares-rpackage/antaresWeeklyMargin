@@ -4,12 +4,15 @@
 \alias{create_wm_misc}
 \title{Create Misc-gen for Weekly Margins simulation}
 \usage{
-create_wm_misc(data, start = NULL, opts = antaresRead::simOptions())
+create_wm_misc(data, start = NULL, sort_misc = TRUE,
+  opts = antaresRead::simOptions())
 }
 \arguments{
 \item{data}{a \code{data.table} obtained from \code{\link{read_forfait_oa}}.}
 
 \item{start}{If specified, data will be filtered from given date to 7 days after.}
+
+\item{sort_misc}{Reorder other misc data to match the desired week.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

@@ -78,8 +78,7 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = 
   cat("\rWriting ROR for fr - Done!\n")
 
   if (sort_areas) {
-    areas <- getAreas()
-    areas <- setdiff(areas, "fr")
+    areas <- getAreas(exclude = "fr")
     for (a in areas) {
       cat(sprintf("\rReordering ROR for %s...", a))
       reorder_hourly(

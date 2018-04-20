@@ -3,6 +3,7 @@
 #'
 #' @param data a \code{data.table} obtained from \code{\link{read_forfait_oa}}.
 #' @param start If specified, data will be filtered from given date to 7 days after.
+#' @param sort_misc Reorder other misc data to match the desired week.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -10,7 +11,7 @@
 #' @export
 #'
 #' @importFrom data.table copy as.data.table := setnames
-#' @importFrom antaresRead simOptions
+#' @importFrom antaresRead simOptions getAreas
 #' @importFrom utils write.table
 #'
 #' @examples
@@ -26,7 +27,7 @@
 #' create_wm_misc(data = oa, start = "2018-01-04")
 #'
 #' }
-create_wm_misc <- function(data, start = NULL, opts = antaresRead::simOptions()) {
+create_wm_misc <- function(data, start = NULL, sort_misc = TRUE, opts = antaresRead::simOptions()) {
 
   cat("Writing MISC-GEN for fr...")
   inputPath <- opts$inputPath
@@ -58,6 +59,22 @@ create_wm_misc <- function(data, start = NULL, opts = antaresRead::simOptions())
     file = paste0(inputPath, "/misc-gen/miscgen-fr.txt")
   )
   cat("\rWriting MISC-GEN for fr - Done!\n")
+
+
+  if (sort_misc) {
+    areas <- getAreas(exclude = "fr")
+    for (a in areas) {
+      cat(format(sprintf("\rReordering %s misc...", a), width = getOption("width")))
+      reorder_hourly(
+        path = file.path(inputPath, "misc-gen", sprintf("miscgen-%s.txt", a)),
+        start_wm = start,
+        start_sim = opts$start
+      )
+    }
+    cat("\nReordering Misc - Done!\n")
+  }
+
+
   return(invisible())
 }
 
