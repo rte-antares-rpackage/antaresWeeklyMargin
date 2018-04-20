@@ -5,6 +5,7 @@
 #' @param start Starting day of the simulation, data between previous \code{startday}
 #'  and next \code{startday}-1, by default between \code{samedi} and \code{vendredi}.
 #' @param startday Day of week to start simulation.
+#' @param sort_areas Reorder other ROR data to match the desired week.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -12,7 +13,7 @@
 #' @export
 #'
 #' @importFrom data.table copy as.data.table := setnames
-#' @importFrom antaresRead simOptions
+#' @importFrom antaresRead simOptions getAreas
 #' @importFrom utils write.table
 #'
 #' @examples
@@ -28,7 +29,7 @@
 #' create_wm_ror(data = oa, start = "2018-01-04")
 #'
 #' }
-create_wm_ror <- function(data, start = NULL, startday = "samedi", opts = antaresRead::simOptions()) {
+create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = TRUE, opts = antaresRead::simOptions()) {
 
   inputPath <- opts$inputPath
 
@@ -75,4 +76,49 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", opts = antare
     file = paste0(inputPath, "/hydro/series/fr/ror.txt")
   )
   cat("\rWriting ROR for fr - Done!\n")
+
+  if (sort_areas) {
+    areas <- getAreas()
+    areas <- setdiff(areas, "fr")
+    for (a in areas) {
+      cat(sprintf("\rReordering ROR for %s...", a))
+      reorder_hourly(
+        path = file.path(inputPath, "hydro", "series", a, "ror.txt"),
+        start_wm = start,
+        start_sim = opts$start
+      )
+    }
+    cat("\rReordering ROR - Done!\n")
+  }
 }
+
+
+#' @importFrom data.table fread fwrite
+reorder_hourly <- function(path, start_wm, start_sim, n_days = 7) {
+
+  if (!file.exists(path)) {
+    warning("Invalid path: ", path)
+    return(invisible())
+  }
+
+  start_wm <- as.Date(start_wm)
+  start_sim <- as.Date(as.character(start_sim))
+
+  # Indice data hourly
+  ind_hour_wm <- difftime(time1 = start_wm, time2 = start_sim, units = "hours")
+  ind_hour_wm <- as.numeric(ind_hour_wm)
+  ind_hour_wm <- seq(from = ind_hour_wm, length.out = n_days*24, by = 1)
+
+  if (file.size(path) > 0) {
+    data_ <- data.table::fread(file = path)
+    # if (fill_zero) {
+    #   data_[setdiff(seq_len(nrow(data_)), ind_hour_wm)] <- 0
+    # }
+    ind_data <- c(ind_hour_wm, rep(tail(ind_hour_wm, 1), times = nrow(data_) - length(ind_hour_wm)))
+    data_ <- data_[ind_data]
+    data.table::fwrite(x = data_, file = path, sep = "\t", row.names = FALSE, col.names = FALSE)
+  }
+}
+
+
+

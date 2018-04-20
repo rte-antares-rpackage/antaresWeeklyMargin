@@ -6,6 +6,7 @@
 #' @param start Starting day of the simulation, data between previous \code{startday}
 #'  and next \code{startday}-1, by default between \code{samedi} and \code{vendredi}.
 #' @param startday Day of week to start simulation.
+#' @param sort_links Reorder other links to match the desired week.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -13,7 +14,7 @@
 #' @export
 #'
 #' @importFrom data.table copy as.data.table := setnames
-#' @importFrom antaresRead simOptions
+#' @importFrom antaresRead simOptions getLinks
 #' @importFrom utils write.table
 #'
 #' @examples
@@ -29,7 +30,7 @@
 #' create_wm_ntc(ntc, start = "2018-01-04")
 #'
 #' }
-create_wm_ntc <- function(data, start = NULL, startday = "samedi", opts = antaresRead::simOptions()) {
+create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = TRUE, opts = antaresRead::simOptions()) {
 
   inputPath <- opts$inputPath
 
@@ -91,4 +92,21 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", opts = antare
     }
 
   }
+
+  if (sort_links) {
+    others_links <- as.character(getLinks(exclude = "fr"))
+    others_links <- strsplit(x = others_links, split = " - ")
+    for (i in seq_along(others_links)) {
+      area1 <- others_links[[i]][1]
+      area2 <- others_links[[i]][2]
+      cat(format(sprintf("\rReordering %s - %s link...", area1, area2), width = getOption("width")))
+      reorder_hourly(
+        path = file.path(inputPath, "links", area1, paste0(area2, ".txt")),
+        start_wm = start,
+        start_sim = opts$start
+      )
+    }
+    cat("\nReordering Links - Done!\n")
+  }
+
 }

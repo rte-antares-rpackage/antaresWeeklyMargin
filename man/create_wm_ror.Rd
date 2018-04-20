@@ -4,7 +4,7 @@
 \alias{create_wm_ror}
 \title{Create ROR for Weekly Margins simulation}
 \usage{
-create_wm_ror(data, start = NULL, startday = "samedi",
+create_wm_ror(data, start = NULL, startday = "samedi", sort_areas = TRUE,
   opts = antaresRead::simOptions())
 }
 \arguments{
@@ -14,6 +14,8 @@ create_wm_ror(data, start = NULL, startday = "samedi",
 and next \code{startday}-1, by default between \code{samedi} and \code{vendredi}.}
 
 \item{startday}{Day of week to start simulation.}
+
+\item{sort_areas}{Reorder other ROR data to match the desired week.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}
