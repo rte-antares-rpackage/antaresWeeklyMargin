@@ -4,12 +4,15 @@
 \alias{create_wm_ts}
 \title{Create load, wind & soloar time series for Weekly Margins simulation}
 \usage{
-create_wm_ts(data, start = NULL, opts = antaresRead::simOptions())
+create_wm_ts(data, start = NULL, sort_ts = TRUE,
+  opts = antaresRead::simOptions())
 }
 \arguments{
 \item{data}{a \code{data.table} obtained from \code{\link{read_meteologica2}}.}
 
 \item{start}{If specified, data will be filtered from given date to 7 days after.}
+
+\item{sort_ts}{Reorder other time series data to match the desired week.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

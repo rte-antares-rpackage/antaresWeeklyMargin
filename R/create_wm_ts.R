@@ -3,6 +3,7 @@
 #'
 #' @param data a \code{data.table} obtained from \code{\link{read_meteologica2}}.
 #' @param start If specified, data will be filtered from given date to 7 days after.
+#' @param sort_ts Reorder other time series data to match the desired week.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -26,7 +27,7 @@
 #' create_wm_ts(data = formet, start = "2018-04-01", opts = opts)
 #'
 #' }
-create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
+create_wm_ts <- function(data, start = NULL, sort_ts = TRUE, opts = antaresRead::simOptions()) {
 
   inputPath <- opts$inputPath
 
@@ -123,6 +124,27 @@ create_wm_ts <- function(data, start = NULL, opts = antaresRead::simOptions()) {
     } else {
       data.table::fwrite(x = empty, file = path_solar, sep = "\t", row.names = FALSE, col.names = FALSE)
     }
+  }
+
+  if (sort_ts) {
+    others_ts <- list(
+      list(ts = "load", area = "lu_de"),
+      list(ts = "solar", area = "lu_de"),
+      list(ts = "wind", area = "lu_de"),
+      list(ts = "wind", area = "ch"),
+      list(ts = "solar", area = "ie"),
+      list(ts = "solar", area = "ni")
+    )
+    for (i in seq_along(others_ts)) {
+      other_ts <- others_ts[[i]]
+      cat(sprintf("\rReordering %s for %s...", other_ts$ts, other_ts$area))
+      reorder_hourly(
+        path = file.path(inputPath, other_ts$ts, "series", sprintf("%s_%s.txt", other_ts$ts, other_ts$area)),
+        start_wm = start,
+        start_sim = opts$start
+      )
+    }
+    cat("\rReordering time series - Done!\n")
   }
 
   return(invisible())
