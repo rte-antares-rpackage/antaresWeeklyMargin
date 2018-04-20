@@ -170,6 +170,7 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
 
 # Change rows order in cluster data
 #' @importFrom data.table fread fwrite
+#' @importFrom utils tail
 sort_cluster <- function(area, cluster_name, start_wm, start_sim, n_days = 7, fill_zero = TRUE, inputPath) {
 
   start_wm <- as.Date(start_wm)

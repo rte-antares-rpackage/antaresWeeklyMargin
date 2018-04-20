@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @importFrom antaresRead getAreas
-#' @importFrom data.table data.table fread setcolorder
+#' @importFrom data.table data.table fread setcolorder first
 #' @importFrom zoo na.locf
 #'
 #' @examples
@@ -41,7 +41,7 @@ readEnergy <- function(area, timeStep = "daily", opts = antaresRead::simOptions(
   if (!file.exists(path) || file.size(path) == 0) {
     energy <- data.table::data.table(matrix(rep(0, 5*12), ncol = 5, dimnames = list(NULL, vars)))
   } else {
-    energy <- data.table::fread(input = path, col.names = vars)
+    energy <- data.table::fread(input = path, col.names = vars, colClasses = "numeric")
   }
   full_year <- data.table(
     date = seq.Date(from = as.Date(opts$start), by = "day", length.out = 364)
@@ -53,13 +53,12 @@ readEnergy <- function(area, timeStep = "daily", opts = antaresRead::simOptions(
     return(energy)
   }
   energy <- merge(x = full_year, y = energy, by = "date", all.x = TRUE)
-  # energy[, n := .N, by = format(date, format = "%Y%m")]
   energy <- energy[, (vars) := lapply(.SD, function(x) {
     zoo::na.locf(x) / .N
   }), by = format(date, format = "%Y%m"), .SDcols = vars]
   energy <- energy[, timeId := rep(seq_len(52), each = 7)]
   if (timeStep == "weekly") {
-    energy <- energy[, lapply(.SD, sum), by = timeId, .SDcols = vars]
+    energy <- energy[, c(list(date = first(date)), lapply(.SD, sum)), by = timeId, .SDcols = vars]
   }
   # energy[, n := NULL]
   energy
