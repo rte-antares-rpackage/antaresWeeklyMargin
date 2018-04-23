@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_wm_hydro_fr.R
 \name{create_wm_hydro_fr}
 \alias{create_wm_hydro_fr}
-\title{Create Hydro setup for Weekly Margins simulation}
+\title{Create FR Hydro setup for Weekly Margins simulation}
 \usage{
 create_wm_hydro_fr(path_capa_hydro, path_hydro, start,
   opts = antaresRead::simOptions())
@@ -18,7 +18,7 @@ create_wm_hydro_fr(path_capa_hydro, path_hydro, start,
 \code{antaresRead::setSimulationPath}}
 }
 \description{
-Create Hydro setup for Weekly Margins simulation
+Create FR Hydro setup for Weekly Margins simulation
 }
 \examples{
 \dontrun{

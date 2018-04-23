@@ -1,6 +1,6 @@
 
 
-#' Create Hydro setup for Weekly Margins simulation
+#' Create FR Hydro setup for Weekly Margins simulation
 #'
 #' @param path_capa_hydro Path to hydro capacities CSV file.
 #' @param path_hydro Path to hydro usine XML file.
@@ -15,6 +15,7 @@
 #'  createBindingConstraint removeBindingConstraint propertiesLinkOptions
 #' @importFrom antaresRead getAreas readBindingConstraints
 #' @importFrom data.table fread fwrite as.data.table
+#' @importFrom utils write.table
 #'
 #' @examples
 #' \dontrun{
@@ -227,7 +228,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start, opts = antare
 
   matrix_null <- NULL
 
-  fwrite(
+  write.table(
     x = matrix_null,
     row.names = FALSE,
     col.names = FALSE,
@@ -235,7 +236,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start, opts = antare
     file = file.path(inputPath, "/hydro/common/capacity/maxpower_fr.txt")
   )
 
-  fwrite(
+  write.table(
     x = matrix_null,
     row.names = FALSE,
     col.names = FALSE,
@@ -243,7 +244,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start, opts = antare
     file = file.path(inputPath, "/hydro/prepro/fr/energy.txt")
   )
 
-  fwrite(
+  write.table(
     x = matrix_null,
     row.names = FALSE,
     col.names = FALSE,
