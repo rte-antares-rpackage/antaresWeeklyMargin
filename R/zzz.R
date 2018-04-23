@@ -12,4 +12,5 @@ utils::globalVariables(c(".SD", ".I", ".N", "groupe", "code_groupe",
                          "country", "type",
                          "CHP", "Other", "Waste", "cogeneration_continue", "cogeneration_mdse_dispatchable_",
                          "file_name", "tz", "timeId",
-                         "Total_fil_eau", "file_name", "hydraulique_fil_eau_eclusee", "hydraulique_tiers"))
+                         "Total_fil_eau", "file_name", "hydraulique_fil_eau_eclusee", "hydraulique_tiers",
+                         "groupe_hydro", "selection"))
