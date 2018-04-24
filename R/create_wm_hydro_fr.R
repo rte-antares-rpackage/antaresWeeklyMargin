@@ -5,6 +5,7 @@
 #' @param path_capa_hydro Path to hydro capacities CSV file.
 #' @param path_hydro Path to hydro usine XML file.
 #' @param start Starting date of simulation.
+#' @param dispo_pump Pumpage availability.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -23,13 +24,15 @@
 #' # todo
 #'
 #' }
-create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start, opts = antaresRead::simOptions()) {
+create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
+                               dispo_pump = c(3200, 3200, 3020, 2860, 3020, 3180, 3180),
+                               opts = antaresRead::simOptions()) {
 
   #date_i = date de debut de la semaine a etudier
   date_i <- as.Date(start)
   date_f <- date_i + 6
 
-  dispo_pump_d <- c(3200, 3200, 3020, 2860, 3020, 3180, 3180)
+  # dispo_pump <- c(3200, 3200, 3020, 2860, 3020, 3180, 3180)
 
   # input path
   inputPath <- opts$inputPath
@@ -119,13 +122,13 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start, opts = antare
 
   # On modifie les liens STEP pump_d, on considere la capa_max du pompage comme la dispo max pendant la nuit
   matrix_ntc_pump_d <- as.data.table(matrix(data = c(rep(0, 8760*5)), ncol = 5))
-  matrix_ntc_pump_d[1:168,1] <- as.data.table(matrix(data = c(rep(dispo_pump_d[1],24),
-                                                              rep(dispo_pump_d[2],24),
-                                                              rep(dispo_pump_d[3],24),
-                                                              rep(dispo_pump_d[4],24),
-                                                              rep(dispo_pump_d[5],24),
-                                                              rep(dispo_pump_d[6],24),
-                                                              rep(dispo_pump_d[7],24)), ncol = 1))
+  matrix_ntc_pump_d[1:168,1] <- as.data.table(matrix(data = c(rep(dispo_pump[1],24),
+                                                              rep(dispo_pump[2],24),
+                                                              rep(dispo_pump[3],24),
+                                                              rep(dispo_pump[4],24),
+                                                              rep(dispo_pump[5],24),
+                                                              rep(dispo_pump[6],24),
+                                                              rep(dispo_pump[7],24)), ncol = 1))
 
   fwrite(
     x = matrix_ntc_pump_d,

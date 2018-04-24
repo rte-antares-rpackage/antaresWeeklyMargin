@@ -4,10 +4,17 @@
 \alias{create_wm_hydro_areas}
 \title{Create Others Areas Hydro setup for Weekly Margins simulation}
 \usage{
-create_wm_hydro_areas(start, opts = antaresRead::simOptions())
+create_wm_hydro_areas(start, areas = c("at", "be", "ch", "es", "gb", "ie",
+  "it", "pt", "de"), simulation_source = "PDH 2017-2018 - Copie/",
+  opts = antaresRead::simOptions())
 }
 \arguments{
 \item{start}{Starting date of simulation.}
+
+\item{areas}{Concerned areas, default to: \code{'at'}, \code{'be'}, \code{'ch'},
+\code{'es'}, \code{'gb'}, \code{'ie'}, \code{'it'}, \code{'pt'}, \code{'de'}.}
+
+\item{simulation_source}{Path to source simulation.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

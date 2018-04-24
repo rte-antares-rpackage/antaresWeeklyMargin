@@ -2,6 +2,8 @@
 #' Create Others Areas Hydro setup for Weekly Margins simulation
 #'
 #' @param start Starting date of simulation.
+#' @param areas Concerned areas, default to: \code{'at'}, \code{'be'}, \code{'ch'},
+#'  \code{'es'}, \code{'gb'}, \code{'ie'}, \code{'it'}, \code{'pt'}, \code{'de'}.
 #' @param simulation_source Path to source simulation.
 #' @param opts
 #'   List of simulation parameters returned by the function
@@ -20,7 +22,10 @@
 #' # todo
 #'
 #' }
-create_wm_hydro_areas <- function(start, simulation_source = "PDH 2017-2018 - Copie/", opts = antaresRead::simOptions()) {
+create_wm_hydro_areas <- function(start,
+                                  areas = c("at", "be", "ch", "es", "gb", "ie", "it", "pt", "de"),
+                                  simulation_source = "PDH 2017-2018 - Copie/",
+                                  opts = antaresRead::simOptions()) {
 
   inputPath <- opts$inputPath
 
@@ -30,8 +35,6 @@ create_wm_hydro_areas <- function(start, simulation_source = "PDH 2017-2018 - Co
   date_i <- as.Date(start)
   date_f <- date_i + 7
 
-  areas <- c("at","be","ch","es","gb","ie","it","pt")
-  # areas <- c("de")
 
   max_lac <- 0
 
