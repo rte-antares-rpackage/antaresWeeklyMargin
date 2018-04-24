@@ -2,6 +2,7 @@
 #' Create Others Areas Hydro setup for Weekly Margins simulation
 #'
 #' @param start Starting date of simulation.
+#' @param simulation_source Path to source simulation.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -19,11 +20,11 @@
 #' # todo
 #'
 #' }
-create_wm_hydro_areas <- function(start, opts = antaresRead::simOptions()) {
+create_wm_hydro_areas <- function(start, simulation_source = "PDH 2017-2018 - Copie/", opts = antaresRead::simOptions()) {
 
   inputPath <- opts$inputPath
 
-  input_pdh <- antaresRead::setSimulationPath(path = "PDH 2017-2018 - Copie/", simulation = "input")
+  input_pdh <- antaresRead::setSimulationPath(path = simulation_source, simulation = "input")
 
   #date_i = date de debut de la semaine a etudier
   date_i <- as.Date(start)
