@@ -39,15 +39,15 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
 
   if (!"lac" %in% antaresRead::getAreas()){
     opts <- createArea(name = "lac", overwrite = TRUE, opts = opts)
-    cat("Creating a new area called lac")
+    cat("Creating a new area called lac\n")
   }
 
-  #CAPACITE MAX DU LAC+TURB?
+  # CAPACITE MAX DU LAC+TURB?
   capa_hydro <- fread(file = path_capa_hydro)
   capa_max_hydro <- sum(capa_hydro$PValleeMobilisable, na.rm= TRUE)
 
   #####
-  #Creer un cluster "lac_groupe" avec capacite nominale egal a la capacite maximale du lac+turbinage
+  # Creer un cluster "lac_groupe" avec capacite nominale egal a la capacite maximale du lac+turbinage
 
   opts <- createCluster(
     area = "lac",
@@ -80,7 +80,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
   # La capacite des liens est defini par le max a turbiner pendant les heures de pointe
 
   matrix_ntc_lac <- as.data.table(matrix(data = c(rep(0, 8760*5)), ncol = 5))
-  matrix_ntc_lac[1:168, 2] <- c(rep(capa_max_hydro, 168*1), ncol = 1)
+  matrix_ntc_lac[1:168, 2] <- rep(capa_max_hydro, 168*1)
 
   fwrite(
     x = matrix_ntc_lac, row.names = FALSE, col.names = FALSE, sep = "\t",
@@ -122,7 +122,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
 
   # On modifie les liens STEP pump_d, on considere la capa_max du pompage comme la dispo max pendant la nuit
   matrix_ntc_pump_d <- as.data.table(matrix(data = c(rep(0, 8760*5)), ncol = 5))
-  matrix_ntc_pump_d[1:168,1] <- as.data.table(matrix(data = c(rep(dispo_pump[1],24),
+  matrix_ntc_pump_d[1:168, 1] <- as.data.table(matrix(data = c(rep(dispo_pump[1],24),
                                                               rep(dispo_pump[2],24),
                                                               rep(dispo_pump[3],24),
                                                               rep(dispo_pump[4],24),
@@ -166,16 +166,16 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
   turb_day$puis <- turb_day$puis*2
   lac_day$puis <- lac_day$puis*2
 
-  pump_week <- round(sum(pump_day[date >= date_i & date  <= date_f, ]$puis) * -1,2)
-  turb_week <- round(sum(turb_day[date >= date_i & date  <= date_f, ]$puis), 2)
-  lac_week <- round(sum(lac_day[date >= date_i & date  <= date_f, ]$puis), 2)
+  pump_week <- round(sum(pump_day[date >= date_i & date <= date_f, ]$puis) * -1,2)
+  turb_week <- round(sum(turb_day[date >= date_i & date <= date_f, ]$puis), 2)
+  lac_week <- round(sum(lac_day[date >= date_i & date <= date_f, ]$puis), 2)
 
-  equal_lac <- as.data.table(matrix(0, ncol=1, nrow=366))
-  equal_lac[1:7] <- rep(round((lac_week+turb_week)/7,2),7)
+  equal_lac <- as.data.table(matrix(0, ncol = 1, nrow = 366))
+  equal_lac[1:7] <- rep(round((lac_week + turb_week)/7, 2), 7)
   names(equal_lac) <- "equal"
 
-  equal_pump <- as.data.table(matrix(0, ncol=1, nrow=366))
-  equal_pump[1:7] <- rep(round((pump_week)/7,2),7)
+  equal_pump <- as.data.table(matrix(0, ncol = 1, nrow = 366))
+  equal_pump[1:7] <- rep(round((pump_week)/7, 2), 7)
   names(equal_pump) <- "equal"
 
 

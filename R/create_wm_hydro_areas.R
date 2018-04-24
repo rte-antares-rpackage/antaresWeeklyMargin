@@ -108,7 +108,7 @@ create_wm_hydro_areas <- function(start,
 
   print(max_lac)
   # Changement de nominal capacity du lac_generator
-  if (nrow(readClusterDesc(opts = opts)[area == "lac",]) != 0 ) {
+  if (nrow(readClusterDesc(opts = opts)[area == "lac", ]) != 0 ) {
     cluster_lac <- readClusterDesc(opts = opts)[area == "lac", ]
     capa_lac_fr <- cluster_lac$nominalcapacity
 
@@ -143,15 +143,15 @@ create_wm_hydro_areas <- function(start,
     energy_lac <- energy_lac[date >= date_i & date < date_f]$expectation
 
     #calcul de l'energie a turbiner par semaine par le reservoir lac (*1000 parce que les donnees sont en GWh)
-    equal_lac <- as.data.table(matrix(0, ncol=1, nrow=366))
-    equal_lac[1:7] <- round(energy_lac*1000,2)
+    equal_lac <- as.data.table(matrix(0, ncol = 1, nrow = 366))
+    equal_lac[1:7] <- round(energy_lac*1000, 2)
     names(equal_lac) <- "equal"
 
     namesbc <- names(readBindingConstraints(opts = opts))
 
     nom_bc <- paste0(i, "_lac_energie_hebdo")
 
-    if (!paste0(i, "_lac_energie_hebdo") %in% namesbc){
+    if (!paste0(i, "_lac_energie_hebdo") %in% namesbc) {
       if (i < "lac"){
         createBindingConstraint(
           name = nom_bc,
