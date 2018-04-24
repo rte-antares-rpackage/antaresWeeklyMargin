@@ -7,12 +7,12 @@
 #' @export
 #'
 #' @importFrom utils read.table
-#' @importFrom data.table rbindlist
+#' @importFrom data.table rbindlist setnames setcolorder := copy
 #'
 #' @examples
 #' \dontrun{
 #'
-#' #  todo
+#' ntc <- read_ntc(path = "inputs/ntc_transparency")
 #'
 #' }
 read_ntc <- function(path) {
@@ -28,7 +28,12 @@ read_ntc <- function(path) {
   )
   res <- rbindlist(res, fill = TRUE)
   res$X. <- NULL
-  setnames(x = res, old = names(res), new = tolower(names(res)))
+  vars <- copy(names(res))
+  setnames(x = res, old = vars, new = tolower(vars))
+  res[, date := as.Date(substr(datetime, 1, 10))]
   res[, datetime := as.POSIXct(datetime)]
+  vars <- tolower(vars)
+  vars_order <- append(x = vars, values = "date", after = which(vars == "datetime"))
+  setcolorder(x = res, neworder = vars_order)
   return(res)
 }

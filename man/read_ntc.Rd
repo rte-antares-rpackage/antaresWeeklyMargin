@@ -18,7 +18,7 @@ read NTC files
 \examples{
 \dontrun{
 
-#  todo
+ntc <- read_ntc(path = "inputs/ntc_transparency")
 
 }
 }
