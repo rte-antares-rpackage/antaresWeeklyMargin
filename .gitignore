@@ -5,3 +5,4 @@
 .Ruserdata
 *.Rproj
 test_case/
+test_output/

@@ -37,8 +37,10 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
   if (!is.null(start)) {
     start <- as.Date(start)
     data <- copy(data)
-    data <- data[as.Date(datetime, tz = "Europe/Paris") >= start]
-    data <- data[as.Date(datetime) < start + 7]
+    # data <- data[as.Date(datetime, tz = "Europe/Paris") >= start]
+    # data <- data[as.Date(datetime) < start + 7]
+    data <- data[format(datetime, format = "%Y-%m-%d") >= format(start)]
+    data <- data[format(datetime, format = "%Y-%m-%d") < format(start + 7)]
   }
 
   n_168 <- data[, .N, by = code_groupe]
@@ -123,6 +125,7 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
   tryCreateCluster <- function(args) {
     # Sys.sleep(0.1)
     # try(stop("erreur"), silent = TRUE)
+    args <- args[!duplicated(names(args))]
     try(do.call(createCluster, args), silent = TRUE)
   }
 

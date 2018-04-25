@@ -71,7 +71,7 @@ create_wm_misc <- function(data, start = NULL, sort_misc = TRUE, opts = antaresR
         start_sim = opts$start
       )
     }
-    cat("\nReordering Misc - Done!\n")
+    cat(format("\nReordering Misc - Done!\n", width = getOption("width")))
   }
 
 

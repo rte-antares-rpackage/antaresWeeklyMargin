@@ -80,14 +80,14 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = 
   if (sort_areas) {
     areas <- getAreas(exclude = "fr")
     for (a in areas) {
-      cat(sprintf("\rReordering ROR for %s...", a))
+      cat(format(sprintf("\rReordering ROR for %s...", a), width = getOption("width")))
       reorder_hourly(
         path = file.path(inputPath, "hydro", "series", a, "ror.txt"),
         start_wm = start,
         start_sim = opts$start
       )
     }
-    cat("\rReordering ROR - Done!\n")
+    cat(format("\rReordering ROR - Done!\n", width = getOption("width")))
   }
 }
 

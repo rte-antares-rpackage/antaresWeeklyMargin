@@ -55,7 +55,8 @@ create_wm_hydro_areas <- function(start,
 
   # Configuration des liens areas/lac
   for (i in areas) {
-    print(i)
+    # print(i)
+    cat(format(sprintf("Creating links for %s...\n", i), width = getOption("width")))
     links_etude <- antaresRead::getLinks(opts = opts)
 
     if (paste0(i, " - lac") %in% links_etude ||  paste0("lac - ", i) %in% links_etude) {
@@ -106,7 +107,7 @@ create_wm_hydro_areas <- function(start,
     max_lac <- max_lac_area + max_lac
   }
 
-  print(max_lac)
+  # print(max_lac)
   # Changement de nominal capacity du lac_generator
   if (nrow(readClusterDesc(opts = opts)[area == "lac", ]) != 0 ) {
     cluster_lac <- readClusterDesc(opts = opts)[area == "lac", ]
@@ -114,8 +115,8 @@ create_wm_hydro_areas <- function(start,
 
     # Test avec capa_lac_autres qui reste a determiner
 
-    capa_cluster_lac <- capa_lac_fr+max_lac
-    print(capa_cluster_lac)
+    capa_cluster_lac <- capa_lac_fr + max_lac
+    # print(capa_cluster_lac)
 
     opts <- createCluster(
       area = "lac",
@@ -137,7 +138,8 @@ create_wm_hydro_areas <- function(start,
   # Creation des binding constraints pour l'energie turbine par le noeud lac
 
   for (i in areas) {
-    print(i)
+    # print(i)
+    cat(format(sprintf("Creating binding constraints for %s...\n", i), width = getOption("width")))
 
     energy_lac <- readEnergy(area = i, opts = input_pdh)
     energy_lac <- energy_lac[date >= date_i & date < date_f]$expectation
@@ -175,10 +177,11 @@ create_wm_hydro_areas <- function(start,
       }
     }
 
-    print(i)
+    # print(i)
+    cat(format(sprintf("Reset hydro storage for %s...\n", i), width = getOption("width")))
     # antaresWaterValues::resetHydroStorage(i, opts = opts)
     matrix_null <- NULL
-    print("reset hydro storage")
+    # print("reset hydro storage")
 
     write.table(
       x = matrix_null,
