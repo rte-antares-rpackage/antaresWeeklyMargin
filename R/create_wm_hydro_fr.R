@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @importFrom antaresEditObject createArea createCluster createLink
-#'  createBindingConstraint removeBindingConstraint propertiesLinkOptions
+#'  createBindingConstraint removeBindingConstraint propertiesLinkOptions editCluster
 #' @importFrom antaresRead getAreas readBindingConstraints
 #' @importFrom data.table fread fwrite as.data.table
 #' @importFrom utils write.table
@@ -37,7 +37,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
   # input path
   inputPath <- opts$inputPath
 
-  if (!"lac" %in% antaresRead::getAreas()){
+  if (!"lac" %in% antaresRead::getAreas(opts = opts)){
     opts <- createArea(name = "lac", overwrite = TRUE, opts = opts)
     cat("Creating a new area called lac\n")
   }
@@ -49,19 +49,27 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
   #####
   # Creer un cluster "lac_groupe" avec capacite nominale egal a la capacite maximale du lac+turbinage
 
-  opts <- createCluster(
-    area = "lac",
-    cluster_name = "generator",
-    group = "other",
-    unitcount = 1L,
-    nominalcapacity = capa_max_hydro,
-    `min-down-time` = 1L,
-    `marginal-cost` = 0.010000,
-    `market-bid-cost` = 0.010000,
-    overwrite = TRUE,
-    opts = opts
-  )
-
+  if (nrow(readClusterDesc(opts = opts)[area == "lac", ]) == 0) {
+    opts <- createCluster(
+      area = "lac",
+      cluster_name = "generator",
+      group = "other",
+      unitcount = 1L,
+      nominalcapacity = capa_max_hydro,
+      `min-down-time` = 1L,
+      `marginal-cost` = 0.010000,
+      `market-bid-cost` = 0.010000,
+      overwrite = TRUE,
+      opts = opts
+    )
+  } else {
+    opts <- editCluster(
+      area = "lac",
+      cluster_name = "generator", 
+      nominalcapacity = capa_max_hydro,
+      opts = opts
+    )
+  }
 
   #Creer un lien fr-lac
   opts <- createLink(
@@ -79,7 +87,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
   # Creer le fichier lac.txt et sauvegarder dans input/links/fr/
   # La capacite des liens est defini par le max a turbiner pendant les heures de pointe
 
-  matrix_ntc_lac <- as.data.table(matrix(data = c(rep(0, 8760*5)), ncol = 5))
+  matrix_ntc_lac <- as.data.table(matrix(data = c(rep(0L, 8760*5)), ncol = 5))
   matrix_ntc_lac[1:168, 2] <- rep(capa_max_hydro, 168*1)
 
   fwrite(
@@ -189,7 +197,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
       enabled = TRUE,
       timeStep = "weekly",
       operator = "equal",
-      coefficients = c("fr%lac" = 1),
+      coefficients = c("fr%lac" = -1),
       opts = opts
     )
   } else {
@@ -255,5 +263,10 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
     file = file.path(inputPath, "/hydro/series/fr/mod.txt")
   )
 
-
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+  
+  invisible(res)
 }

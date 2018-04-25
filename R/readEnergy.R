@@ -53,12 +53,16 @@ readEnergy <- function(area, timeStep = "daily", opts = antaresRead::simOptions(
     return(energy)
   }
   energy <- merge(x = full_year, y = energy, by = "date", all.x = TRUE)
-  energy <- energy[, (vars) := lapply(.SD, function(x) {
-    zoo::na.locf(x) / .N
-  }), by = format(date, format = "%Y%m"), .SDcols = vars]
+  energy <- energy[, expectation := zoo::na.locf(expectation) / .N, by = format(date, format = "%Y%m")]
+  vars2 <- setdiff(vars, "expectation")
+  energy <- energy[, (vars2) := lapply(.SD, function(x) {
+    zoo::na.locf(x)
+  }), by = format(date, format = "%Y%m"), .SDcols = vars2]
   energy <- energy[, timeId := rep(seq_len(52), each = 7)]
   if (timeStep == "weekly") {
-    energy <- energy[, c(list(date = first(date)), lapply(.SD, sum)), by = timeId, .SDcols = vars]
+    energy <- energy[, c(list(
+      date = first(date)), expectation = sum(expectation), lapply(.SD, first)
+    ), by = timeId, .SDcols = vars2]
   }
   # energy[, n := NULL]
   energy

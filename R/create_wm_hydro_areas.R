@@ -11,8 +11,10 @@
 #'
 #' @export
 #'
-#' @importFrom antaresRead readClusterDesc setSimulationPath simOptions getAreas readInputTS getLinks readBindingConstraints
-#' @importFrom antaresEditObject removeLink createLink propertiesLinkOptions createCluster createBindingConstraint
+#' @importFrom antaresRead readClusterDesc setSimulationPath
+#'  simOptions getAreas readInputTS getLinks readBindingConstraints
+#' @importFrom antaresEditObject removeLink createLink propertiesLinkOptions
+#'  createCluster createBindingConstraint editCluster
 #' @importFrom data.table fwrite as.data.table copy
 #' @importFrom utils write.table
 #'
@@ -118,21 +120,29 @@ create_wm_hydro_areas <- function(start,
     capa_cluster_lac <- capa_lac_fr + max_lac
     # print(capa_cluster_lac)
 
-    opts <- createCluster(
+    opts <- editCluster(
       area = "lac",
-      cluster_name = "generator",
-      group = "other",
-      unitcount = 1L,
+      cluster_name = "generator", 
       nominalcapacity = capa_cluster_lac,
-      `min-down-time` = 1L,
-      `marginal-cost` = 0.010000,
-      `market-bid-cost` = 0.010000,
-      overwrite = TRUE,
       opts = opts
     )
+    
+    # opts <- createCluster(
+    #   area = "lac",
+    #   cluster_name = "generator",
+    #   group = "other",
+    #   unitcount = 1L,
+    #   nominalcapacity = capa_cluster_lac,
+    #   `min-down-time` = 1L,
+    #   `marginal-cost` = 0.010000,
+    #   `market-bid-cost` = 0.010000,
+    #   overwrite = TRUE,
+    #   opts = opts
+    # )
     cat("Nominal Capacity of lac_generator has been modified\n")
   } else {
-    cat("Cluster lac_generator does not exist\n")
+    
+    cat("Cluster lac_generator doesn't exist !\n")
   }
 
   # Creation des binding constraints pour l'energie turbine par le noeud lac
@@ -142,7 +152,8 @@ create_wm_hydro_areas <- function(start,
     cat(format(sprintf("Creating binding constraints for %s...\n", i), width = getOption("width")))
 
     energy_lac <- readEnergy(area = i, opts = input_pdh)
-    energy_lac <- energy_lac[date >= date_i & date < date_f]$expectation
+    energy_lac <- energy_lac[date >= date_i & date < date_f]
+    energy_lac <- energy_lac[, expectation * (1 - ror_share)]
 
     #calcul de l'energie a turbiner par semaine par le reservoir lac (*1000 parce que les donnees sont en GWh)
     equal_lac <- as.data.table(matrix(0, ncol = 1, nrow = 366))
@@ -161,7 +172,7 @@ create_wm_hydro_areas <- function(start,
           enabled = TRUE,
           timeStep = "weekly",
           operator = "equal",
-          coefficients = setNames(1, paste0(i, "%lac")),
+          coefficients = setNames(-1, paste0(i, "%lac")),
           opts = opts
         )
       } else {
@@ -209,6 +220,13 @@ create_wm_hydro_areas <- function(start,
 
 
   }
+  
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+  
+  invisible(res)
 
 }
 
