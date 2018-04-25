@@ -10,7 +10,7 @@ descr_clusters <- function(name) {
     nuclear_n4 = list(
       `min-up-time` = 168L,
       `min-down-time` = 168L,
-      spinning = 2,
+      spinning = 0,
       `marginal-cost` = 5.02,
       `spread-cost` = 0.4,
       `startup-cost` = 35599.5,
@@ -19,7 +19,7 @@ descr_clusters <- function(name) {
     nuclear_p4 = list(
       `min-up-time` = 168L,
       `min-down-time` = 168L,
-      spinning = 2,
+      spinning = 0,
       `marginal-cost` = 5.02,
       `spread-cost` = 0.4,
       `startup-cost` = 35599.5,
@@ -28,7 +28,7 @@ descr_clusters <- function(name) {
     nuclear_cp0_cp_cp2 = list(
       `min-up-time` = 168L,
       `min-down-time` = 168L,
-      spinning = 2,
+      spinning = 0,
       `marginal-cost` = 5.02,
       `spread-cost` = 0.4,
       `startup-cost` = 24435,
@@ -37,7 +37,7 @@ descr_clusters <- function(name) {
     hard_coal_old_1 = list(
       `min-up-time` = 8L,
       `min-down-time` = 8L,
-      spinning = 2,
+      spinning = 0,
       co2 = 0.99,
       `marginal-cost` = 25.73,
       `spread-cost` = 0.4,
@@ -46,14 +46,14 @@ descr_clusters <- function(name) {
     ),
     gas_ccgt_new = list(
       `min-down-time` = 2L,
-      spinning = 2, co2 = 0.35,
+      spinning = 0, co2 = 0.35,
       `marginal-cost` = 25.9,
       `spread-cost` = 0.4,
       `startup-cost` = 25923.6,
       `market-bid-cost` = 25.9
     ),
     gas_ocgt_old = list(
-      spinning = 2,
+      spinning = 0,
       co2 = 0.58,
       `marginal-cost` = 42.91,
       `spread-cost` = 0.4,
@@ -61,7 +61,7 @@ descr_clusters <- function(name) {
       `market-bid-cost` = 42.91
     ),
     gas_ocgt_new = list(
-      spinning = 2,
+      spinning = 0,
       co2 = 0.49,
       `marginal-cost` = 35.76,
       `spread-cost` = 0.4,
@@ -71,7 +71,7 @@ descr_clusters <- function(name) {
     light_oil = list(
       `min-up-time` = 3L,
       `min-down-time` = 3L,
-      spinning = 2, co2 = 0.78,
+      spinning = 0, co2 = 0.78,
       `marginal-cost` = 90.17,
       `spread-cost` = 0.4,
       `startup-cost` = 5160.4,
@@ -80,7 +80,7 @@ descr_clusters <- function(name) {
     heavy_oil_old_1 = list(
       `min-up-time` = 3L,
       `min-down-time` = 3L,
-      spinning = 2,
+      spinning = 0,
       co2 = 0.78,
       `marginal-cost` = 90.17,
       `spread-cost` = 0.4,
@@ -90,7 +90,7 @@ descr_clusters <- function(name) {
     gas_cogen = list(
       `min-up-time` = 24L,
       `min-down-time` = 24L,
-      spinning = 2,
+      spinning = 0,
       co2 = 0.58,
       `marginal-cost` = 42.91,
       `spread-cost` = 0.4,

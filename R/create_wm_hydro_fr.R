@@ -189,7 +189,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
       enabled = TRUE,
       timeStep = "weekly",
       operator = "equal",
-      coefficients = c("fr%lac" = 1),
+      coefficients = c("fr%lac" = -1),
       opts = opts
     )
   } else {

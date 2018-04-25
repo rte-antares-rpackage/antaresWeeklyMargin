@@ -159,7 +159,7 @@ create_wm_hydro_areas <- function(start,
           enabled = TRUE,
           timeStep = "weekly",
           operator = "equal",
-          coefficients = setNames(1, paste0(i, "%lac")),
+          coefficients = setNames(-1, paste0(i, "%lac")),
           opts = opts
         )
       } else {
