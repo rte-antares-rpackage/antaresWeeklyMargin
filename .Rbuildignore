@@ -2,4 +2,5 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^test_case$
+^test_output$
 ^dev$
