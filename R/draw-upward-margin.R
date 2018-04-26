@@ -26,6 +26,7 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
   type <- match.arg(type)
   #Calcul des differentes percentiles
   centil1  <- give_percentile(upward_margin, nb_MC, 1)
+  centil4  <- give_percentile(upward_margin, nb_MC, 4)
   centil10 <- give_percentile(upward_margin, nb_MC, 10)
   centil50 <- give_percentile(upward_margin, nb_MC, 50)
 
@@ -41,6 +42,7 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
   if (type == "seul"){
     upward_margin <- upward_margin[, `:=`(
       PERCENTIL_1 = centil1
+      ,PERCENTIL_4 = centil4
       ,PERCENTIL_10 = centil10
       ,MEDIAN = centil50
       #,IRC = marge_prev$MARGE_SEUL_PREV
@@ -49,6 +51,7 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
 
     pal_couleurs <- c(rep("gray", nb_MC)
                       , "red"
+                      , "orange"
                       , "blue"
                       , "green"
                       , "black"
@@ -63,6 +66,7 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
       dyLegend(show = "always")%>%
       dyCSS(css = system.file('www/css_dygraph.css', package = 'antaresWeeklyMargin'))%>%
       dySeries("PERCENTIL_1", strokeWidth = 2) %>%
+      dySeries("PERCENTIL_4", strokeWidth = 2) %>%
       dySeries("PERCENTIL_10", strokeWidth = 2) %>%
       dySeries("MEDIAN", strokeWidth = 2) %>%
       #dySeries("IRC", strokeWidth = 2) %>%
@@ -76,6 +80,7 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
     #Les lignes de code associes a la courbe du realise sont desactivees (commentees)
   } else if (type == "inter") {
     upward_margin <- upward_margin[, `:=`(PERCENTIL_1 = centil1
+                                          ,PERCENTIL_4 = centil4
                                           ,PERCENTIL_10 = centil10
                                           ,MEDIAN = centil50
                                           #,FRC = marge_prev$MARGE_INTER_PREV
@@ -84,6 +89,7 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
 
     pal_couleurs <- c(rep("gray", nb_MC)
                       , "red"
+                      , "orange"
                       , "blue"
                       , "green"
                       , "black"
@@ -98,6 +104,7 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
       dyLegend(show = "always")%>%
       dyCSS(css = system.file('www/css_dygraph.css', package = 'antaresWeeklyMargin'))%>%
       dySeries("PERCENTIL_1", strokeWidth = 2) %>%
+      dySeries("PERCENTIL_4", strokeWidth = 2) %>%
       dySeries("PERCENTIL_10", strokeWidth = 2) %>%
       dySeries("MEDIAN", strokeWidth = 2) %>%
       #dySeries("FRC", strokeWidth = 2) %>%
