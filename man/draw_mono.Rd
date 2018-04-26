@@ -4,12 +4,14 @@
 \alias{draw_mono}
 \title{Draw a Monotone}
 \usage{
-draw_mono(data, main = NULL)
+draw_mono(data, area = "auto", main = "auto", label = "auto")
 }
 \arguments{
 \item{data}{A \code{data.table} with at leat two columns.}
 
 \item{main}{Main plot title (optional).}
+
+\item{label}{Serie's label (optional).}
 }
 \value{
 a dygrgaph htmlwidget

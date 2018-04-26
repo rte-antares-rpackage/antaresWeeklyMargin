@@ -66,7 +66,7 @@ process_data_mono <- function(start = "2016-11-05", date = "2016-11-10 17:00:00"
       area_flux <- apply(X = flux_etude[, .SD, .SDcols = x], MARGIN = 1, FUN = sum) * coef
       area_flux <- area_flux[order(area_flux, decreasing = TRUE)]
 
-      as.data.table(cbind(num_row, area_flux))
+      res <- as.data.table(cbind(num_row, area_flux))
     }
   )
   mono_n <- gsub(pattern = area, replacement = "", x = links_fr)
