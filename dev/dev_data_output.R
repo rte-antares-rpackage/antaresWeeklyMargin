@@ -13,8 +13,10 @@ mono_data <- process_data_mono(start = "2018-02-24", date = "2018-03-01 17:00:00
 mono_data <- readRDS(file = "test_output/mono.rds")
 str(mono_data)
 
+saveRDS(mono_data, file = "report/datas/mono_data.rds")
+
 draw_mono(data = mono_data$mono_be)
-draw_mono(data = mono_data$mono_cwe)
+draw_mono(data = mono_data$mono_france, main = "Monotone des flux imports/exports pour France", label = "Flux")
 
 myfun <- function(data) {
   area <- deparse(substitute(data))

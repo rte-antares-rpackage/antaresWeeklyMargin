@@ -17,14 +17,13 @@ library( dygraphs )
 library( magrittr )
 
 # datas
-marge_seul_fr <- readRDS(file = "datas/marge_seul_fr.Rdata")
+marge_seul_fr <- readRDS(file = "datas/marge_fr_seule.rds")
 marge_seul_fr_e <- marge_seul_fr[, c(1, sample.int(n = 2040, size = 200) + 1)]
-data_fr <- readRDS("datas/data_fr.Rdata")
-marge_inter_fr <- readRDS(file = "datas/marge_inter_fr.Rdata")
-data_all <- readRDS(file = "datas/data_all_mc1199_B.Rdata")
-mono_cwe <- readRDS(file = "datas/mono_cwe.rds")
-mono_cwe_20161110 <- readRDS(file = "datas/mono_cwe_20161110.rds")
-mono_france <- readRDS(file = "datas/mono_france.rds")
+data_fr <- readRDS("datas/data_fr.rds")
+marge_inter_fr <- readRDS(file = "datas/marge_fr_inter.rds")
+data_all <- readRDS(file = "datas/data_all_mc50.rds")
+# Monotone data
+mono_data <- readRDS(file = "datas/mono.rds")
 load("datas/ml.rda")
 ```
 
@@ -138,7 +137,7 @@ draw_upward_margin(
   upward_margin = marge_inter_fr, 
   area = "fr",
   type = "inter",
-  nb_MC = ncol(marge_seul_fr_e) - 1, 
+  nb_MC = ncol(marge_inter_fr) - 1, 
   num_week = 45
 )
 ```
@@ -182,16 +181,6 @@ draw_stack_hist(marge_seul_fr, marge_inter_fr, "fr")
 # Detailed results : scenarii analysis
 
 
-<br/>
-
-### Monotone échanges
-
-<br/>
-
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_mono(mono_cwe_20161110, main = "Monotone des flux vers CWE, 10/11/2016 17:00 UTC")
-```
-
 
 <br/>
 <br/>
@@ -201,7 +190,7 @@ draw_mono(mono_cwe_20161110, main = "Monotone des flux vers CWE, 10/11/2016 17:0
 <br/>
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_mono(mono_france, main = "Monotone des flux imports/exports pour France, 10/11/2016 17:00 UTC")
+draw_mono(mono_data$mono_france, main = "Monotone des flux imports/exports pour France")
 ```
 
 
@@ -214,7 +203,7 @@ draw_mono(mono_france, main = "Monotone des flux imports/exports pour France, 10
 <br/>
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_mono(mono_cwe, main = "Monotone des flux FR - CWE")
+draw_mono(mono_data$mono_cwe)
 ```
 
 
