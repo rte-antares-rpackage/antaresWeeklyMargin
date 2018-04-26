@@ -83,8 +83,8 @@ process_data_mono <- function(start = "2016-11-05", date = "2016-11-10 17:00:00"
   areas_indirect <- c("be - fr", "de - fr", "ch - fr", "es - fr")
   areas_direct <- c("fr - gb", "fr - it")
   if (all(areas_indirect %in% links_fr) & all(areas_direct %in% links_fr)) {
-    flux_ind <- apply(X = flux_etude[, areas_indirect], MARGIN = 1, FUN = sum)
-    flux_dir <- apply(X = flux_etude[, areas_direct], MARGIN = 1, FUN = sum)
+    flux_ind <- apply(X = flux_etude[, .SD, .SDcols = areas_indirect], MARGIN = 1, FUN = sum)
+    flux_dir <- apply(X = flux_etude[, .SD, .SDcols = areas_direct], MARGIN = 1, FUN = sum)
 
     flux_total <- flux_dir + flux_ind * -1
     flux_total <- flux_total[order(flux_total, decreasing = TRUE)]
