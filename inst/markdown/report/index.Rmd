@@ -16,6 +16,9 @@ library( data.table )
 library( dygraphs )
 library( magrittr )
 
+# Week for upward margins
+week <- 9
+
 # datas
 marge_seul_fr <- readRDS(file = "datas/marge_fr_seule.rds")
 marge_seul_fr_e <- marge_seul_fr[, c(1, sample.int(n = 2040, size = 200) + 1)]
@@ -106,7 +109,7 @@ draw_upward_margin(
   area = "fr",
   type = "seul",
   nb_MC = ncol(marge_seul_fr_e) - 1, 
-  num_week = 45
+  num_week = week
 )
 ```
 
@@ -138,7 +141,7 @@ draw_upward_margin(
   area = "fr",
   type = "inter",
   nb_MC = ncol(marge_inter_fr) - 1, 
-  num_week = 45
+  num_week = week
 )
 ```
 

@@ -2,6 +2,7 @@
 #' Draw a Monotone
 #'
 #' @param data A \code{data.table} with at leat two columns.
+#' @param area Area for wich a monotone is drawn.
 #' @param main Main plot title (optional).
 #' @param label Serie's label (optional).
 #'

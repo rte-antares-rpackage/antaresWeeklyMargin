@@ -9,6 +9,8 @@ draw_mono(data, area = "auto", main = "auto", label = "auto")
 \arguments{
 \item{data}{A \code{data.table} with at leat two columns.}
 
+\item{area}{Area for wich a monotone is drawn.}
+
 \item{main}{Main plot title (optional).}
 
 \item{label}{Serie's label (optional).}
