@@ -30,25 +30,28 @@ create_wm_ntc_tp <- function(data, start, default = 1468, opts = antaresRead::si
   end <- start + 6
   
   data <- copy(data)
-  data <- data[date >= start & date <= end 
-               & areaintypecode == "BZN" 
-               & mapcodein %in% c("BE", "NL")
-               & mapcodeout %in% c("BE", "NL"), 
-               c("datetime", "date", "mapcodeout", "mapcodein", "forecasttransfercapacity")]
   
   ntc_be_nl <- as.data.table(matrix(data = c(rep(0, 8760*3), rep(0.5, 8760*2)), ncol = 5))
   ntc_de_nl <- as.data.table(matrix(data = c(rep(0, 8760*3), rep(0.5, 8760*2)), ncol = 5))
   
   # NTC BE-NL
   cat("Processing NTC BE-NL \n")
-  ntc_aux <- copy(data)
+  ntc_aux <- data[date >= start & date <= end 
+                 & areaintypecode == "BZN" 
+                 & mapcodein %in% c("BE", "NL")
+                 & mapcodeout %in% c("BE", "NL"), 
+                 c("datetime", "date", "mapcodeout", "mapcodein", "forecasttransfercapacity")]
   ntc_aux <- ntc_aux[order(date)]
   ntc_aux <- dcast(data = ntc_aux, formula = date ~ mapcodeout, value.var = "forecasttransfercapacity")
   ntc_aux <- ntc_aux[rep(seq_len(.N), each = 24), -1]
   
   # NTC DE-NL
   cat("Processing NTC DE-NL \n")
-  ntc_daux <- copy(data)
+  ntc_daux <- data[date >= start & date <= end
+                   & areaintypecode == "BZN" 
+                   & mapcodein %in% c("DE_AT_LU", "NL")
+                   & mapcodeout %in% c("DE_AT_LU", "NL"),
+                   c("datetime", "date", "mapcodeout", "mapcodein", "forecasttransfercapacity")]
   ntc_daux <- ntc_daux[order(date, mapcodeout)]
   ntc_daux[forecasttransfercapacity == 0, forecasttransfercapacity := NA]
   ntc_daux[, forecasttransfercapacity := zoo::na.locf(forecasttransfercapacity, na.rm = FALSE)]
