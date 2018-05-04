@@ -14,4 +14,4 @@ utils::globalVariables(c(".SD", ".I", ".N", "groupe", "code_groupe",
                          "file_name", "tz", "timeId",
                          "Total_fil_eau", "file_name", "hydraulique_fil_eau_eclusee", "hydraulique_tiers",
                          "groupe_hydro", "selection", "time",
-                         "expectation", "ror_share"))
+                         "expectation", "ror_share", "PValleeMobilisable"))
