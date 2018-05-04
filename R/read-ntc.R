@@ -19,7 +19,7 @@ read_ntc <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path, pattern = "", multiple = TRUE, fileext = "\\csv$")
+  path <- select_file(path, pattern = "", multiple = TRUE, fileext = "(csv|CSV)$")
   res <- lapply(
     X = path,
     FUN = read.table, sep = "\t", header = TRUE,
