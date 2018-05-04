@@ -43,8 +43,9 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
   }
 
   # CAPACITE MAX DU LAC+TURB?
-  capa_hydro <- fread(file = path_capa_hydro)
-  capa_max_hydro <- sum(capa_hydro$PValleeMobilisable, na.rm= TRUE)
+  # capa_hydro <- fread(file = path_capa_hydro)
+  # capa_max_hydro <- sum(capa_hydro$PValleeMobilisable, na.rm= TRUE)
+  capa_max_hydro <- read_capa_hydro(path_capa_hydro)  
 
   #####
   # Creer un cluster "lac_groupe" avec capacite nominale egal a la capacite maximale du lac+turbinage
