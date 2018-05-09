@@ -1,6 +1,6 @@
 Package: antaresWeeklyMargin
 Title: Setup an Antares Study for Weekly Margin Simulation
-Version: 0.0.0.9610
+Version: 0.0.0.9620
 Authors@R: c(
     person("Victor", "Perrier", email = "victor.perrier@dreamRs.fr", role = c("aut", "cre")),
     person("Fabiola", "Aravena-Rojas", email = "fabiola.aravena-rojas@rte-france.com", role = c("aut")),

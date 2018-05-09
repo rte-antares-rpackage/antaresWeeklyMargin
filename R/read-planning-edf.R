@@ -13,26 +13,7 @@ read_edf_sheet <- function(path, sheet) {
   data <- data[, pmd := locf(pmd)]
   data <- data[!is.na(debut)]
 
-  # check code essai VP
-  data <- data[, val_vp := check_code_essai(
-    x = code_essai, code = "VP", possible.values = c("^VP", "^RVP.*")
-  ), by = code_groupe]
-  data <- data[val_vp == TRUE]
-  data <- data[, val_vp := NULL]
-  # check code essai VD
-  data <- data[, val_vd := check_code_essai(
-    x = code_essai, code = "VD", possible.values = c("^VD", "^RVD.*")
-  ), by = code_groupe]
-  data <- data[val_vd == TRUE]
-  data <- data[, val_vd := NULL]
-  # check code essai ASR
-  data <- data[, val_asr := check_code_essai(
-    x = code_essai, code = "ASR", possible.values = c("^ASR", "^RASR.*")
-  ), by = code_groupe]
-  data <- data[val_asr == TRUE]
-  data <- data[, val_asr := NULL]
-
-
+  
   # LIM/LIMIT
   # data <- data[, val_llim := check_lim_limit(x = code_essai), by = code_groupe]
   # data <- data[val_llim == TRUE]
@@ -73,8 +54,31 @@ read_edf_sheet <- function(path, sheet) {
   ), by = list(code_groupe, datetime)]
   data <- data[val_and == TRUE]
   data <- data[, val_and := NULL]
+  
+  
+  
+  # check code essai VP
+  data <- data[, val_vp := check_code_essai(
+    x = code_essai, code = "VP", possible.values = c("^VP", "^RVP.*")
+  ), by = list(code_groupe, datetime)]
+  data <- data[val_vp == TRUE]
+  data <- data[, val_vp := NULL]
+  # check code essai VD
+  data <- data[, val_vd := check_code_essai(
+    x = code_essai, code = "VD", possible.values = c("^VD", "^RVD.*")
+  ), by = list(code_groupe, datetime)]
+  data <- data[val_vd == TRUE]
+  data <- data[, val_vd := NULL]
+  # check code essai ASR
+  data <- data[, val_asr := check_code_essai(
+    x = code_essai, code = "ASR", possible.values = c("^ASR", "^RASR.*")
+  ), by = list(code_groupe, datetime)]
+  data <- data[val_asr == TRUE]
+  data <- data[, val_asr := NULL]
 
 
+  
+  
   # date header
   dates_h <- readxl::read_excel(path = path, sheet = sheet, n_max = 5)[4, 4]
   dates_h <- unlist(dates_h, use.names = FALSE)
