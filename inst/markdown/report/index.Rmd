@@ -18,6 +18,8 @@ library( magrittr )
 
 # Week for upward margins
 week <- 9
+# Number of scenario
+n_scenario <- 2040
 
 # datas
 marge_seul_fr <- readRDS(file = "datas/marge_fr_seule.rds")
@@ -112,6 +114,13 @@ draw_upward_margin(
   num_week = week
 )
 ```
+<br/>
+Legend:
+
+ * <span style="color: red;">1% of scenarii</span>
+ * <span style="color: green;">10% of scenarii</span>
+ * <span style="color: blue;">50% of scenarii</span>
+ * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
 
 <br/>
 <br/>
@@ -144,6 +153,13 @@ draw_upward_margin(
   num_week = week
 )
 ```
+<br/>
+Legend:
+
+ * <span style="color: red;">1% of scenarii</span>
+ * <span style="color: green;">10% of scenarii</span>
+ * <span style="color: blue;">50% of scenarii</span>
+ * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
 
 <br/>
 <br/>
@@ -170,11 +186,14 @@ Risk of unserved energy in France.
 draw_stack_hist(marge_seul_fr, marge_inter_fr, "fr")
 ```
 
-<span style="color: #008000; font-size: 70%;">available power in the country > needs</span> - 
-<span style="color: #FFFF00; font-size: 70%;">imports are required</span> - 
-<span style="color: #FFA500; font-size: 70%;">power still available in the country, but final remaining capacity = 0</span> - 
-<span style="color: #CD853F; font-size: 70%;">imports are required & final remaining capacity = 0</span> - 
-<span style="color: #FF0000; font-size: 70%;">inadequacy</span>
+<br/>
+Legend:
+
+ * <span style="color: #008000;">available power in the country > needs</span>
+ * <span style="color: #FFFF00;">imports are required</span>
+ * <span style="color: #FFA500;">power still available in the country, but final remaining capacity = 0</span>
+ * <span style="color: #CD853F;">imports are required & final remaining capacity = 0</span>
+ * <span style="color: #FF0000;">inadequacy</span>
 
 
 <br/>
