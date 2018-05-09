@@ -118,6 +118,7 @@ draw_upward_margin(
 Legend:
 
  * <span style="color: red;">1% of scenarii</span>
+ * <span style="color: orange;">4% of scenarii</span>
  * <span style="color: green;">10% of scenarii</span>
  * <span style="color: blue;">50% of scenarii</span>
  * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
@@ -157,6 +158,7 @@ draw_upward_margin(
 Legend:
 
  * <span style="color: red;">1% of scenarii</span>
+ * <span style="color: orange;">4% of scenarii</span>
  * <span style="color: green;">10% of scenarii</span>
  * <span style="color: blue;">50% of scenarii</span>
  * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
