@@ -119,8 +119,8 @@ Legend:
 
  * <span style="color: red;">1% of scenarii</span>
  * <span style="color: orange;">4% of scenarii</span>
- * <span style="color: green;">10% of scenarii</span>
- * <span style="color: blue;">50% of scenarii</span>
+ * <span style="color: blue;">10% of scenarii</span>
+ * <span style="color: green;">50% of scenarii</span>
  * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
 
 <br/>
@@ -159,8 +159,8 @@ Legend:
 
  * <span style="color: red;">1% of scenarii</span>
  * <span style="color: orange;">4% of scenarii</span>
- * <span style="color: green;">10% of scenarii</span>
- * <span style="color: blue;">50% of scenarii</span>
+ * <span style="color: blue;">10% of scenarii</span>
+ * <span style="color: green;">50% of scenarii</span>
  * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
 
 <br/>
