@@ -37,6 +37,9 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = 
 
   #On cherche le jour précedent a notre date de prevision
   endday <- as.numeric(format(start, "%u")) - 1
+  if (endday < 1) {
+    endday <- 7
+  }
 
   #on recupere les dates de debut et
   date_ini_fil <- get_previous(startday, date = start)
