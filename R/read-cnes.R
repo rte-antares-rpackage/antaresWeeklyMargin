@@ -37,7 +37,7 @@ read_cnes <- function(path) {
   }
   if (length(path) == 1 && dir.exists(path)) {
     path <- select_file(
-      path, "prev\\d", verbose = FALSE, 
+      path, "prev", verbose = FALSE, 
       fileext = "", multiple = TRUE
     )
   }
