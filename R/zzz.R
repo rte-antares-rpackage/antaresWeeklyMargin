@@ -15,4 +15,4 @@ utils::globalVariables(c(".SD", ".I", ".N", "groupe", "code_groupe",
                          "Total_fil_eau", "file_name", "hydraulique_fil_eau_eclusee", "hydraulique_tiers",
                          "groupe_hydro", "selection", "time",
                          "expectation", "ror_share", "PValleeMobilisable", "forecasttransfercapacity",
-                         "areaintypecode", "mapcodein", "mapcodeout"))
+                         "areaintypecode", "mapcodein", "mapcodeout", "file_date"))
