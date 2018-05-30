@@ -92,6 +92,13 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = 
     }
     cat(format("\rReordering ROR - Done!\n", width = getOption("width")))
   }
+  
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+  
+  invisible(res)
 }
 
 

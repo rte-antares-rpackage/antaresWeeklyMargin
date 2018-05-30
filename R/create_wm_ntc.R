@@ -109,4 +109,10 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
     cat("\nReordering Links - Done!\n")
   }
 
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+  
+  invisible(res)
 }

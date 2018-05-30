@@ -75,7 +75,12 @@ create_wm_misc <- function(data, start = NULL, sort_misc = TRUE, opts = antaresR
   }
 
 
-  return(invisible())
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+  
+  invisible(res)
 }
 
 

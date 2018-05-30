@@ -42,4 +42,11 @@ create_wm_ts_fr <- function(data, start, opts = antaresRead::simOptions()) {
   data.table::fwrite(x = matrix_wind, file = path_wind, sep = "\t", row.names = FALSE, col.names = FALSE)
   data.table::fwrite(x = matrix_pv, file = path_pv, sep = "\t", row.names = FALSE, col.names = FALSE)
   cat("Writing wind & solar timeseries - Done!\n")
+  
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+  
+  invisible(res)
 }

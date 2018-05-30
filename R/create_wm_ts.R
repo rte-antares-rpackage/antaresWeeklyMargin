@@ -147,6 +147,11 @@ create_wm_ts <- function(data, start = NULL, sort_ts = TRUE, opts = antaresRead:
     cat("\rReordering time series - Done!\n")
   }
 
-  return(invisible())
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+  
+  invisible(res)
 }
 

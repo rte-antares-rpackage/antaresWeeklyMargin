@@ -98,5 +98,11 @@ create_wm_ntc_tp <- function(data, start, default = 1468, opts = antaresRead::si
   
   cat("Writing links data - Done!\n")
   
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+  
+  invisible(res)
 }
 

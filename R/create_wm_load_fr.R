@@ -51,4 +51,11 @@ create_wm_load_fr <- function(path, start, type = c("prevu", "premis"), opts = a
     file = paste0(inputPath, "/load/series/load_fr.txt")
   )
   cat("Writing fr - load timeseries - Done!\n")
+  
+  # Maj simulation
+  suppressWarnings({
+    res <- antaresRead::setSimulationPath(path = opts$studyPath, simulation = "input")
+  })
+  
+  invisible(res)
 }
