@@ -97,14 +97,14 @@ path_sim_wm <- function(path_dir = "inputs",
                         capa_hydro = "capa_hydro",
                         hydro = "hydro") {
   list(
-    meteologica = file.path(path_dir, meteologica),
-    meteologica = file.path(path_dir, cnes),
-    planning = file.path(path_dir, planning),
-    forfait_oa = file.path(path_dir, forfait_oa),
-    ntc = file.path(path_dir, ntc),
-    ntc_tp = file.path(path_dir, ntc_tp),
-    capa_hydro = file.path(path_dir, capa_hydro),
-    hydro = file.path(path_dir, hydro)
+    meteologica = normalizePath(file.path(path_dir, meteologica), mustWork = TRUE),
+    cnes = normalizePath(file.path(path_dir, cnes), mustWork = TRUE),
+    planning = normalizePath(file.path(path_dir, planning), mustWork = TRUE),
+    forfait_oa = normalizePath(file.path(path_dir, forfait_oa), mustWork = TRUE),
+    ntc = normalizePath(file.path(path_dir, ntc), mustWork = TRUE),
+    ntc_tp = normalizePath(file.path(path_dir, ntc_tp), mustWork = TRUE),
+    capa_hydro = normalizePath(file.path(path_dir, capa_hydro), mustWork = TRUE),
+    hydro = normalizePath(file.path(path_dir, hydro), mustWork = TRUE)
   )
 }
 
