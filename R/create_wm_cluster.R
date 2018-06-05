@@ -93,6 +93,7 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
       yes = min(pmin, na.rm = TRUE)*0.9,
       no = min(pmin, na.rm = TRUE)
     ),
+    `must-run` =  min(pmin, na.rm = TRUE) >= max(pmax, na.rm = TRUE)*0.9,
     prepro_modulation = list(
       matrix(
         data = c(
