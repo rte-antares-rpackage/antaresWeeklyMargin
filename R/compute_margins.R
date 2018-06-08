@@ -14,7 +14,8 @@
 #' @return a list of \code{data.table}
 #' @export
 #' 
-#' @importFrom antaresRead readAntares getLinks simOptions
+#' @importFrom antaresRead readAntares getLinks simOptions removeVirtualAreas
+#' @importFrom data.table dcast data.table :=
 #'
 #' @examples
 #' \dontrun{
@@ -38,6 +39,60 @@ compute_margins <- function(date, area = "fr",
     mcYears = "all", 
     linkCapacity = length(links_virtual_area) > 0,
     opts = opts
+  )
+  if (length(links_virtual_area) > 0) {
+    data_area <- removeVirtualAreas(x = data_area, storageFlexibility = virtual_areas)$areas
+  }
+  
+  if (margin == "upward") {
+    margin_area <- data_area[, margin_solo := `AVL DTG`+ storageCapacity +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD]
+    margin_area <- data_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
+  } else {
+    
+    # TODO
+    
+  }
+  
+  start_date <- as.POSIXct(paste(date, "00:00:00"), format = "%Y-%m-%d %H:%M:%S", tz = "Europe/Paris")
+  new_time <- data.table(
+    datetime = seq.POSIXt(from = start_date, by = "+1 hour", length.out = 168)
+  )
+  margin_area_solo_peryear <- data.table(
+    datetime = new_time$datetime, 
+    mc_year = margin_area$mcYear, 
+    margin_area_solo = margin_area$margin_area_solo
+  )
+  margin_area_solo <- dcast(
+    data = margin_area_solo_peryear, 
+    formula = datetime ~ mc_year, 
+    value.var = "margin_area_solo"
+  )
+  
+  margin_area_inter_peryear <- data.table(
+    datetime = new_time$datetime, 
+    mc_year = margin_area$mcYear, 
+    margin_area_inter = margin_area$margin_inter
+  )
+  margin_area_inter <- dcast(
+    data = margin_area_inter_peryear, 
+    formula = datetime ~ mc_year, 
+    value.var = "margin_area_inter"
+  )
+  
+  corr_time <- data.table(
+    timeId = seq_len(168),
+    time = as.POSIXct(
+      format(seq(as.POSIXct(date), by = "+1 hour", length.out = 168)),
+      format = "%Y-%m-%d %H:%M:%S", tz = "Europe/Paris"
+    )
+  )
+  data_area <- data_area[, time := NULL]
+  data_area <- merge(x = data_area, y = corr_time)
+  
+  list(
+    data_area = data_area,
+    margin_area_solo = margin_area_solo,
+    margin_area_inter = margin_area_inter
   )
 }
 
