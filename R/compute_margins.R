@@ -11,7 +11,8 @@
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath} 
 #'
-#' @return a list of \code{data.table}
+#' @return a list of \code{data.table} with 3 slots: \code{data_area},
+#'  \code{margin_area_solo} and \code{margin_area_inter}.
 #' @export
 #' 
 #' @importFrom antaresRead readAntares getLinks simOptions removeVirtualAreas
@@ -60,7 +61,7 @@ compute_margins <- function(date, area = "fr",
   margin_area_solo_peryear <- data.table(
     datetime = new_time$datetime, 
     mc_year = margin_area$mcYear, 
-    margin_area_solo = margin_area$margin_area_solo
+    margin_area_solo = margin_area$margin_solo
   )
   margin_area_solo <- dcast(
     data = margin_area_solo_peryear, 
@@ -86,8 +87,8 @@ compute_margins <- function(date, area = "fr",
       format = "%Y-%m-%d %H:%M:%S", tz = "Europe/Paris"
     )
   )
-  data_area <- data_area[, time := NULL]
-  data_area <- merge(x = data_area, y = corr_time)
+  data_area[, time := NULL]
+  data_area <- merge(x = data_area, y = corr_time, by = "timeId")
   
   list(
     data_area = data_area,

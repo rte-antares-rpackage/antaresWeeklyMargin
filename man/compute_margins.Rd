@@ -21,7 +21,8 @@ compute_margins(date, area = "fr", margin = c("upward", "downward"),
 \code{antaresRead::setSimulationPath}}
 }
 \value{
-a list of \code{data.table}
+a list of \code{data.table} with 3 slots: \code{data_area},
+ \code{margin_area_solo} and \code{margin_area_inter}.
 }
 \description{
 From Antares results, calculate upward or downward margins for an area.
