@@ -20,6 +20,12 @@ library( magrittr )
 week <- 9
 # Number of scenario
 n_scenario <- 2040
+# MC year studied
+year_mc <- 50
+# dates
+date_study <- "28-02-2018 10:00:00"
+date_debut <- "2018-02-24"
+
 
 # datas
 marge_seul_fr <- readRDS(file = "datas/marge_fr_seule.rds")
@@ -214,7 +220,7 @@ Legend:
 <br/>
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_mono(mono_data$mono_france, main = "Monotone des flux imports/exports pour France")
+draw_mono(mono_data$mono_france, main = paste0("Monotone des flux imports/exports pour France ", date_study))
 ```
 
 
@@ -235,12 +241,12 @@ draw_mono(mono_data$mono_cwe)
 <br/>
 
 
-# Example of scenario 1199
+# Example of scenario `r year_mc`
 
 
 <br/>
 
-### Analysis scenario 1199 – Flows 
+### Analysis scenario `r year_mc` – Flows 
 
 
 <br/>
@@ -263,14 +269,14 @@ antaresViz::exchangesStack(data_all$links, area = "fr", interactive = FALSE)#$wi
 <br/>
 <br/>
 
-### Analysis scenario 1199 – Production
+### Analysis scenario `r year_mc` – Production
 
 
 <br/>
 
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_prod_MC(data_fr, date_i = "2016-11-05", mc_year = 1199)#$widgets[[1]]$widget[[1]]
+draw_prod_MC(data_fr, date_i = "2016-11-05", mc_year = year_mc)#$widgets[[1]]$widget[[1]]
 ```
 
 <br/>
@@ -286,7 +292,7 @@ draw_prod_MC(data_fr, date_i = "2016-11-05", mc_year = 1199)#$widgets[[1]]$widge
 <br/>
 <br/>
 
-### Analysis scenario 1199 – Map
+### Analysis scenario `r year_mc` – Map
 
 <br/>
 

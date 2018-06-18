@@ -50,8 +50,6 @@ sim_wm <- function(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(), opt
   opts <- create_wm_ntc_tp(data = ntc_tp, start = start_prev_hebdo, opts = opts)
   
   # HYDRAULIQUE RESERVOIR + STEP
-  rep_capa_hydro <- "Data_Ohmer/S09/PH_RTEHEB_2018_S09_5.csv"
-  rep_hydro <- "Data_Ohmer/S09/"
   dispo_pump_d <- c(3520,3520,3520,3520,3520,3520,3520)
   
   #Add Hydro for France (forecast producteur)
