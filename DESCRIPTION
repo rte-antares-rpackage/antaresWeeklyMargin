@@ -25,6 +25,7 @@ Imports:
     antaresViz,
     antaresRead,
     antaresEditObject,
+    antaresProcessing,
     flextable,
     officer,
     rstudioapi,

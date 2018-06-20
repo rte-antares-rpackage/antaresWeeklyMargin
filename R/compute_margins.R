@@ -5,7 +5,7 @@
 #'
 #' @param date Date of the study.
 #' @param area Area studied.
-#' @param margin Type of margin to compute, \code{upward} or \code{downward}, can ba abbreviated.
+#' @param margin Type of margin to compute, \code{upward} or \code{downward}, can be abbreviated.
 #' @param virtual_areas List of virtuals areas.
 #' @param opts
 #'   List of simulation parameters returned by the function
@@ -30,7 +30,10 @@ compute_margins <- function(date, area = "fr",
                             opts = antaresRead::simOptions()) {
   margin <- match.arg(margin)
   links <- getLinks(areas = area, exclude = virtual_areas, opts = opts)
+  
   links_virtual_area <- make_links(area, virtual_areas)
+  links_virtual_area <- links_virtual_area[links_virtual_area %in% getLinks(areas = area, opts = opts)]
+  
   data_area <- readAntares(
     areas = area, 
     links = links_virtual_area,

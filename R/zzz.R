@@ -16,4 +16,4 @@ utils::globalVariables(c(".SD", ".I", ".N", "groupe", "code_groupe",
                          "groupe_hydro", "selection", "time",
                          "expectation", "ror_share", "PValleeMobilisable", "forecasttransfercapacity",
                          "areaintypecode", "mapcodein", "mapcodeout", "file_date",
-                         "margin_solo", "AVL DTG", "storageCapacity", "margin_inter"))
+                         "margin_solo", "AVL DTG", "storageCapacity", "margin_inter", "abs_loadFactor", "loadFactor"))

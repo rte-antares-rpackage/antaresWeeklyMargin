@@ -13,7 +13,7 @@ compute_margins(date, area = "fr", margin = c("upward", "downward"),
 
 \item{area}{Area studied.}
 
-\item{margin}{Type of margin to compute, \code{upward} or \code{downward}, can ba abbreviated.}
+\item{margin}{Type of margin to compute, \code{upward} or \code{downward}, can be abbreviated.}
 
 \item{virtual_areas}{List of virtuals areas.}
 
