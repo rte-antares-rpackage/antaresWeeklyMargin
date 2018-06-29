@@ -99,18 +99,37 @@ path_sim_wm <- function(path_dir = "inputs",
                         ntc_tp = "ntc_tp",
                         capa_hydro = "capa_hydro",
                         hydro = "hydro") {
-  list(
-    meteologica = normalizePath(file.path(path_dir, meteologica), mustWork = TRUE),
-    cnes = normalizePath(file.path(path_dir, cnes), mustWork = TRUE),
-    planning = normalizePath(file.path(path_dir, planning), mustWork = TRUE),
-    forfait_oa = normalizePath(file.path(path_dir, forfait_oa), mustWork = TRUE),
-    ntc = normalizePath(file.path(path_dir, ntc), mustWork = TRUE),
-    ntc_tp = normalizePath(file.path(path_dir, ntc_tp), mustWork = TRUE),
-    capa_hydro = normalizePath(file.path(path_dir, capa_hydro), mustWork = TRUE),
-    hydro = normalizePath(file.path(path_dir, hydro), mustWork = TRUE)
+  paths <- list(
+    meteologica = meteologica,
+    cnes = cnes,
+    planning = planning,
+    forfait_oa = forfait_oa,
+    ntc = ntc,
+    ntc_tp = ntc_tp,
+    capa_hydro = capa_hydro,
+    hydro = hydro
+  )
+  lapply(
+    X = setNames(paths, names(paths)),
+    FUN = function(x) {
+      if ("AsIs" %in% class(x)) {
+        x
+      } else {
+        normalizePath(file.path(path_dir, x), mustWork = TRUE)
+      }
+    }
   )
 }
 
 
 
+#' @param ... Character vectors indicating path to a directory,
+#'  use this to specify a path outside the \code{"path_dir"} directory.
+#' 
+#' @export
+#'
+#' @rdname setup-wm
+force_path <- function(...) {
+  I(normalizePath(file.path(...), mustWork = TRUE))
+}
 

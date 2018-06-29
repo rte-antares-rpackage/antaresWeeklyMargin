@@ -4,6 +4,7 @@
 \alias{setup-wm}
 \alias{sim_wm}
 \alias{path_sim_wm}
+\alias{force_path}
 \title{Setup a WM simulation before running Antares}
 \usage{
 sim_wm(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(),
@@ -14,6 +15,8 @@ path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
   cnes = "cnes", planning = "planning", forfait_oa = "forfait_oa",
   ntc = "ntc", ntc_tp = "ntc_tp", capa_hydro = "capa_hydro",
   hydro = "hydro")
+
+force_path(...)
 }
 \arguments{
 \item{date_prev}{Date of simulation.}
@@ -46,6 +49,9 @@ path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
 \item{capa_hydro}{Sub-directory containing Hydraulic capacity transparency files.}
 
 \item{hydro}{Sub-directory containing hydro files.}
+
+\item{...}{Character vectors indicating path to a directory,
+use this to specify a path outside the \code{"path_dir"} directory.}
 }
 \value{
 For \code{path_sim_wm} a named \code{list}.
