@@ -4,12 +4,16 @@
 \alias{read_meteologica2}
 \title{Read Meteologica file}
 \usage{
-read_meteologica2(path, country = NULL)
+read_meteologica2(path, country = NULL, date = NULL, time = NULL)
 }
 \arguments{
 \item{path}{path to a directory containing forecast files or a single file.}
 
-\item{country}{filter files to read onlyone country}
+\item{country}{filter files to read only one country.}
+
+\item{date}{filter files to read by date(s), using a \code{Date} or a character with format \code{\%Y-\%m-\%d}.}
+
+\item{time}{filter files to read by time, e.g. \code{"00"} or \code{"12"}.}
 }
 \value{
 a \code{data.table}

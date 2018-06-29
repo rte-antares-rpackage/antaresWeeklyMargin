@@ -2,7 +2,9 @@
 #' Read Meteologica file
 #'
 #' @param path path to a directory containing forecast files or a single file.
-#' @param country filter files to read onlyone country
+#' @param country filter files to read only one country.
+#' @param date filter files to read by date(s), using a \code{Date} or a character with format \code{\%Y-\%m-\%d}.
+#' @param time filter files to read by time, e.g. \code{"00"} or \code{"12"}.
 #'
 #' @return a \code{data.table}
 #' @export
@@ -16,7 +18,7 @@
 #' # TODO
 #'
 #' }
-read_meteologica2 <- function(path, country = NULL) {
+read_meteologica2 <- function(path, country = NULL, date = NULL, time = NULL) {
 
   if (missing(path)) {
     path <- choose_path()
@@ -40,6 +42,24 @@ read_meteologica2 <- function(path, country = NULL) {
 
   if (!is.null(country)) {
     path <- path[str_which(string = tolower(path), pattern = tolower(country))]
+  }
+  if (!is.null(date)) {
+    date <- as.Date(date)
+    date <- format(date, format = "%Y%m%d")
+    filter_date <- lapply(
+      X = date,
+      FUN = str_detect, string = path
+    )
+    filter_date <- Reduce("|", filter_date)
+    path <- path[filter_date]
+  }
+  if (!is.null(time)) {
+    filter_time <- lapply(
+      X = paste0("\\d{8}", time, "00"),
+      FUN = str_detect, string = path
+    )
+    filter_time <- Reduce("|", filter_time)
+    path <- path[filter_time]
   }
   path <- path[!str_detect(string = tolower(path), pattern = "offshore")]
   path <- path[!str_detect(string = tolower(path), pattern = "onshore")]
