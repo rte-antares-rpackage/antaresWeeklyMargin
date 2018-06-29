@@ -167,6 +167,7 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
         inputPath = opts$inputPath
       )
     }
+    cat("\n")
   }
 
   # Maj simulation

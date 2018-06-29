@@ -26,31 +26,39 @@ sim_wm <- function(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(), typ
                    dispo_pump = c(3520,3520,3520,3520,3520,3520,3520), opts = antaresRead::simOptions()) {
   
   inputPath <- opts$inputPath
-  opts <- clear_wm_study(opts)
-  
   startday <- format(as.Date(start_prev_hebdo), format = "%A")
   
+  cat(info_text("Cleaning study"))
+  opts <- clear_wm_study(opts)
+  
   # Add Meteologica forecast
+  cat(info_text("Create Time Series"))
   heure_prev_meteologica <- "00:00:00"
-  formet <- read_meteologica2(path = path_inputs$meteologica)
+  formet <- read_meteologica2(path = path_inputs$meteologica, date = date_prev, time = "00")
   formet2 <- formet[format(file_date, format = "%F %T") == paste0(date_prev, heure_prev_meteologica)]
   # Create time series
   create_wm_ts(data = formet, start = start_prev_hebdo, opts = opts)
   
   # Add CNES forecast
+  cat(info_text("Create Load FR"))
   opts <- create_wm_load_fr(path = path_inputs$cnes, start = date_prev, start_prev_hebdo = start_prev_hebdo, type = type_load, opts = opts)
   
+  cat(info_text("Create Clusters"))
   sup <- read_planning(path = path_inputs$planning)
   opts <- create_wm_cluster(data = sup, start = start_prev_hebdo, opts = opts)
   
+  cat(info_text("Create ROR"))
   oa <- read_forfait_oa(path = path_inputs$forfait_oa)
   opts <- create_wm_ror(data = oa, start= date_prev,  startday = startday, opts = opts)
+  cat(info_text("Create MISC"))
   opts <- create_wm_misc(data = oa, start = start_prev_hebdo, opts = opts)
   
   # NTC
+  cat(info_text("Create NTC"))
   ntc <- fread(file = path_inputs$ntc)
   opts <- create_wm_ntc(data = ntc, start = start_prev_hebdo, opts = opts, startday = startday)
   
+  cat(info_text("Create NTC TP"))
   ntc_tp <- read_ntc(path = path_inputs$ntc_tp)
   opts <- create_wm_ntc_tp(data = ntc_tp, start = start_prev_hebdo, opts = opts)
   
@@ -58,6 +66,7 @@ sim_wm <- function(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(), typ
   # dispo_pump_d <- c(3520,3520,3520,3520,3520,3520,3520)
   
   #Add Hydro for France (forecast producteur)
+  cat(info_text("Create Hydro FR"))
   opts <- create_wm_hydro_fr(
     path_capa_hydro = path_inputs$capa_hydro, 
     path_hydro = path_inputs$hydro, 
@@ -66,6 +75,7 @@ sim_wm <- function(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(), typ
     dispo_pump = dispo_pump
   )
   #Add Hydro for other areas
+  cat(info_text("Create Hydro areas"))
   opts <- create_wm_hydro_areas(start = start_prev_hebdo, opts = opts)
   
   invisible(opts)
@@ -87,6 +97,8 @@ sim_wm <- function(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(), typ
 #'
 #' @return For \code{path_sim_wm} a named \code{list}.
 #' @export
+#' 
+#' @importFrom stats setNames
 #' 
 #' @rdname setup-wm
 #'

@@ -25,11 +25,15 @@ create_wm_load_fr <- function(path, start, start_prev_hebdo, type = c("prevu", "
   start <- as.Date(start)
   previous_sam <- as.Date(start_prev_hebdo)
   next_sam <- previous_sam + 7
-  rep_prev <- list.files(path = path, pattern = format(start, "%d%m%y"))
-  if (length(rep_prev) != 1) {
+  rep_prev <- list.files(path = path, pattern = format(start, format = "%d%m%y"), full.names = TRUE)
+  rep_prev <- rep_prev[dir.exists(rep_prev)]
+  if (length(rep_prev) < 1) {
     stop("Impossible to find a directory based on 'path' and 'start'", call. = FALSE)
   }
-  prevs <- read_cnes(file.path(path, rep_prev))
+  if (length(rep_prev) > 1) {
+    stop("Multiple directories found corresponding to 'path' and 'start'", call. = FALSE)
+  }
+  prevs <- read_cnes(path = rep_prev)
   prevs <- prevs[format(datetime, "%M") == "00"]
   prevs <- prevs[datetime >= previous_sam & datetime < next_sam]
   
