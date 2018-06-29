@@ -7,6 +7,7 @@
 #'  and next \code{startday}-1, by default between \code{samedi} and \code{vendredi}.
 #' @param startday Day of week to start simulation.
 #' @param sort_links Reorder other links to match the desired week.
+#' @param force_date Force date in data to match \code{startday}.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -30,7 +31,7 @@
 #' create_wm_ntc(ntc, start = "2018-01-04")
 #'
 #' }
-create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = TRUE, opts = antaresRead::simOptions()) {
+create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = TRUE, force_date = FALSE, opts = antaresRead::simOptions()) {
 
   inputPath <- opts$inputPath
 
@@ -40,17 +41,22 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
   date_fin_ntc <- get_previous(startday, date = start + 7) - 1
 
   ntc_planet <- copy(data)
-
-  date_debut <- as.POSIXct(x = ntc_planet$DATE[1], format = "%d/%m/%Y")
-
-  ntc_planet <- ntc_planet[, date_heure := seq.POSIXt(from = date_debut, length.out = nrow(ntc_planet), by = "1 hour")]
-  ntc_planet <- ntc_planet[, date := as.Date(date_heure, tz = "Europe/Paris")]
-
-  ntc_planet <- ntc_planet[date >= date_ini_ntc & date <= date_fin_ntc]
-
-  if (nrow(ntc_planet) != 168) {
-    stop("There isn't 168 observations in the data!", call. = FALSE)
+  
+  if (!force_date) {
+    date_debut <- as.POSIXct(x = ntc_planet$DATE[1], format = "%d/%m/%Y")
+    
+    ntc_planet[, date_heure := seq.POSIXt(from = date_debut, length.out = nrow(ntc_planet), by = "1 hour")]
+    ntc_planet[, date := as.Date(date_heure, tz = "Europe/Paris")]
+    
+    ntc_planet <- ntc_planet[date >= date_ini_ntc & date <= date_fin_ntc]
+    
+    if (nrow(ntc_planet) != 168) {
+      stop("There isn't 168 observations in the data!", call. = FALSE)
+    }
+  } else {
+    setnames(x = ntc_planet, old = "DATE", new = "date_heure")
   }
+  
 
   liste_pays <- c("be", "ch", "de", "es", "gb", "it")
 
@@ -63,7 +69,7 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
     nom_pays <- grep(pattern = toupper(i), x = names(ntc_planet), value = TRUE)
     ntc_pays <- ntc_planet[, .SD, .SDcols = c("date_heure", nom_pays)]
 
-    if(i < "fr") {
+    if (i < "fr") {
 
       ntc_aux <- ntc_pays[, .SD, .SDcols = c(
         grep(pattern = "IMP", x = names(ntc_pays), value = TRUE),
@@ -106,7 +112,7 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
         start_sim = opts$start
       )
     }
-    cat("\nReordering Links - Done!\n")
+    cat(format("\rReordering Links - Done!\n", width = getOption("width")))
   }
 
   # Maj simulation

@@ -46,7 +46,7 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = 
   date_fin_fil <- get_previous(endday, date = start)
 
   # Get data
-  cat("Retrieving data from API...\n")
+  cat("Retrieving data from API...")
   fil_eau_ini <- get_hydraulique_fil_de_l_eau_eclusee(from = date_ini_fil, to = date_fin_fil)
   fil_eau_ini[, date := NULL]
   cat("\rRetrieving data from API - Done!\n")
@@ -90,7 +90,8 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = 
         start_sim = opts$start
       )
     }
-    cat(format("\rReordering ROR - Done!\n", width = getOption("width")))
+    cat(format("\rReordering ROR - Done!", width = getOption("width")))
+    cat("\n")
   }
   
   # Maj simulation

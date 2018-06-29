@@ -5,7 +5,7 @@
 \title{Create Links for Weekly Margins simulation}
 \usage{
 create_wm_ntc(data, start = NULL, startday = "samedi", sort_links = TRUE,
-  opts = antaresRead::simOptions())
+  force_date = FALSE, opts = antaresRead::simOptions())
 }
 \arguments{
 \item{data}{a \code{data.table} containing NTC datas.}
@@ -16,6 +16,8 @@ and next \code{startday}-1, by default between \code{samedi} and \code{vendredi}
 \item{startday}{Day of week to start simulation.}
 
 \item{sort_links}{Reorder other links to match the desired week.}
+
+\item{force_date}{Force date in data to match \code{startday}.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

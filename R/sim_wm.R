@@ -50,13 +50,14 @@ sim_wm <- function(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(), typ
   cat(info_text("Create ROR"))
   oa <- read_forfait_oa(path = path_inputs$forfait_oa)
   opts <- create_wm_ror(data = oa, start= date_prev,  startday = startday, opts = opts)
+  
   cat(info_text("Create MISC"))
   opts <- create_wm_misc(data = oa, start = start_prev_hebdo, opts = opts)
   
   # NTC
   cat(info_text("Create NTC"))
-  ntc <- fread(file = path_inputs$ntc)
-  opts <- create_wm_ntc(data = ntc, start = start_prev_hebdo, opts = opts, startday = startday)
+  ntc <- fread(file = list.files(path = path_inputs$ntc, full.names = TRUE))
+  opts <- create_wm_ntc(data = ntc, start = start_prev_hebdo, opts = opts, startday = startday, force_date = TRUE)
   
   cat(info_text("Create NTC TP"))
   ntc_tp <- read_ntc(path = path_inputs$ntc_tp)

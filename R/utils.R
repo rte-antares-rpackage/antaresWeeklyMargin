@@ -38,7 +38,7 @@ select_file <- function(path, pattern = "Hydrauliques", fileext = "\\.xml$", mul
 info_text <- function(x) {
   wcon <- getOption("width")
   wchar <- nchar(x)
-  paste(x, paste(rep("-", times = wcon - wchar - 1), collapse = ""), "\n")
+  paste("\n", x, paste(rep("-", times = wcon - wchar - 1), collapse = ""), "\n")
 }
 
 
