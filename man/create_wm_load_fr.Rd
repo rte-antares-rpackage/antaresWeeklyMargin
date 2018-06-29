@@ -4,13 +4,15 @@
 \alias{create_wm_load_fr}
 \title{Create Load TS for France}
 \usage{
-create_wm_load_fr(path, start, type = c("prevu", "premis"),
+create_wm_load_fr(path, start, start_prev_hebdo, type = c("prevu", "premis"),
   opts = antaresRead::simOptions())
 }
 \arguments{
 \item{path}{Path to CNES directory, see \code{\link{read_cnes}} for usage.}
 
 \item{start}{Beginning of the simulation.}
+
+\item{start_prev_hebdo}{Beginning of previsions.}
 
 \item{type}{Forecast to use \code{prevu} or \code{premis}.}
 

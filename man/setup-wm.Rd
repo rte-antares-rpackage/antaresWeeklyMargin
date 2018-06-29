@@ -7,7 +7,8 @@
 \title{Setup a WM simulation before running Antares}
 \usage{
 sim_wm(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(),
-  opts = antaresRead::simOptions())
+  type_load = "prevu", dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520,
+  3520), opts = antaresRead::simOptions())
 
 path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
   cnes = "cnes", planning = "planning", forfait_oa = "forfait_oa",
@@ -17,9 +18,13 @@ path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
 \arguments{
 \item{date_prev}{Date of simulation.}
 
-\item{start_prev_hebdo}{Date of forecasts.}
+\item{start_prev_hebdo}{Date of forecasts, with format \code{\%Y-\%m-\%d}.}
 
 \item{path_inputs}{A \code{list} with path to inputs directories, obtained with \code{path_sim_wm}.}
+
+\item{type_load}{Forecast to use \code{prevu} or \code{premis}.}
+
+\item{dispo_pump}{Pumpage availability.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}
