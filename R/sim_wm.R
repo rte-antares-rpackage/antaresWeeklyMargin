@@ -6,6 +6,7 @@
 #' @param path_inputs A \code{list} with path to inputs directories, obtained with \code{path_sim_wm}.
 #' @param type_load Forecast to use \code{prevu} or \code{premis}.
 #' @param dispo_pump Pumpage availability.
+#' @param simulation_source Path to source simulation for creating Hydro for other areas.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -22,8 +23,12 @@
 #' # todo
 #' 
 #' }
-sim_wm <- function(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(), type_load = "prevu", 
-                   dispo_pump = c(3520,3520,3520,3520,3520,3520,3520), opts = antaresRead::simOptions()) {
+sim_wm <- function(date_prev, start_prev_hebdo, 
+                   path_inputs = path_sim_wm(), 
+                   type_load = "prevu", 
+                   dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520, 3520),
+                   simulation_source = NULL,
+                   opts = antaresRead::simOptions()) {
   
   inputPath <- opts$inputPath
   startday <- format(as.Date(start_prev_hebdo), format = "%A")
@@ -75,10 +80,14 @@ sim_wm <- function(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(), typ
     opts = opts, 
     dispo_pump = dispo_pump
   )
-  #Add Hydro for other areas
-  cat(info_text("Create Hydro areas"))
-  opts <- create_wm_hydro_areas(start = start_prev_hebdo, opts = opts)
   
+  #Add Hydro for other areas
+  if (!is.null(simulation_source)) {
+    cat(info_text("Create Hydro areas"))
+    opts <- create_wm_hydro_areas(start = start_prev_hebdo, simulation_source = simulation_source, opts = opts)
+  }
+  
+  cat(info_text("Finish!"))
   invisible(opts)
 }
 

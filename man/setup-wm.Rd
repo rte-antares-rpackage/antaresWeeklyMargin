@@ -9,7 +9,7 @@
 \usage{
 sim_wm(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(),
   type_load = "prevu", dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520,
-  3520), opts = antaresRead::simOptions())
+  3520), simulation_source = NULL, opts = antaresRead::simOptions())
 
 path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
   cnes = "cnes", planning = "planning", forfait_oa = "forfait_oa",
@@ -28,6 +28,8 @@ force_path(...)
 \item{type_load}{Forecast to use \code{prevu} or \code{premis}.}
 
 \item{dispo_pump}{Pumpage availability.}
+
+\item{simulation_source}{Path to source simulation for creating Hydro for other areas.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

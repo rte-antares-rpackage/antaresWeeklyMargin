@@ -112,7 +112,8 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
         start_sim = opts$start
       )
     }
-    cat(format("\rReordering Links - Done!\n", width = getOption("width")))
+    cat(format("\rReordering Links - Done!", width = getOption("width")))
+    cat("\n")
   }
 
   # Maj simulation
