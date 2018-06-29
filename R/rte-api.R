@@ -118,11 +118,11 @@ format_datetime <- function(x) {
 get_eco2mix <- function(from = NULL, to = NULL, resource = c("tr", "cons"), user = NULL, proxy_pwd = NULL) {
   resource <- match.arg(resource)
   if (resource == "tr") {
-    dataset <- "eco2mix_national_tr"
+    dataset <- "eco2mix-national-tr"
   } else {
-    dataset <- "eco2mix_national_cons_def"
+    dataset <- "eco2mix-national-cons-def"
   }
-  url <- "https://opendata.rte-france.com/api/records/1.0/search/"
+  url <- "https://opendata.reseaux-energies.fr/api/records/1.0/search/"
   cli <- crul::HttpClient$new(url = url)
   proxy <- get_proxy_info(user, proxy_pwd)
   if (!is.null(proxy$user) & !is.null(proxy$proxy_pwd)) {
