@@ -27,7 +27,7 @@ read_ntc <- function(path) {
     stringsAsFactors = FALSE
   )
   res <- rbindlist(res, fill = TRUE)
-  res$X. <- NULL
+  res <- res[, .SD, .SDcols = setdiff(names(res), "X.")]
   vars <- copy(names(res))
   setnames(x = res, old = vars, new = tolower(vars))
   res[, date := as.Date(substr(datetime, 1, 10))]

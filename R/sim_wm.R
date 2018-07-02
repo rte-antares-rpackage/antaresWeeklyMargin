@@ -42,7 +42,7 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   formet <- read_meteologica2(path = path_inputs$meteologica, date = date_prev, time = "00")
   formet2 <- formet[format(file_date, format = "%F %T") == paste0(date_prev, heure_prev_meteologica)]
   # Create time series
-  create_wm_ts(data = formet, start = start_prev_hebdo, opts = opts)
+  opts <- create_wm_ts(data = formet, start = start_prev_hebdo, opts = opts)
   
   # Add CNES forecast
   cat(info_text("Create Load FR"))
