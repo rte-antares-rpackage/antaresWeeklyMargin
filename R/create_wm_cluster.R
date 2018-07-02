@@ -53,7 +53,7 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
     oldclus <- oldclus[area == "fr", cluster]
     oldclus <- as.character(oldclus)
     l_max_o <- max(nchar(oldclus))
-    cat("\nRemoving older clusters\n")
+    cat("\nRemoval of former clusters\n")
     if (length(oldclus) > 0) {
       for (oldcluster in oldclus) {
         cat(sprintf("\rRemoving: %s (%s%%)",

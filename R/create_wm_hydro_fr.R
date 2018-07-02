@@ -5,6 +5,7 @@
 #' @param path_capa_hydro Path to hydro capacities CSV file.
 #' @param path_hydro Path to hydro usine XML file.
 #' @param start Starting date of simulation.
+#' @param fictive_area Name of the fictive area to create, default is \code{"lac"}.
 #' @param dispo_pump Pumpage availability.
 #' @param opts
 #'   List of simulation parameters returned by the function
@@ -25,6 +26,7 @@
 #'
 #' }
 create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
+                               fictive_area = "lac",
                                dispo_pump = c(3200, 3200, 3020, 2860, 3020, 3180, 3180),
                                opts = antaresRead::simOptions()) {
 
@@ -38,8 +40,8 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
   inputPath <- opts$inputPath
 
   if (!"lac" %in% antaresRead::getAreas(opts = opts)){
-    opts <- createArea(name = "lac", overwrite = TRUE, opts = opts)
-    cat("Creating a new area called lac\n")
+    opts <- createArea(name = fictive_area, overwrite = TRUE, opts = opts)
+    cat(sprintf("Creating a new area called %s\n", fictive_area))
   }
 
   # CAPACITE MAX DU LAC+TURB?
@@ -50,9 +52,9 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
   #####
   # Creer un cluster "lac_groupe" avec capacite nominale egal a la capacite maximale du lac+turbinage
 
-  if (nrow(readClusterDesc(opts = opts)[area == "lac", ]) == 0) {
+  if (nrow(readClusterDesc(opts = opts)[area == fictive_area, ]) == 0) {
     opts <- createCluster(
-      area = "lac",
+      area = fictive_area,
       cluster_name = "generator",
       group = "other",
       unitcount = 1L,
@@ -65,7 +67,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
     )
   } else {
     opts <- editCluster(
-      area = "lac",
+      area = fictive_area,
       cluster_name = "generator", 
       nominalcapacity = capa_max_hydro,
       opts = opts
@@ -75,7 +77,7 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
   #Creer un lien fr-lac
   opts <- createLink(
     from = "fr",
-    to = "lac",
+    to = fictive_area,
     propertiesLink = propertiesLinkOptions(
       hurdles_cost = FALSE,
       transmission_capacities = "enabled"
@@ -190,26 +192,31 @@ create_wm_hydro_fr <- function(path_capa_hydro, path_hydro, start,
 
   # noms binding constraints
   namesbc <- names(readBindingConstraints(opts = opts))
+  newbc <- sprintf("fr_%s_energie_hebdo", fictive_area)
 
-  if(!"fr_lac_energie_hebdo" %in% namesbc){
+  if(!newbc %in% namesbc){
+    coef <- -1
+    names(coef) <- paste(sort(c("fr", fictive_area)), collapse = "%")
     opts <- createBindingConstraint(
-      name = "fr_lac_energie_hebdo",
+      name = newbc,
       values = equal_lac,
       enabled = TRUE,
       timeStep = "weekly",
       operator = "equal",
-      coefficients = c("fr%lac" = -1),
+      coefficients = coef,
       opts = opts
     )
   } else {
-    opts <- removeBindingConstraint("fr_lac_energie_hebdo", opts = opts)
+    opts <- removeBindingConstraint(name = newbc, opts = opts)
+    coef <- 1
+    names(coef) <- paste(sort(c("fr", fictive_area)), collapse = "%")
     opts <- createBindingConstraint(
-      name = "fr_lac_energie_hebdo",
+      name = newbc,
       values = equal_lac,
       enabled = TRUE,
       timeStep = "weekly",
       operator = "equal",
-      coefficients = c("fr%lac" = 1),
+      coefficients = coef,
       opts = opts
     )
   }
