@@ -9,6 +9,7 @@
 #' 
 #' @importFrom data.table fread setnames := melt
 #' @importFrom stringr str_replace_all
+#' @importFrom lubridate minutes
 #'
 #' @examples
 #' \dontrun{
@@ -53,6 +54,7 @@ read_cnes <- function(path) {
     dat[, timestamp := sprintf("%02d:%02d", rep(0:23, each = 2), rep(c(0, 30), times = 24)), by = date]
     dat[, datetime := paste(date, timestamp)]
     dat[, datetime := as.POSIXct(datetime, format = "%y%m%d %H:%M")]
+    dat[, datetime := datetime + lubridate::minutes(30)]
     output <- dat[, list(datetime, value)]
     setnames(output, c("datetime", "value"), c("datetime", basename(path)))
     return(output)
