@@ -16,6 +16,7 @@
 #'
 #' @importFrom data.table copy as.data.table := setnames
 #' @importFrom antaresRead simOptions getLinks
+#' @importFrom antaresEditObject editLink
 #' @importFrom utils write.table
 #'
 #' @examples
@@ -81,6 +82,7 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
         x = ntc_antares, row.names = FALSE, col.names = FALSE, sep = "\t",
         file = paste0(inputPath, "/links/", i, "/fr.txt")
       )
+      opts <- editLink(from = i, to = "fr", transmission_capacities = "enabled", opts = opts)
 
     } else {
 
@@ -94,6 +96,7 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
         x = ntc_antares, row.names = FALSE, col.names = FALSE, sep = "\t",
         file = paste0(inputPath, "/links/fr/", i, ".txt")
       )
+      opts <- editLink(from = "fr", to = i, transmission_capacities = "enabled", opts = opts)
 
     }
 

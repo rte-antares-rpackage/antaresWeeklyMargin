@@ -11,6 +11,7 @@
 #' 
 #' @importFrom data.table copy as.data.table dcast :=
 #' @importFrom utils write.table
+#' @importFrom antaresEditObject editLink
 #'
 #' @examples
 #' \dontrun{
@@ -67,6 +68,7 @@ create_wm_ntc_tp <- function(data, start, default = 1468, opts = antaresRead::si
     x = ntc_be_nl, row.names = FALSE, col.names = FALSE, sep = "\t",
     file = paste0(inputPath, "/links/be/nl.txt")
   )
+  opts <- editLink(from = "be", to = "nl", transmission_capacities = "enabled", opts = opts)
   
   # de-nl
   ntc_de_nl[1:168, 1:2] <- ntc_daux
@@ -74,6 +76,7 @@ create_wm_ntc_tp <- function(data, start, default = 1468, opts = antaresRead::si
     x = ntc_de_nl, row.names = FALSE, col.names = FALSE, sep = "\t",
     file = paste0(inputPath, "/links/de/nl.txt")
   )
+  opts <- editLink(from = "de", to = "nl", transmission_capacities = "enabled", opts = opts)
   
   # be-de
   ntc_null <- NULL
@@ -81,6 +84,7 @@ create_wm_ntc_tp <- function(data, start, default = 1468, opts = antaresRead::si
     x = ntc_null, row.names = FALSE, col.names = FALSE, sep = "\t",
     file = paste0(inputPath, "/links/be/de.txt")
   )
+  opts <- editLink(from = "be", to = "de", transmission_capacities = "enabled", opts = opts)
   
   #  be-lu_be"
   ntc_be_lu <- as.data.table(matrix(data = c(rep(300, 8760*2), rep(0, 8760*1), rep(0.5, 8760*2)), ncol = 5))
@@ -88,6 +92,7 @@ create_wm_ntc_tp <- function(data, start, default = 1468, opts = antaresRead::si
     x = ntc_be_lu, row.names = FALSE, col.names = FALSE, sep = "\t",
     file = paste0(inputPath, "/links/be/lu_be.txt")
   )
+  opts <- editLink(from = "be", to = "lu_be", transmission_capacities = "enabled", opts = opts)
   
   # de-lu_de"
   ntc_de_lu <- as.data.table(matrix(data = c(rep(1, 8760*2), rep(0, 8760*1), rep(0.5, 8760*2)), ncol = 5))
@@ -95,6 +100,7 @@ create_wm_ntc_tp <- function(data, start, default = 1468, opts = antaresRead::si
     x = ntc_de_lu, row.names = FALSE, col.names = FALSE, sep = "\t",
     file = paste0(inputPath, "/links/de/lu_de.txt")
   )
+  opts <- editLink(from = "de", to = "lu_de", transmission_capacities = "enabled", opts = opts)
   
   cat("Writing links data - Done!\n")
   
