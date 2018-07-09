@@ -23,6 +23,9 @@
 #' }
 draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "seul"),
                                 nb_MC = ncol(upward_margin) - 1, num_week = NULL) {
+
+  upward_margin <- copy(upward_margin)
+
   type <- match.arg(type)
   #Calcul des differentes percentiles
   centil1  <- give_percentile(upward_margin, nb_MC, 1)
@@ -49,13 +52,17 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
       # ,EFFECTIVE_IRC = marge_rt$MARGE_SEUL_RT
     )]
 
-    pal_couleurs <- c(rep("gray", nb_MC)
-                      , "red"
+    pal_couleurs <- c("red"
                       , "orange"
                       , "blue"
                       , "green"
-                      , "black"
+                      , rep("gray", nb_MC)
                       # , "orange"
+    )
+
+    setcolorder(
+      x = upward_margin,
+      neworder = union(c("DATE_UTC", "PERCENTIL_1", "PERCENTIL_4", "PERCENTIL_10", "MEDIAN"), names(upward_margin))
     )
 
     graph_margin <- dygraph(data = as.xts.data.table(upward_margin),
@@ -92,9 +99,11 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
                       , "orange"
                       , "blue"
                       , "green"
-                      , "black"
-                      # , "orange"
-    )
+                      )
+    # setcolorder(
+    #   x = upward_margin,
+    #   neworder = union(c("DATE_UTC", "PERCENTIL_1", "PERCENTIL_4", "PERCENTIL_10", "MEDIAN"), names(upward_margin))
+    # )
 
     graph_margin <- dygraph(data = as.xts.data.table(upward_margin),
                             main = paste0("Final Remaining Capacity ",toupper(area)," - Week", num_week)) %>%
@@ -109,10 +118,16 @@ draw_upward_margin <- function (upward_margin, area = "fr", type = c("inter", "s
       dySeries("MEDIAN", strokeWidth = 2) %>%
       #dySeries("FRC", strokeWidth = 2) %>%
       # dySeries("EFFECTIVE_FRC", strokeWidth = 2) %>%
-      dyOptions(colors = c(pal_couleurs)) %>%
+      dyOptions(colors = pal_couleurs) %>%
       dyOptions(useDataTimezone = TRUE)  %>%
       dyAxis("y", label = "MW") %>%
       dyLimit(limit = 0, color = "red")
+
+
+    # vars_mc <- setdiff(names(upward_margin), c("DATE_UTC", "PERCENTIL_1", "PERCENTIL_4", "PERCENTIL_10", "MEDIAN"))
+    # for (v in vars_mc) {
+    #   graph_margin <- dySeries(dygraph = graph_margin, name = v, color = "gray")
+    # }
   }
 
   #Pour montrer le graphique sur la fênetre VIEWER

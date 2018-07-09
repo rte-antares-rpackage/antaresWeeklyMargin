@@ -88,18 +88,20 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
     unitcount = 1L,
     enabled = TRUE,
     nominalcapacity = max(pmax, na.rm = TRUE),
-    `min-stable-power` = ifelse(
-      test = num_equal(max(pmax, na.rm = TRUE), min(pmin, na.rm = TRUE)),
-      yes = min(pmin, na.rm = TRUE)*0.9,
-      no = min(pmin, na.rm = TRUE)
-    ),
+    # `min-stable-power` = ifelse(
+    #   test = num_equal(max(pmax, na.rm = TRUE), min(pmin, na.rm = TRUE)),
+    #   yes = min(pmin, na.rm = TRUE)*0.9,
+    #   no = min(pmin, na.rm = TRUE)
+    # ),
+    `min-stable-power` = min(pmin, na.rm = TRUE),
     `must-run` =  min(pmin, na.rm = TRUE) >= max(pmax, na.rm = TRUE)*0.9,
     prepro_modulation = list(
       matrix(
         data = c(
           rep(1, times = 365 * 24 * 2), # two first columns
           (pmax/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
-          rep(0, times = 365 * 24 * 1) # fourth column
+          # rep(0, times = 365 * 24 * 1) # fourth column
+          (pmin/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168) 
         ), ncol = 4
       )
     )
