@@ -94,7 +94,9 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
     #   no = min(pmin, na.rm = TRUE)
     # ),
     `min-stable-power` = min(pmin, na.rm = TRUE),
-    `must-run` =  min(pmin, na.rm = TRUE) >= max(pmax, na.rm = TRUE)*0.9,
+    `must-run` =  (min(pmin, na.rm = TRUE) >= max(pmax, na.rm = TRUE)*0.9 |
+      ("S_CHARGE" %in% code_essai | "RPN" %in% code_essai)) &
+      !"DRTE" %in% code_essai,
     prepro_modulation = list(
       matrix(
         data = c(

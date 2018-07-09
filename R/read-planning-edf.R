@@ -18,6 +18,9 @@ read_edf_sheet <- function(path, sheet) {
   # data <- data[, val_llim := check_lim_limit(x = code_essai), by = code_groupe]
   # data <- data[val_llim == TRUE]
   # data <- data[, val_llim := NULL]
+  
+  # keep only LIMIT for D units
+  data <- data[!(comb_ == "D" & code_essai == "LIM")]
 
 
   # Delete REDEM
@@ -63,18 +66,41 @@ read_edf_sheet <- function(path, sheet) {
   ), by = list(code_groupe, datetime)]
   data <- data[val_vp == TRUE]
   data <- data[, val_vp := NULL]
+  
+  # check code essai VA
+  data <- data[, val_va := check_code_essai(
+    x = code_essai, code = "VA", possible.values = c("^VA$")
+  ), by = list(code_groupe, datetime)]
+  data <- data[val_va == TRUE]
+  data <- data[, val_va := NULL]
+  
   # check code essai VD
   data <- data[, val_vd := check_code_essai(
     x = code_essai, code = "VD", possible.values = c("^VD", "^RVD.*")
   ), by = list(code_groupe, datetime)]
   data <- data[val_vd == TRUE]
   data <- data[, val_vd := NULL]
+  
   # check code essai ASR
   data <- data[, val_asr := check_code_essai(
     x = code_essai, code = "ASR", possible.values = c("^ASR", "^RASR.*")
   ), by = list(code_groupe, datetime)]
   data <- data[val_asr == TRUE]
   data <- data[, val_asr := NULL]
+  
+  # check code essai DRTE
+  data <- data[, val_drte := check_code_essai(
+    x = code_essai, code = "DRTE", possible.values = c("^DRTE")
+  ), by = list(code_groupe, datetime)]
+  data <- data[val_drte == TRUE]
+  data <- data[, val_drte := NULL]
+  
+  # check code essai MODUL
+  data <- data[, val_modul := check_code_essai(
+    x = code_essai, code = "MODUL", possible.values = c("^MODUL")
+  ), by = list(code_groupe, datetime)]
+  data <- data[val_modul == TRUE]
+  data <- data[, val_modul := NULL]
 
 
   
