@@ -190,7 +190,7 @@ create_wm_hydro_areas <- function(start,
     }
 
     # print(i)
-    cat(format(sprintf("Reset hydro storage for %s...\n", i), width = getOption("width")))
+    cat(format(sprintf("\nReset hydro storage for %s...\n", i), width = getOption("width")))
     # antaresWaterValues::resetHydroStorage(i, opts = opts)
     matrix_null <- NULL
     # print("reset hydro storage")
