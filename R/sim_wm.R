@@ -7,6 +7,7 @@
 #' @param type_load Forecast to use \code{prevu} or \code{premis}.
 #' @param dispo_pump Pumpage availability.
 #' @param simulation_source Path to source simulation for creating Hydro for other areas.
+#'  If provided a copy of this simulation will be performed.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -29,6 +30,12 @@ sim_wm <- function(date_prev, start_prev_hebdo,
                    dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520, 3520),
                    simulation_source = NULL,
                    opts = antaresRead::simOptions()) {
+  
+  if (!is.null(simulation_source)) {
+    cat(info_text("Copying study"))
+    new_path <- copy_sim_wm(path_sim = simulation_source)
+    opts <- setSimulationPath(path = new_path)
+  }
   
   inputPath <- opts$inputPath
   startday <- format(as.Date(start_prev_hebdo), format = "%A")
@@ -88,6 +95,8 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   }
   
   cat(info_text("Finish!"))
+  cat("Path to sudy:", opts$studyPath)
+  
   invisible(opts)
 }
 
@@ -154,4 +163,24 @@ path_sim_wm <- function(path_dir = "inputs",
 force_path <- function(...) {
   I(normalizePath(file.path(...), mustWork = TRUE))
 }
+
+
+
+# Utility to copy whole simulation into new directory
+copy_sim_wm <- function(path_sim = NULL) {
+  if (is.null(path_sim))
+    return(invisible())
+  path_sim <- normalizePath(path = path_sim, mustWork = TRUE)
+  dir_sim <- dirname(path = path_sim)
+  dest_sim <- file.path(dir_sim, paste0(basename(path_sim), "_WM_", format(Sys.time(), "%Y%m%d%H%M")))
+  dir.create(path = dest_sim)
+  cat("Simulation copied here:", dest_sim, "\n")
+  res_copy <- file.copy(
+    from = list.files(path = path_sim, full.names = TRUE),
+    to = dest_sim,
+    recursive = TRUE
+  )
+  return(dest_sim)
+}
+
 

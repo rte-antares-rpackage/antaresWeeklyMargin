@@ -29,7 +29,8 @@ force_path(...)
 
 \item{dispo_pump}{Pumpage availability.}
 
-\item{simulation_source}{Path to source simulation for creating Hydro for other areas.}
+\item{simulation_source}{Path to source simulation for creating Hydro for other areas.
+If provided a copy of this simulation will be performed.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}
