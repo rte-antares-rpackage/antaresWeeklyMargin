@@ -8,8 +8,9 @@
 \title{Setup a WM simulation before running Antares}
 \usage{
 sim_wm(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(),
-  type_load = "prevu", dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520,
-  3520), simulation_source = NULL, opts = antaresRead::simOptions())
+  n_mcyears = 2040, type_load = "prevu", dispo_pump = c(3520, 3520, 3520,
+  3520, 3520, 3520, 3520), simulation_source = NULL, simulation_dest = NULL,
+  opts = antaresRead::simOptions())
 
 path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
   cnes = "cnes", planning = "planning", forfait_oa = "forfait_oa",
@@ -25,12 +26,16 @@ force_path(...)
 
 \item{path_inputs}{A \code{list} with path to inputs directories, obtained with \code{path_sim_wm}.}
 
+\item{n_mcyears}{Number of MC years in the study, default to \code{2040}.}
+
 \item{type_load}{Forecast to use \code{prevu} or \code{premis}.}
 
 \item{dispo_pump}{Pumpage availability.}
 
 \item{simulation_source}{Path to source simulation for creating Hydro for other areas.
 If provided a copy of this simulation will be performed.}
+
+\item{simulation_dest}{Name of the directory where to copy the study. Warning: content of directory will be deleted!}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

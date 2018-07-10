@@ -58,7 +58,7 @@ create_wm_hydro_areas <- function(start,
   # Configuration des liens areas/lac
   for (i in areas) {
     # print(i)
-    cat(format(sprintf("Creating links for %s...\n", i), width = getOption("width")))
+    cat(format(sprintf("\rCreating links for %s...", i), width = getOption("width")))
     links_etude <- antaresRead::getLinks(opts = opts)
 
     if (paste0(i, " - lac") %in% links_etude ||  paste0("lac - ", i) %in% links_etude) {
@@ -108,6 +108,7 @@ create_wm_hydro_areas <- function(start,
 
     max_lac <- max_lac_area + max_lac
   }
+  cat("\n")
 
   # print(max_lac)
   # Changement de nominal capacity du lac_generator
@@ -149,7 +150,7 @@ create_wm_hydro_areas <- function(start,
 
   for (i in areas) {
     # print(i)
-    cat(format(sprintf("Creating binding constraints for %s...\n", i), width = getOption("width")))
+    cat(format(sprintf("\rCreating binding constraints for %s...", i), width = getOption("width")))
 
     energy_lac <- readEnergy(area = i, opts = input_pdh)
     energy_lac <- energy_lac[date >= date_i & date < date_f]
@@ -220,6 +221,7 @@ create_wm_hydro_areas <- function(start,
 
 
   }
+  cat("\n")
   
   # Maj simulation
   suppressWarnings({

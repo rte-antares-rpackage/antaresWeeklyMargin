@@ -4,10 +4,12 @@
 #' @param date_prev Date of simulation.
 #' @param start_prev_hebdo Date of forecasts, with format \code{\%Y-\%m-\%d}.
 #' @param path_inputs A \code{list} with path to inputs directories, obtained with \code{path_sim_wm}.
+#' @param n_mcyears Number of MC years in the study, default to \code{2040}.
 #' @param type_load Forecast to use \code{prevu} or \code{premis}.
 #' @param dispo_pump Pumpage availability.
 #' @param simulation_source Path to source simulation for creating Hydro for other areas.
 #'  If provided a copy of this simulation will be performed.
+#' @param simulation_dest Name of the directory where to copy the study. Warning: content of directory will be deleted!
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -15,6 +17,8 @@
 #' @export
 #' 
 #' @importFrom data.table fread
+#' @importFrom lubridate wday
+#' @importFrom antaresEditObject updateGeneralSettings updateOptimizationSettings
 #' 
 #' @name setup-wm
 #'
@@ -26,14 +30,16 @@
 #' }
 sim_wm <- function(date_prev, start_prev_hebdo, 
                    path_inputs = path_sim_wm(), 
+                   n_mcyears = 2040,
                    type_load = "prevu", 
                    dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520, 3520),
                    simulation_source = NULL,
+                   simulation_dest = NULL,
                    opts = antaresRead::simOptions()) {
   
   if (!is.null(simulation_source)) {
     cat(info_text("Copying study"))
-    new_path <- copy_sim_wm(path_sim = simulation_source)
+    new_path <- copy_sim_wm(path_sim = simulation_source, dir_dest = simulation_dest)
     opts <- setSimulationPath(path = new_path)
   }
   
@@ -94,8 +100,23 @@ sim_wm <- function(date_prev, start_prev_hebdo,
     opts <- create_wm_hydro_areas(start = start_prev_hebdo, simulation_source = simulation_source, opts = opts)
   }
   
+  
+  first.weekday <- wday(x = start_prev_hebdo, label = TRUE, abbr = FALSE, locale = "English")
+  first.weekday <- as.character(first.weekday)
+  cat(info_text("Update study's settings"))
+  opts <- updateGeneralSettings(
+    nbyears = n_mcyears, 
+    simulation.end = 7, 
+    year.by.year = TRUE, 
+    opts = opts, 
+    first.weekday = first.weekday,
+    intra.modal = "No"
+  )
+  
+  opts <- updateOptimizationSettings(number.of.cores.mode = "maximum", opts = opts)
+  
   cat(info_text("Finish!"))
-  cat("Path to sudy:", opts$studyPath)
+  cat("Path to sudy:", opts$studyPath, "\n")
   
   invisible(opts)
 }
@@ -167,13 +188,21 @@ force_path <- function(...) {
 
 
 # Utility to copy whole simulation into new directory
-copy_sim_wm <- function(path_sim = NULL) {
+copy_sim_wm <- function(path_sim = NULL, dir_dest = NULL) {
   if (is.null(path_sim))
     return(invisible())
   path_sim <- normalizePath(path = path_sim, mustWork = TRUE)
   dir_sim <- dirname(path = path_sim)
-  dest_sim <- file.path(dir_sim, paste0(basename(path_sim), "_WM_", format(Sys.time(), "%Y%m%d%H%M")))
-  dir.create(path = dest_sim)
+  if (is.null(dir_dest)) {
+    dest_sim <- file.path(dir_sim, paste0(basename(path_sim), "_WM_", format(Sys.time(), "%Y%m%d%H%M")))
+  } else {
+    dest_sim <- file.path(dir_sim, dir_dest)
+  }
+  if (!dir.exists(dest_sim)) {
+    dir.create(path = dest_sim)
+  } else {
+    unlink(x = list.files(path = dest_sim, full.names = TRUE), recursive = TRUE)
+  }
   cat("Simulation copied here:", dest_sim, "\n")
   res_copy <- file.copy(
     from = list.files(path = path_sim, full.names = TRUE),
