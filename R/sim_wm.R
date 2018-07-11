@@ -101,9 +101,10 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   }
   
   
+  # General settings
   first.weekday <- wday(x = start_prev_hebdo, label = TRUE, abbr = FALSE, locale = "English")
   first.weekday <- as.character(first.weekday)
-  cat(info_text("Update study's settings"))
+  cat(info_text("Updating study's settings"))
   opts <- updateGeneralSettings(
     nbyears = n_mcyears, 
     simulation.end = 7, 
@@ -114,6 +115,12 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   )
   
   opts <- updateOptimizationSettings(number.of.cores.mode = "maximum", opts = opts)
+  
+  
+  # Scenario builder
+  cat(info_text("Updating scenario builder"))
+  update_sb(n_mcyears, opts)
+  
   
   cat(info_text("Finish!"))
   cat("Path to sudy:", opts$studyPath, "\n")
@@ -211,5 +218,60 @@ copy_sim_wm <- function(path_sim = NULL, dir_dest = NULL) {
   )
   return(dest_sim)
 }
+
+
+
+
+
+
+
+#' @importFrom antaresEditObject scenarioBuilder updateScenarioBuilder
+update_sb <- function(n_mc, opts) {
+  
+  # LOAD
+  sbuilder_load <- scenarioBuilder(
+    n_scenario = 51,
+    n_mc = n_mc,
+    areas_rand = c("lu_be","lu_de", "pump_d","pump_w", "turb_d","turb_w", "lac", "fr"), 
+    opts = opts
+  )
+  updateScenarioBuilder(
+    ldata = sbuilder_load, 
+    series = "load", 
+    opts = opts
+  )
+  
+  # WIND
+  sbuilder_wind <- scenarioBuilder(
+    n_scenario = 51,
+    n_mc = n_mc,
+    areas_rand = c("lu_be", "lu_de", "pump_d", "pump_w", "turb_d", "turb_w", "lac", "ch"), 
+    opts = opts
+  )
+  updateScenarioBuilder(
+    ldata = sbuilder_wind, 
+    series = "wind", 
+    opts = opts
+  )
+  
+  # SOLAR
+  sbuilder_solar <- scenarioBuilder(
+    n_scenario = 51,
+    n_mc = n_mc,
+    areas_rand = c("lu_be","lu_de", "pump_d", "pump_w", "turb_d", "turb_w", "lac", "ie", "ni"), 
+    opts = opts
+  )
+  updateScenarioBuilder(
+    ldata = sbuilder_solar, 
+    series = "solar", 
+    opts = opts
+  )
+}
+
+
+
+
+
+
 
 
