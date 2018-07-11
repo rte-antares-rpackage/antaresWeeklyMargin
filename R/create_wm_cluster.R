@@ -94,9 +94,15 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
     #   no = min(pmin, na.rm = TRUE)
     # ),
     `min-stable-power` = min(pmin, na.rm = TRUE),
-    `must-run` =  (min(pmin, na.rm = TRUE) >= max(pmax, na.rm = TRUE)*0.9 |
-      ("S_CHARGE" %in% code_essai | "RPN" %in% code_essai)) &
-      !"DRTE" %in% code_essai,
+    # `must-run` =  (min(pmin, na.rm = TRUE) >= max(pmax, na.rm = TRUE)*0.9 |
+    #   ("S_CHARGE" %in% code_essai)) & #  | "RPN" %in% code_essai
+    #   !"DRTE" %in% code_essai,
+    `must-run` =  must_run(
+      pmin = pmin, 
+      pmax = pmax, 
+      code_essai = code_essai, 
+      type = co_comb[[first(comb_)]]
+    ),
     prepro_modulation = list(
       matrix(
         data = c(
@@ -182,6 +188,28 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
   invisible(res)
 }
 
+
+
+
+
+
+must_run <- function(pmin, pmax, code_essai, type) {
+  maxpmax <- max(pmax, na.rm = TRUE)
+  minpmin <- min(pmin, na.rm = TRUE)
+  if (type == "oil") {
+    return(FALSE)
+  }
+  if (num_equal(maxpmax, 0)) {
+    return(FALSE)
+  }
+  if ("S_CHARGE" %in% code_essai) {
+    return(TRUE)
+  }
+  if (!"DRTE" %in% code_essai) {
+    return(TRUE)
+  }
+  minpmin >= maxpmax*0.9
+}
 
 
 
