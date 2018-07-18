@@ -205,8 +205,8 @@ must_run <- function(pmin, pmax, code_essai, type) {
   if ("S_CHARGE" %in% code_essai) {
     return(TRUE)
   }
-  if (!"DRTE" %in% code_essai) {
-    return(TRUE)
+  if ("DRTE" %in% code_essai) {
+    return(FALSE)
   }
   minpmin >= maxpmax*0.9
 }
