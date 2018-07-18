@@ -34,7 +34,7 @@ compute_margins <- function(date, area = "fr",
   links_virtual_area <- make_links(area, virtual_areas)
   links_virtual_area <- links_virtual_area[links_virtual_area %in% getLinks(areas = area, opts = opts)]
   
-  data_area <- readAntares(
+  data_study <- readAntares(
     areas = area, 
     links = links_virtual_area,
     select = c("FLOW LIN.", "AVL DTG", "MISC. NDG", "H. ROR", "WIND", "SOLAR", "LOAD",
@@ -44,8 +44,11 @@ compute_margins <- function(date, area = "fr",
     linkCapacity = length(links_virtual_area) > 0,
     opts = opts
   )
+  
+  data_area <- data_study$areas
+  
   if (length(links_virtual_area) > 0) {
-    data_area <- removeVirtualAreas(x = data_area, storageFlexibility = virtual_areas)$areas
+    data_area <- removeVirtualAreas(x = data_area, storageFlexibility = virtual_areas)
   }
   
   if (margin == "upward") {

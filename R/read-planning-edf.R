@@ -102,6 +102,12 @@ read_edf_sheet <- function(path, sheet) {
   data <- data[val_modul == TRUE]
   data <- data[, val_modul := NULL]
 
+  # check code essai EP NUC
+  data <- data[, val_epnuc := check_code_essai(
+    x = code_essai, code = "EP NUC", possible.values = c("EP NUC")
+  ), by = list(code_groupe, datetime)]
+  data <- data[val_epnuc == TRUE]
+  data <- data[, val_epnuc := NULL]
 
   
   
