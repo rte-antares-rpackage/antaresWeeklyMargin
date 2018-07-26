@@ -88,13 +88,16 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
     group = co_comb[[first(comb_)]],
     unitcount = 1L,
     enabled = TRUE,
-    nominalcapacity = ceiling(max(pmax, na.rm = TRUE)),
+    nominalcapacity = max(pmax, na.rm = TRUE),
     # `min-stable-power` = ifelse(
     #   test = num_equal(max(pmax, na.rm = TRUE), min(pmin, na.rm = TRUE)),
     #   yes = min(pmin, na.rm = TRUE)*0.9,
     #   no = min(pmin, na.rm = TRUE)
     # ),
-    `min-stable-power` = floor(min(pmin, na.rm = TRUE)),
+    `min-stable-power` = ifelse(
+      test = min(pmin, na.rm = TRUE) < 0.1 * max(pmax, na.rm = TRUE),
+      yes = 0, no = min(pmin, na.rm = TRUE)
+    ),
     # `must-run` =  (min(pmin, na.rm = TRUE) >= max(pmax, na.rm = TRUE)*0.9 |
     #   ("S_CHARGE" %in% code_essai)) & #  | "RPN" %in% code_essai
     #   !"DRTE" %in% code_essai,
