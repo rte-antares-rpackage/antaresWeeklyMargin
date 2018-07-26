@@ -111,6 +111,8 @@ sim_wm <- function(date_prev, start_prev_hebdo,
     year.by.year = TRUE, 
     opts = opts, 
     first.weekday = first.weekday,
+    january.1st = "Monday", 
+    leapyear = FALSE,
     intra.modal = "No"
   )
   
