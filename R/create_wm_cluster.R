@@ -81,6 +81,7 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
     "RN" = "gas"
   )
 
+  data[, `:=`(pmax = ceiling(pmax), pmin = floor(pmin))]
   clusdata <- data[, list(
     area = "fr",
     cluster_name = first(code_groupe),
