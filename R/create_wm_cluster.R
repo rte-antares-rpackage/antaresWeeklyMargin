@@ -195,8 +195,10 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
 
 
 must_run <- function(pmin, pmax, code_essai, type) {
-  maxpmax <- max(pmax, na.rm = TRUE)
-  minpmin <- min(pmin, na.rm = TRUE)
+  # maxpmax <- max(pmax, na.rm = TRUE)
+  # minpmin <- min(pmin, na.rm = TRUE)
+  maxpmax <- quantile(pmax, probs = 0.95, na.rm = TRUE)
+  minpmin <- quantile(pmin, probs = 0.05, na.rm = TRUE)
   if (type == "oil") {
     return(FALSE)
   }
