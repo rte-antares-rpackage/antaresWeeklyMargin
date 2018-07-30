@@ -15,7 +15,19 @@
 #' @examples
 #' \dontrun{
 #'
-#' # TODO
+#' library(antaresWeeklyMargin)
+#' 
+#' # ALL files in Europe folder
+#' meteo <- read_meteologica2(
+#'   path = "meteologica/Europe"
+#' )
+#' 
+#' # only for a specific date and time
+#' meteo <- read_meteologica2(
+#'   path = "meteologica/Europe", 
+#'   date = "2018-05-24", 
+#'   time = "12"
+#' )
 #'
 #' }
 read_meteologica2 <- function(path, country = NULL, date = NULL, time = NULL) {

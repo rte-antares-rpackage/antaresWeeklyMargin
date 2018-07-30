@@ -24,7 +24,19 @@ Read Meteologica file
 \examples{
 \dontrun{
 
-# TODO
+library(antaresWeeklyMargin)
+
+# ALL files in Europe folder
+meteo <- read_meteologica2(
+  path = "meteologica/Europe"
+)
+
+# only for a specific date and time
+meteo <- read_meteologica2(
+  path = "meteologica/Europe", 
+  date = "2018-05-24", 
+  time = "12"
+)
 
 }
 }
