@@ -116,3 +116,49 @@ make_links <- function(x, y) {
     USE.NAMES = FALSE
   )
 }
+
+
+#' Get modulation data for clusters
+#' @noRd
+#' @importFrom data.table fread rbindlist setnames :=
+read_cluster_modulation <- function(opts = simOptions()) {
+  
+  paths <- list.files(
+    path = file.path(opts$inputPath, "thermal/prepro"), 
+    pattern = "modulation\\.txt$", 
+    full.names = TRUE, 
+    recursive = TRUE
+  )
+  dat <- lapply(paths, fread)
+  names(dat) <- get_clus_name(paths)
+  dat <- rbindlist(dat, idcol = "cluster")
+  setnames(
+    x = dat, 
+    old = paste0("V", 1:4), 
+    new = c("marginalCostModulation",
+            "marketBidModulation", 
+            "capacityModulation",
+            "minGenModulation")
+  )
+  dat[, time := seq(from = opts$start, by = "1 hour", length.out = .N), by = cluster]
+  return(dat)
+}
+
+#' @importFrom stringr str_split
+get_clus_name <- function(x) {
+  res <- stringr::str_split(string = x, pattern = "/")
+  res <- lapply(
+    X = res,
+    FUN = function(y) {
+      rev(y)[2]
+    }
+  )
+  unlist(x = res)
+}
+
+
+
+
+
+
+

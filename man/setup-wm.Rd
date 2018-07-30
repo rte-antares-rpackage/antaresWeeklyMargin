@@ -72,7 +72,7 @@ Set path to inputs for WM simulation
 \examples{
 \dontrun{
 
-# todo
+# TODO
 
 }
 }

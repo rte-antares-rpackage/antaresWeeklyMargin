@@ -25,7 +25,7 @@
 #' @examples
 #' \dontrun{
 #' 
-#' # todo
+#' # TODO
 #' 
 #' }
 sim_wm <- function(date_prev, start_prev_hebdo, 
