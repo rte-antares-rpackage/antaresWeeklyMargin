@@ -221,6 +221,7 @@ get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, user = 
 # Via https://www.rte-france.com/fr/eco2mix/eco2mix-telechargement
 #' @importFrom utils unzip tail download.file
 #' @importFrom data.table setnames := fread
+#' @importFrom stringr str_split
 dl_eco2mix <- function(type = c("tr", "cons")) {
   url_dat <- switch(
     type, 
@@ -236,10 +237,17 @@ dl_eco2mix <- function(type = c("tr", "cons")) {
     destfile = file.path(tmp, "eco2mix.zip")
   )
   path_dat <- unzip(zipfile = file.path(tmp, "eco2mix.zip"), exdir = tmp)
-  suppressWarnings(eco2mix_dat <- fread(file = path_dat))
-  names_cols <- names(eco2mix_dat)[-1]
-  eco2mix_dat[, (tail(names_cols, 1)) := NULL]
-  setnames(eco2mix_dat, names(eco2mix_dat), clean_names(names_cols))
+  suppressWarnings(eco2mix_dat <- fread(file = path_dat, skip = 1L, fill=TRUE, blank.lines.skip=TRUE))
+  eco2mix_dat <- eco2mix_dat[-.N]
+  
+  # column's names
+  col_names <- readLines(con = path_dat, n = 1)
+  col_names <- stringr::str_split(col_names, "\t")[[1]]
+  col_names <- clean_names(col_names)
+  
+  col2suppr <- tail(names(eco2mix_dat), 1)
+  eco2mix_dat[, (col2suppr) := NULL]
+  setnames(eco2mix_dat, names(eco2mix_dat), col_names)
   
   setnames(eco2mix_dat, "hydraulique_fil_de_l_eau_eclusee", "hydraulique_fil_eau_eclusee")
   
