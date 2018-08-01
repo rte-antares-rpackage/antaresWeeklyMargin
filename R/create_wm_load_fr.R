@@ -48,7 +48,7 @@ create_wm_load_fr <- function(path, start, start_prev_hebdo, type = c("prevu", "
   if(type == "offset") {
     offset <- prev_offset(prevs)
     offset <- offset[, .SD, .SDcols = c("prev", paste0("prev", 1:50))]
-    matrix_conso <- as.data.table(matrix(data = c(rep(0L, 8760*51)), ncol = 51))
+    matrix_conso <- as.data.table(matrix(data = c(rep(0, 8760*51)), ncol = 51))
     matrix_conso[1:168, ] <- offset  
   }
   
@@ -85,6 +85,11 @@ create_wm_load_fr <- function(path, start, start_prev_hebdo, type = c("prevu", "
 prev_offset <- function(dat_prev) {
   
   dat_prev <- copy(dat_prev)
+  
+  pointe_matin <- c(NA, NA, "13:00", "13:00", "13:00", "13:00", "13:00")
+  pointe_soir <- c(NA, NA, "19:00", "19:00", "19:00", "19:00", "23:00")
+  creux_nuit <- c(NA, NA, "04:00", "04:00", "04:00", "04:00", "04:00")
+  creux_jour <- c(NA, NA, "22:00", "22:00", "22:00", "22:00", "22:00")
   
   prev_premis <- dat_prev[, !c("prevCN","prevu")]
   prev_premis <- prev_premis[, mean := round(apply(.SD, 1, mean), 0), by="datetime"]
