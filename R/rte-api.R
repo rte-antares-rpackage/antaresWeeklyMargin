@@ -227,13 +227,13 @@ dl_eco2mix <- function(type = c("tr", "cons")) {
     "tr" = "https://eco2mix.rte-france.com/download/eco2mix/eCO2mix_RTE_En-cours-TR.zip", 
     "cons" = "https://eco2mix.rte-france.com/download/eco2mix/eCO2mix_RTE_En-cours-Consolide.zip"
   )
-  tmp <- tempdir()
-  tmp_file <- tempfile()
+  tmp <- tempdir(check = TRUE)
+  tmp_file <- tempfile(fileext = ".zip")
   download.file(
     url = url_dat,
-    destfile = tmp_file
+    destfile = file.path(tmp, "eco2mix.zip")
   )
-  path_dat <- unzip(zipfile = tmp_file, exdir = tmp)
+  path_dat <- unzip(zipfile = file.path(tmp, "eco2mix.zip"), exdir = tmp)
   suppressWarnings(eco2mix_dat <- fread(file = path_dat))
   names_cols <- names(eco2mix_dat)[-1]
   eco2mix_dat[, (tail(names_cols, 1)) := NULL]
