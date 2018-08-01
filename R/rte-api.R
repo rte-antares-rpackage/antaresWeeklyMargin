@@ -199,18 +199,54 @@ get_hydraulique_fil_de_l_eau_eclusee <- function(from = NULL, to = NULL, user = 
   if (is.null(to))
     to <- get_previous(what = "vendredi")
   vars <- c("date", "date_heure", "hydraulique_fil_eau_eclusee")
-  eco2mix_tr <- get_eco2mix(from = from, to = to, resource = "tr", user = user, proxy_pwd = proxy_pwd)
+  # eco2mix_tr <- get_eco2mix(from = from, to = to, resource = "tr", user = user, proxy_pwd = proxy_pwd)
+  eco2mix_tr <- dl_eco2mix("tr")
   eco2mix_tr <- eco2mix_tr[, .SD, .SDcols = intersect(names(eco2mix_tr), vars)]
-  eco2mix_cons <- get_eco2mix(from = from, to = to, resource = "cons", user = user, proxy_pwd = proxy_pwd)
+  # eco2mix_cons <- get_eco2mix(from = from, to = to, resource = "cons", user = user, proxy_pwd = proxy_pwd)
+  eco2mix_cons <- dl_eco2mix("cons")
   eco2mix_cons <- eco2mix_cons[, .SD, .SDcols = intersect(names(eco2mix_cons), vars)]
   eco2mix <- rbindlist(list(eco2mix_tr, eco2mix_cons), fill = TRUE)
   eco2mix <- eco2mix[order(date_heure)]
   eco2mix <- eco2mix[format(date_heure, format = "%M") == "00"]
+  eco2mix <- eco2mix[date >= as.Date(from)]
+  eco2mix <- eco2mix[date <= as.Date(to)]
   return(eco2mix)
 }
 
 
 
+
+
+
+# Via https://www.rte-france.com/fr/eco2mix/eco2mix-telechargement
+#' @importFrom utils unzip tail download.file
+#' @importFrom data.table setnames := fread
+dl_eco2mix <- function(type = c("tr", "cons")) {
+  url_dat <- switch(
+    type, 
+    "tr" = "https://eco2mix.rte-france.com/download/eco2mix/eCO2mix_RTE_En-cours-TR.zip", 
+    "cons" = "https://eco2mix.rte-france.com/download/eco2mix/eCO2mix_RTE_En-cours-Consolide.zip"
+  )
+  tmp <- tempdir()
+  tmp_file <- tempfile()
+  download.file(
+    url = url_dat,
+    destfile = tmp_file
+  )
+  path_dat <- unzip(zipfile = tmp_file, exdir = tmp)
+  suppressWarnings(eco2mix_dat <- fread(file = path_dat))
+  names_cols <- names(eco2mix_dat)[-1]
+  eco2mix_dat[, (tail(names_cols, 1)) := NULL]
+  setnames(eco2mix_dat, names(eco2mix_dat), clean_names(names_cols))
+  
+  setnames(eco2mix_dat, "hydraulique_fil_de_l_eau_eclusee", "hydraulique_fil_eau_eclusee")
+  
+  eco2mix_dat[, date_heure := paste(date, heures)]
+  eco2mix_dat[, date_heure := as.POSIXct(date_heure, format = "%Y-%m-%d %H:%M")]
+  eco2mix_dat[, date := as.Date(date)]
+  
+  return(eco2mix_dat)
+}
 
 
 
