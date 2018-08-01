@@ -227,7 +227,9 @@ dl_eco2mix <- function(type = c("tr", "cons")) {
     "tr" = "https://eco2mix.rte-france.com/download/eco2mix/eCO2mix_RTE_En-cours-TR.zip", 
     "cons" = "https://eco2mix.rte-france.com/download/eco2mix/eCO2mix_RTE_En-cours-Consolide.zip"
   )
-  tmp <- tempdir(check = TRUE)
+  tmp <- tempdir()
+  if (!dir.exists(tmp))
+    dir.create(tmp)
   tmp_file <- tempfile(fileext = ".zip")
   download.file(
     url = url_dat,
