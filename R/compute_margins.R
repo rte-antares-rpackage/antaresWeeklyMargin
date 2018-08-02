@@ -160,5 +160,28 @@ get_clus_name <- function(x) {
 
 
 
-
+#' @importFrom antaresRead readClusterDesc readAntares
+compute_pmin_clus <- function(area, opts) {
+  
+  # Cluster data
+  datclus <- readAntares(clusters = area, mcYears = "all", opts = opts)
+  datclus <- datclus[, list(cluster, time, NODU)]
+  datclus[, cluster := as.character(cluster)]
+  
+  # Modulation data
+  datmod <- read_cluster_modulation(opts = opts)
+  datmod <- datmod[, list(cluster, time, minGenModulation)]
+  
+  # Installed capacity
+  area_ <- area
+  datins <- antaresRead::readClusterDesc(opts = opts)[area == area_, list(cluster, nominalcapacity)]
+  
+  # Merge data
+  pminthermal <- merge(x = datclus, y = datmod, by = c("cluster", "time"))
+  pminthermal <- merge(x = pminthermal, y = datins, by = "cluster")
+  
+  pminthermal <- pminthermal[, list(pmin_therm = sum(NODU * minGenModulation * nominalcapacity, na.rm = TRUE)), by = time]
+  
+  return(pminthermal)
+}
 

@@ -17,4 +17,5 @@ utils::globalVariables(c(".SD", ".I", ".N", "groupe", "code_groupe",
                          "expectation", "ror_share", "PValleeMobilisable", "forecasttransfercapacity",
                          "areaintypecode", "mapcodein", "mapcodeout", "file_date",
                          "margin_solo", "AVL DTG", "storageCapacity", "margin_inter", "abs_loadFactor", "loadFactor",
-                         "creux_jour", "creux_nuit", "offset_new", "pointe_matin", "pointe_soir"))
+                         "creux_jour", "creux_nuit", "offset_new", "pointe_matin", "pointe_soir",
+                         "NODU", "minGenModulation", "nominalcapacity"))
