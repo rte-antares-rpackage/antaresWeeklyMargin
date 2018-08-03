@@ -52,11 +52,16 @@ compute_margins <- function(date, area = "fr",
   }
   
   if (margin == "upward") {
-    margin_area <- data_area[, margin_solo := `AVL DTG`+ storageCapacity +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD]
+    
+    margin_area <- data_area[, margin_solo := `AVL DTG` + storageCapacity +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD]
     margin_area <- data_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
+    
   } else {
     
-    # TODO
+    pminthermal <- compute_pmin_clus(area = area, opts = opts)
+    data_area <- merge(x = data_area, y = pminthermal, by = "time")
+    margin_area <- data_area[, margin_solo := pmin_therm + storageCapacity +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD]
+    margin_area <- data_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
     
   }
   
