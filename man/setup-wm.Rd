@@ -8,9 +8,10 @@
 \title{Setup a WM simulation before running Antares}
 \usage{
 sim_wm(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(),
-  n_mcyears = 2040, type_load = "prevu", dispo_pump = c(3520, 3520, 3520,
+  n_mcyears = 2040, type_load = "prevu",
+  load_offset_options = offset_opts(), dispo_pump = c(3520, 3520, 3520,
   3520, 3520, 3520, 3520), simulation_source = NULL, simulation_dest = NULL,
-  opts = antaresRead::simOptions())
+  copy_study = TRUE, opts = antaresRead::simOptions())
 
 path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
   cnes = "cnes", planning = "planning", forfait_oa = "forfait_oa",
@@ -28,7 +29,9 @@ force_path(...)
 
 \item{n_mcyears}{Number of MC years in the study, default to \code{2040}.}
 
-\item{type_load}{Forecast to use \code{prevu} or \code{premis}.}
+\item{type_load}{Forecast to use \code{"prevu"}, \code{"premis"} or \code{"offset"}.}
+
+\item{load_offset_options}{Peak and off-peak if \code{type_load = "offset"}, see \code{\link{offset_opts}}.}
 
 \item{dispo_pump}{Pumpage availability.}
 
@@ -36,6 +39,8 @@ force_path(...)
 If provided a copy of this simulation will be performed.}
 
 \item{simulation_dest}{Name of the directory where to copy the study. Warning: content of directory will be deleted!}
+
+\item{copy_study}{Make a copy of the whole study before modifying Antares inputs.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}
@@ -72,7 +77,29 @@ Set path to inputs for WM simulation
 \examples{
 \dontrun{
 
-# TODO
+library(antaresRead)
+library(antaresWeeklyMargin)
+
+opts <- setSimulationPath("path/to/original/study")
+
+sim_wm(
+  date_prev = "2018-06-21",
+  start_prev_hebdo = "2018-06-23", 
+  simulation_dest = "test_case_WM",
+  type_load = "prevu",
+  path_inputs = path_sim_wm(  # Path to input data
+    path_dir = "../inputs", 
+    meteologica = "meteologica", 
+    cnes = "cnes",           
+    planning = "planning", 
+    forfait_oa = "forfait_oa",  
+    ntc = "ntc",         
+    ntc_tp = "ntc_tp",    
+    capa_hydro = "capa_hydro",  
+    hydro = "hydro"   
+  ), 
+  opts = opts
+)
 
 }
 }

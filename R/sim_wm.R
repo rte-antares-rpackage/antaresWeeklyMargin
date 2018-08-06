@@ -5,11 +5,13 @@
 #' @param start_prev_hebdo Date of forecasts, with format \code{\%Y-\%m-\%d}.
 #' @param path_inputs A \code{list} with path to inputs directories, obtained with \code{path_sim_wm}.
 #' @param n_mcyears Number of MC years in the study, default to \code{2040}.
-#' @param type_load Forecast to use \code{prevu} or \code{premis}.
+#' @param type_load Forecast to use \code{"prevu"}, \code{"premis"} or \code{"offset"}.
+#' @param load_offset_options Peak and off-peak if \code{type_load = "offset"}, see \code{\link{offset_opts}}.
 #' @param dispo_pump Pumpage availability.
 #' @param simulation_source Path to source simulation for creating Hydro for other areas.
 #'  If provided a copy of this simulation will be performed.
 #' @param simulation_dest Name of the directory where to copy the study. Warning: content of directory will be deleted!
+#' @param copy_study Make a copy of the whole study before modifying Antares inputs.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -19,24 +21,50 @@
 #' @importFrom data.table fread
 #' @importFrom lubridate wday
 #' @importFrom antaresEditObject updateGeneralSettings updateOptimizationSettings
+#' @importFrom antaresRead setSimulationPath
 #' 
 #' @name setup-wm
 #'
 #' @examples
 #' \dontrun{
 #' 
-#' # TODO
+#' library(antaresRead)
+#' library(antaresWeeklyMargin)
+#' 
+#' opts <- setSimulationPath("path/to/original/study")
+#' 
+#' sim_wm(
+#'   date_prev = "2018-06-21",
+#'   start_prev_hebdo = "2018-06-23", 
+#'   simulation_dest = "test_case_WM",
+#'   type_load = "prevu",
+#'   path_inputs = path_sim_wm(  # Path to input data
+#'     path_dir = "../inputs", 
+#'     meteologica = "meteologica", 
+#'     cnes = "cnes",           
+#'     planning = "planning", 
+#'     forfait_oa = "forfait_oa",  
+#'     ntc = "ntc",         
+#'     ntc_tp = "ntc_tp",    
+#'     capa_hydro = "capa_hydro",  
+#'     hydro = "hydro"   
+#'   ), 
+#'   opts = opts
+#' )
 #' 
 #' }
 sim_wm <- function(date_prev, start_prev_hebdo, 
                    path_inputs = path_sim_wm(), 
                    n_mcyears = 2040,
-                   type_load = "prevu", 
+                   type_load = "prevu", load_offset_options = offset_opts(),
                    dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520, 3520),
                    simulation_source = NULL,
                    simulation_dest = NULL,
+                   copy_study = TRUE,
                    opts = antaresRead::simOptions()) {
   
+  if (is.null(simulation_source) & copy_study)
+    simulation_source <- opts$studyPath
   if (!is.null(simulation_source)) {
     cat(info_text("Copying study"))
     new_path <- copy_sim_wm(path_sim = simulation_source, dir_dest = simulation_dest)
@@ -59,7 +87,14 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   
   # Add CNES forecast
   cat(info_text("Create Load FR"))
-  opts <- create_wm_load_fr(path = path_inputs$cnes, start = date_prev, start_prev_hebdo = start_prev_hebdo, type = type_load, opts = opts)
+  opts <- create_wm_load_fr(
+    path = path_inputs$cnes, 
+    start = date_prev, 
+    start_prev_hebdo = start_prev_hebdo, 
+    type = type_load, 
+    offset_options = load_offset_options,
+    opts = opts
+  )
   
   cat(info_text("Create Clusters"))
   sup <- read_planning(path = path_inputs$planning)

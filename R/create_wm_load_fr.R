@@ -4,12 +4,15 @@
 #' @param path Path to CNES directory, see \code{\link{read_cnes}} for usage.
 #' @param start Beginning of the simulation.
 #' @param start_prev_hebdo Beginning of previsions.
-#' @param type Forecast to use \code{prevu} or \code{premis}.
+#' @param type Forecast to use \code{"prevu"}, \code{"premis"} or \code{"offset"}.
+#' @param offset_options Peak and off-peak if \code{type = "offset"}.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
 #'
 #' @export
+#' 
+#' @name create-wm-load-fr
 #'
 #' @examples
 #' \dontrun{
@@ -17,7 +20,10 @@
 #' create_wm_load_fr("Prev_hebdo_CNES/", "2018-02-27", "prevu")
 #' 
 #' }
-create_wm_load_fr <- function(path, start, start_prev_hebdo, type = c("prevu", "premis", "offset"), opts = antaresRead::simOptions()) {
+create_wm_load_fr <- function(path, start, start_prev_hebdo,
+                              type = c("prevu", "premis", "offset"), 
+                              offset_options = offset_opts(),
+                              opts = antaresRead::simOptions()) {
   
   inputPath <- opts$inputPath
   
@@ -46,7 +52,7 @@ create_wm_load_fr <- function(path, start, start_prev_hebdo, type = c("prevu", "
   }
   
   if(type == "offset") {
-    offset <- prev_offset(prevs)
+    offset <- prev_offset(prevs, offset_options = offset_options)
     offset <- offset[, .SD, .SDcols = c("prev", paste0("prev", 1:50))]
     matrix_conso <- as.data.table(matrix(data = c(rep(0, 8760*51)), ncol = 51))
     matrix_conso[1:168, ] <- offset  
@@ -75,6 +81,24 @@ create_wm_load_fr <- function(path, start, start_prev_hebdo, type = c("prevu", "
 
 
 
+#' @param peak_morning Morning peak.
+#' @param peak_evening Evening peak.
+#' @param offpeak_night Night off-peak.
+#' @param offpeak_day Day off-peak.
+#'
+#' @rdname create-wm-load-fr
+#' @export
+offset_opts <- function(peak_morning = c(NA, NA, "13:00", "13:00", "13:00", "13:00", "13:00"),
+                       peak_evening = c(NA, NA, "19:00", "19:00", "19:00", "19:00", "23:00"),
+                       offpeak_night = c(NA, NA, "04:00", "04:00", "04:00", "04:00", "04:00"),
+                       offpeak_day = c(NA, NA, "22:00", "22:00", "22:00", "22:00", "22:00")) {
+  list(
+    peak_morning = peak_morning,
+    peak_evening = peak_evening,
+    offpeak_night = offpeak_night,
+    offpeak_day = offpeak_day
+  )
+}
 
 
 
@@ -82,14 +106,14 @@ create_wm_load_fr <- function(path, start, start_prev_hebdo, type = c("prevu", "
 #' @importFrom data.table copy as.data.table :=
 #' @importFrom stringr str_sub
 #' @importFrom zoo na.spline
-prev_offset <- function(dat_prev) {
+prev_offset <- function(dat_prev, offset_options = offset_opts()) {
   
   dat_prev <- copy(dat_prev)
   
-  pointe_matin <- c(NA, NA, "13:00", "13:00", "13:00", "13:00", "13:00")
-  pointe_soir <- c(NA, NA, "19:00", "19:00", "19:00", "19:00", "23:00")
-  creux_nuit <- c(NA, NA, "04:00", "04:00", "04:00", "04:00", "04:00")
-  creux_jour <- c(NA, NA, "22:00", "22:00", "22:00", "22:00", "22:00")
+  peak_morning <- offset_options$peak_morning
+  peak_evening <- offset_options$peak_evening
+  offpeak_night <- offset_options$offpeak_night
+  offpeak_day <- offset_options$offpeak_day
   
   prev_premis <- dat_prev[, !c("prevCN","prevu")]
   prev_premis <- prev_premis[, mean := round(apply(.SD, 1, mean), 0), by="datetime"]
@@ -109,28 +133,28 @@ prev_offset <- function(dat_prev) {
   tab <- tab[, offset_prev := c(rep(0, 168))]
   
   for(i in 1:7){
-    jour <- wday(tab$date[i+23*(i-1)], week_start = getOption("lubridate.week.start", 1))
+    jour <- wday(tab$date[i + 23 * (i - 1)], week_start = getOption("lubridate.week.start", 1))
     
     if(jour == 6 || jour == 7){
       offset_aux <- c(rep(0, 24))
-      tab$offset_prev[(1+(24*(i-1))):(24*i)] <- offset_aux[1:24]
+      tab$offset_prev[(1 + (24 * (i - 1))):(24 * i)] <- offset_aux[1:24]
     } else {
-      h_pointe_matin <- as.numeric(stringr::str_sub(pointe_matin[i],1,2))
-      h_pointe_soir <- as.numeric(stringr::str_sub(pointe_soir[i],1,2))
-      h_creux_nuit <- as.numeric(stringr::str_sub(creux_nuit[i],1,2))
-      h_creux_jour <- as.numeric(stringr::str_sub(creux_jour[i],1,2))
+      h_peak_morning <- as.numeric(stringr::str_sub(peak_morning[i], 1, 2))
+      h_peak_evening <- as.numeric(stringr::str_sub(peak_evening[i], 1, 2))
+      h_offpeak_night <- as.numeric(stringr::str_sub(offpeak_night[i], 1, 2))
+      h_offpeak_day <- as.numeric(stringr::str_sub(offpeak_day[i], 1, 2))
       
       offset_aux <- c(rep(NA, 24))
-      offset_aux[h_pointe_matin+1] <- diff[i*24-1]
-      offset_aux[h_pointe_soir+1] <- diff[i*24-1]
-      offset_aux[h_creux_nuit+1] <- 0
-      offset_aux[h_creux_jour+1] <- 0
+      offset_aux[h_peak_morning + 1] <- diff[i * 24 - 1]
+      offset_aux[h_peak_evening + 1] <- diff[i * 24 - 1]
+      offset_aux[h_offpeak_night + 1] <- 0
+      offset_aux[h_offpeak_day + 1] <- 0
       
-      tab$offset_prev[(1+(24*(i-1))):(24*i)] <- offset_aux[1:24]
+      tab$offset_prev[(1 + (24 * (i - 1))):(24 * i)] <- offset_aux[1:24]
     }
   }
   
-  tab <- tab[, offset_new := c(round(na.spline(tab$offset_prev),0))]
+  tab <- tab[, offset_new := c(round(na.spline(tab$offset_prev), 0))]
   tab <- tab[, -c("date")]
   
   prev_modif <- copy(prev_premis)
