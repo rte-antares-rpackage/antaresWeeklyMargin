@@ -81,7 +81,7 @@ compute_margins <- function(date, area = "fr",
   } else {
     
     pminthermal <- compute_pmin_clus(area = area, opts = opts)
-    data_area <- merge(x = data_area, y = pminthermal, by = "time")
+    data_area <- merge(x = data_area, y = pminthermal, by = c("time", "mcYear"))
     margin_area <- data_area[, margin_solo := pmin_therm +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
     margin_area <- data_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
     
