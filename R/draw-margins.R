@@ -26,13 +26,30 @@ draw_margins <- function(data_margin,
                          num_week = NULL) {
   
   data_margin <- copy(data_margin)
+  nb_MC <- copy(nb_MC)
   
   #Calcul des differentes percentiles
-  centil1  <- give_percentile(data_margin, nb_MC, 1)
-  centil4  <- give_percentile(data_margin, nb_MC, 4)
-  centil10 <- give_percentile(data_margin, nb_MC, 10)
-  centil50 <- give_percentile(data_margin, nb_MC, 50)
-  
+  centil1  <- apply(
+    X = data_margin[, -1],
+    MARGIN = 1,
+    FUN = quantile, probs = 1/100, type = 4
+  )
+  centil4  <- apply(
+    X = data_margin[, -1],
+    MARGIN = 1,
+    FUN = quantile, probs = 4/100, type = 4
+  )
+  centil10  <- apply(
+    X = data_margin[, -1],
+    MARGIN = 1,
+    FUN = quantile, probs = 10/100, type = 4
+  )
+  centil50  <- apply(
+    X = data_margin[, -1],
+    MARGIN = 1,
+    FUN = quantile, probs = 50/100, type = 4
+  )
+
   type_margin <- attr(x = data_margin, which = "margin")
   title <- NULL
   if (!is.null(type_margin)) {
@@ -76,22 +93,16 @@ draw_margins <- function(data_margin,
     main = title
   ) %>%
     dyRangeSelector() %>%
-    dyLegend(show="always") %>%
     dyHighlight(highlightCircleSize = 3)%>%
-    dyLegend(show = "always")%>%
     dyCSS(css = system.file('www/css_dygraph.css', package = 'antaresWeeklyMargin'))%>%
-    dySeries("PERCENTIL_1", strokeWidth = 2) %>%
-    dySeries("PERCENTIL_4", strokeWidth = 2) %>%
-    dySeries("PERCENTIL_10", strokeWidth = 2) %>%
-    dySeries("MEDIAN", strokeWidth = 2) %>%
-    #dySeries("FRC", strokeWidth = 2) %>%
-    # dySeries("EFFECTIVE_FRC", strokeWidth = 2) %>%
-    dyOptions(colors = pal_couleurs) %>%
-    dyOptions(useDataTimezone = TRUE)  %>%
-    dyAxis("y", label = "MW") %>%
+    dySeries(name = "PERCENTIL_1", strokeWidth = 2) %>%
+    dySeries(name = "PERCENTIL_4", strokeWidth = 2) %>%
+    dySeries(name = "PERCENTIL_10", strokeWidth = 2) %>%
+    dySeries(name = "MEDIAN", strokeWidth = 2) %>%
+    dyOptions(colors = pal_couleurs, useDataTimezone = TRUE) %>%
+    dyAxis(name = "y", label = "MW") %>%
     dyLimit(limit = 0, color = "red")
   
-  #Pour montrer le graphique sur la fênetre VIEWER
   return(graph_margin)
 }
 
