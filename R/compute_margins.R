@@ -75,7 +75,7 @@ compute_margins <- function(date, area = "fr",
   
   if (margin == "upward") {
     
-    margin_area <- copy(margin_area)
+    margin_area <- copy(data_area)
     margin_area[, margin_solo := `AVL DTG` + storageCapacity +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD]
     margin_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
     
