@@ -4,7 +4,6 @@
 #' @param data_margin a \code{data.table}, first column must be the datetime,
 #'  the others results of Monte-Carlo simulations.
 #' @param area Name of the area, used in chart title.
-#' @param nb_MC Number of Monte-Carlo years to draw.
 #' @param num_week Week number to be displayed in chart title.
 #'
 #' @return a \code{dygraphs} htmlwidget.
@@ -17,15 +16,32 @@
 #' @examples
 #' \dontrun{
 #'
-#' # TODO
+#' library(antaresRead)
+#' library(antaresWeeklyMargin)
+#' 
+#' setSimulationPath("path/to/sim")
+#' 
+#' 
+#' up <- compute_margins(
+#'   date = "2018-02-28", 
+#'   area = "fr", 
+#'   mcYears = 1:100,
+#'   margin = "upward"
+#' )
+#' 
+#' # Marges seules
+#' draw_margins(data_margin = up$margin_area_solo, area = "fr")
+#' 
+#' # Marges interco
+#' draw_margins(data_margin = up$margin_area_inter, area = "fr")
 #'
 #' }
 draw_margins <- function(data_margin,
                          area = "fr",
-                         nb_MC = ncol(data_margin) - 1,
                          num_week = NULL) {
   
   data_margin <- copy(data_margin)
+  nb_MC <- ncol(data_margin) - 1
   nb_MC <- copy(nb_MC)
   
   #Calcul des differentes percentiles
@@ -107,28 +123,3 @@ draw_margins <- function(data_margin,
 }
 
 
-
-
-
-######################################################################################################
-#Fonction qui determine un centil donne de marges hebdomadaires, calcules a partir de scenarios MC
-#Il faut le preciser quel type de marge on considere (seul ou interconnecte), le nombre des MC_years et le centil
-#
-#Il retourne une chronique correspondant au centil des marges
-######################################################################################################
-
-give_percentile <- function(margin, nb_MC, num_centil) { #margin sous forme d'un data.table dont la 1ere colonne est la date et les colonne ssuivantes les marges.
-  
-  #Calcul de centil inferieur et superieur
-  centil_inf <- floor(num_centil*nb_MC/100)
-  centil_sup <- ceiling(num_centil*nb_MC/100)
-  
-  #Determiner la chronique correspondant au centil donne
-  percent <- sapply(1:168, function(x){
-    temp <- sapply(1:nb_MC, function(y){margin[[x,y+1]]})
-    inf <- sort(temp, partial = centil_inf)[centil_inf]
-    sup <- sort(temp, partial = centil_sup)[centil_sup]
-    inf + (nb_MC/100-floor(nb_MC/100))*(sup-inf)})
-  
-  return(percent)
-}

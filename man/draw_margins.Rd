@@ -4,16 +4,13 @@
 \alias{draw_margins}
 \title{Draw remaining capacity line chart}
 \usage{
-draw_margins(data_margin, area = "fr", nb_MC = ncol(data_margin) - 1,
-  num_week = NULL)
+draw_margins(data_margin, area = "fr", num_week = NULL)
 }
 \arguments{
 \item{data_margin}{a \code{data.table}, first column must be the datetime,
 the others results of Monte-Carlo simulations.}
 
 \item{area}{Name of the area, used in chart title.}
-
-\item{nb_MC}{Number of Monte-Carlo years to draw.}
 
 \item{num_week}{Week number to be displayed in chart title.}
 }
@@ -26,7 +23,24 @@ Draw remaining capacity line chart
 \examples{
 \dontrun{
 
-# TODO
+library(antaresRead)
+library(antaresWeeklyMargin)
+
+setSimulationPath("path/to/sim")
+
+
+up <- compute_margins(
+  date = "2018-02-28", 
+  area = "fr", 
+  mcYears = 1:100,
+  margin = "upward"
+)
+
+# Marges seules
+draw_margins(data_margin = up$margin_area_solo, area = "fr")
+
+# Marges interco
+draw_margins(data_margin = up$margin_area_inter, area = "fr")
 
 }
 }
