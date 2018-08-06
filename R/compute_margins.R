@@ -21,7 +21,25 @@
 #' @examples
 #' \dontrun{
 #' 
-#' # todo
+#' library(antaresRead)
+#' library(antaresWeeklyMargin)
+#' 
+#' opts <- setSimulationPath("path/to/study/")
+#' 
+#' # Upward margins for France
+#' up <- compute_margins(
+#'   date = "2018-06-23",
+#'   area = "fr",
+#'   margin = "upward"
+#' )
+#' 
+#' # Downward margins
+#' # can be slow - all clusters are read
+#' down <- compute_margins(
+#'   date = "2018-06-23", 
+#'   area = "fr",
+#'   margin = "downward"
+#' )
 #' 
 #' }
 compute_margins <- function(date, area = "fr", 
@@ -45,10 +63,14 @@ compute_margins <- function(date, area = "fr",
     opts = opts
   )
   
-  data_area <- data_study$areas
+  
   
   if (length(links_virtual_area) > 0) {
-    data_area <- removeVirtualAreas(x = data_area, storageFlexibility = virtual_areas)
+    data_area <- removeVirtualAreas(x = data_study, storageFlexibility = virtual_areas)$areas
+  } else {
+    data_area <- data_study$areas
+    data_area$storageCapacity <- 0
+    data_area$pumpingCapacity <- 0
   }
   
   if (margin == "upward") {
@@ -60,7 +82,7 @@ compute_margins <- function(date, area = "fr",
     
     pminthermal <- compute_pmin_clus(area = area, opts = opts)
     data_area <- merge(x = data_area, y = pminthermal, by = "time")
-    margin_area <- data_area[, margin_solo := pmin_therm + storageCapacity +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD]
+    margin_area <- data_area[, margin_solo := pmin_therm +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
     margin_area <- data_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
     
   }
@@ -170,7 +192,7 @@ compute_pmin_clus <- function(area, opts) {
   
   # Cluster data
   datclus <- readAntares(clusters = area, mcYears = "all", opts = opts)
-  datclus <- datclus[, list(cluster, time, NODU)]
+  datclus <- datclus[, list(cluster, time, mcYear, NODU)]
   datclus[, cluster := as.character(cluster)]
   
   # Modulation data
@@ -185,8 +207,9 @@ compute_pmin_clus <- function(area, opts) {
   pminthermal <- merge(x = datclus, y = datmod, by = c("cluster", "time"))
   pminthermal <- merge(x = pminthermal, y = datins, by = "cluster")
   
-  pminthermal <- pminthermal[, list(pmin_therm = sum(NODU * minGenModulation * nominalcapacity, na.rm = TRUE)), by = time]
+  pminthermal[, pmin_therm := NODU * minGenModulation * nominalcapacity]
+  res <- pminthermal[, list(pmin_therm = sum(pmin_therm, na.rm = TRUE)), by = list(mcYear, time)]
   
-  return(pminthermal)
+  return(res)
 }
 

@@ -30,7 +30,25 @@ From Antares results, calculate upward or downward margins for an area.
 \examples{
 \dontrun{
 
-# todo
+library(antaresRead)
+library(antaresWeeklyMargin)
+
+opts <- setSimulationPath("path/to/study/")
+
+# Upward margins for France
+up <- compute_margins(
+  date = "2018-06-23",
+  area = "fr",
+  margin = "upward"
+)
+
+# Downward margins
+# can be slow - all clusters are read
+down <- compute_margins(
+  date = "2018-06-23", 
+  area = "fr",
+  margin = "downward"
+)
 
 }
 }
