@@ -121,7 +121,7 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   
   # Scenario builder
   cat(info_text("Updating scenario builder"))
-  update_sb(n_mcyears, opts)
+  update_sb(n_mc = n_mcyears, type = type_load, opts = opts)
   
   
   cat(info_text("Finish!"))
@@ -228,15 +228,26 @@ copy_sim_wm <- function(path_sim = NULL, dir_dest = NULL) {
 
 
 #' @importFrom antaresEditObject scenarioBuilder updateScenarioBuilder
-update_sb <- function(n_mc, opts) {
+update_sb <- function(n_mc, type = c("prevu", "premis", "offset"), opts) {
+  
+  type <- match.arg(type)
   
   # LOAD
-  sbuilder_load <- scenarioBuilder(
-    n_scenario = 51,
-    n_mc = n_mc,
-    areas_rand = c("lu_be","lu_de", "pump_d","pump_w", "turb_d","turb_w", "lac", "fr"), 
-    opts = opts
-  )
+  if (type == "prevu") {
+    sbuilder_load <- scenarioBuilder(
+      n_scenario = 51,
+      n_mc = n_mc,
+      areas_rand = c("lu_be","lu_de", "pump_d","pump_w", "turb_d","turb_w", "lac", "fr"), 
+      opts = opts
+    )
+  } else {
+    sbuilder_load <- scenarioBuilder(
+      n_scenario = 51,
+      n_mc = n_mc,
+      areas_rand = c("lu_be","lu_de", "pump_d","pump_w", "turb_d","turb_w", "lac"), 
+      opts = opts
+    )
+  }
   updateScenarioBuilder(
     ldata = sbuilder_load, 
     series = "load", 
