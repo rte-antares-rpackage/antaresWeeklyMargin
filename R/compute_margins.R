@@ -16,7 +16,7 @@
 #' @export
 #' 
 #' @importFrom antaresRead readAntares getLinks simOptions removeVirtualAreas
-#' @importFrom data.table dcast data.table :=
+#' @importFrom data.table dcast data.table := setattr
 #'
 #' @examples
 #' \dontrun{
@@ -122,6 +122,9 @@ compute_margins <- function(date, area = "fr",
   )
   data_area[, time := NULL]
   data_area <- merge(x = data_area, y = corr_time, by = "timeId")
+  
+  setattr(x = margin_area_solo, name = "margin", value = paste(margin, "solo", sep = "."))
+  setattr(x = margin_area_inter, name = "margin", value = paste(margin, "inter", sep = "."))
   
   list(
     data_area = data_area,
