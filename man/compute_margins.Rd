@@ -5,8 +5,8 @@
 \title{Compute upward or downward margins}
 \usage{
 compute_margins(date, area = "fr", margin = c("upward", "downward"),
-  virtual_areas = c("lac", "pump_d", "turb_d", "pump_w", "turb_w"),
-  opts = antaresRead::simOptions())
+  mcYears = "all", virtual_areas = c("lac", "pump_d", "turb_d", "pump_w",
+  "turb_w"), opts = antaresRead::simOptions())
 }
 \arguments{
 \item{date}{Date of the study.}
@@ -14,6 +14,8 @@ compute_margins(date, area = "fr", margin = c("upward", "downward"),
 \item{area}{Area studied.}
 
 \item{margin}{Type of margin to compute, \code{upward} or \code{downward}, can be abbreviated.}
+
+\item{mcYears}{Index of the Monte-Carlo years to import, by default all of them. Passed to \code{\link[antaresRead]{readAntares}}.}
 
 \item{virtual_areas}{List of virtuals areas.}
 

@@ -6,6 +6,7 @@
 #' @param date Date of the study.
 #' @param area Area studied.
 #' @param margin Type of margin to compute, \code{upward} or \code{downward}, can be abbreviated.
+#' @param mcYears Index of the Monte-Carlo years to import, by default all of them. Passed to \code{\link[antaresRead]{readAntares}}.
 #' @param virtual_areas List of virtuals areas.
 #' @param opts
 #'   List of simulation parameters returned by the function
@@ -44,6 +45,7 @@
 #' }
 compute_margins <- function(date, area = "fr", 
                             margin = c("upward", "downward"),
+                            mcYears = "all",
                             virtual_areas = c("lac","pump_d", "turb_d","pump_w", "turb_w" ),
                             opts = antaresRead::simOptions()) {
   margin <- match.arg(margin)
@@ -58,7 +60,7 @@ compute_margins <- function(date, area = "fr",
     select = c("FLOW LIN.", "AVL DTG", "MISC. NDG", "H. ROR", "WIND", "SOLAR", "LOAD",
                "MISC. DTG", "BALANCE", "NUCLEAR", "GAS", "COAL", "LIGNITE", "OIL",
                "MIX. FUEL", "ROW BAL.", "FLOW LIN.", "LOLD", "LOLP", "UNSP. ENRG"), 
-    mcYears = "all", 
+    mcYears = mcYears, 
     linkCapacity = length(links_virtual_area) > 0,
     opts = opts
   )
@@ -81,7 +83,7 @@ compute_margins <- function(date, area = "fr",
     
   } else {
     
-    pminthermal <- compute_pmin_clus(area = area, opts = opts)
+    pminthermal <- compute_pmin_clus(area = area, mcYears = mcYears, opts = opts)
     margin_area <- merge(x = data_area, y = pminthermal, by = c("time", "mcYear"))
     margin_area[, margin_solo := pmin_therm +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
     margin_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
@@ -193,10 +195,10 @@ get_clus_name <- function(x) {
 
 
 #' @importFrom antaresRead readClusterDesc readAntares
-compute_pmin_clus <- function(area, opts) {
+compute_pmin_clus <- function(area, mcYears = "all", opts) {
   
   # Cluster data
-  datclus <- readAntares(clusters = area, mcYears = "all", opts = opts)
+  datclus <- readAntares(clusters = area, mcYears = mcYears, opts = opts)
   datclus <- datclus[, list(cluster, time, mcYear, NODU)]
   datclus[, cluster := as.character(cluster)]
   
