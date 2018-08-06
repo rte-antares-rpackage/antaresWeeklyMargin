@@ -16,7 +16,7 @@
 #' @export
 #' 
 #' @importFrom antaresRead readAntares getLinks simOptions removeVirtualAreas
-#' @importFrom data.table dcast data.table := setattr
+#' @importFrom data.table dcast data.table := setattr setorder
 #'
 #' @examples
 #' \dontrun{
@@ -75,15 +75,17 @@ compute_margins <- function(date, area = "fr",
   
   if (margin == "upward") {
     
-    margin_area <- data_area[, margin_solo := `AVL DTG` + storageCapacity +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD]
-    margin_area <- data_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
+    margin_area <- copy(margin_area)
+    margin_area[, margin_solo := `AVL DTG` + storageCapacity +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD]
+    margin_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
     
   } else {
     
     pminthermal <- compute_pmin_clus(area = area, opts = opts)
-    data_area <- merge(x = data_area, y = pminthermal, by = c("time", "mcYear"))
-    margin_area <- data_area[, margin_solo := pmin_therm +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
-    margin_area <- data_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
+    margin_area <- merge(x = data_area, y = pminthermal, by = c("time", "mcYear"))
+    margin_area[, margin_solo := pmin_therm +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
+    margin_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
+    setorder(x = margin_area, mcYear, time)
     
   }
   
@@ -127,7 +129,7 @@ compute_margins <- function(date, area = "fr",
   setattr(x = margin_area_inter, name = "margin", value = paste(margin, "inter", sep = "."))
   
   list(
-    data_area = data_area,
+    margin_area = margin_area,
     margin_area_solo = margin_area_solo,
     margin_area_inter = margin_area_inter
   )
