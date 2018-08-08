@@ -4,8 +4,8 @@
 \alias{create_wm_ror}
 \title{Create ROR for Weekly Margins simulation}
 \usage{
-create_wm_ror(data, start = NULL, startday = "samedi", sort_areas = TRUE,
-  opts = antaresRead::simOptions())
+create_wm_ror(data, start = NULL, startday = "samedi",
+  sort_areas = TRUE, opts = antaresRead::simOptions())
 }
 \arguments{
 \item{data}{a \code{data.table} obtained from \code{\link{read_forfait_oa}}.}

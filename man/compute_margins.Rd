@@ -5,8 +5,8 @@
 \title{Compute upward or downward margins}
 \usage{
 compute_margins(date, area = "fr", margin = c("upward", "downward"),
-  mcYears = "all", virtual_areas = c("lac", "pump_d", "turb_d", "pump_w",
-  "turb_w"), opts = antaresRead::simOptions())
+  mcYears = "all", virtual_areas = c("lac", "pump_d", "turb_d",
+  "pump_w", "turb_w"), opts = antaresRead::simOptions())
 }
 \arguments{
 \item{date}{Date of the study.}

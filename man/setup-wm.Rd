@@ -10,8 +10,9 @@
 sim_wm(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(),
   n_mcyears = 2040, type_load = "prevu",
   load_offset_options = offset_opts(), dispo_pump = c(3520, 3520, 3520,
-  3520, 3520, 3520, 3520), simulation_source = NULL, simulation_dest = NULL,
-  copy_study = TRUE, opts = antaresRead::simOptions())
+  3520, 3520, 3520, 3520), simulation_source = NULL,
+  simulation_dest = NULL, copy_study = TRUE,
+  opts = antaresRead::simOptions())
 
 path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
   cnes = "cnes", planning = "planning", forfait_oa = "forfait_oa",

@@ -4,9 +4,9 @@
 \alias{get_ntc}
 \title{Retrieve NTC data via RTE data API}
 \usage{
-get_ntc(token, type = c("ANNUAL", "MONTHLY", "WEEKLY", "D-1", "CURTAILED"),
-  start_date = NULL, end_date = NULL, country_eic_code = NULL,
-  user = NULL, proxy_pwd = NULL)
+get_ntc(token, type = c("ANNUAL", "MONTHLY", "WEEKLY", "D-1",
+  "CURTAILED"), start_date = NULL, end_date = NULL,
+  country_eic_code = NULL, user = NULL, proxy_pwd = NULL)
 }
 \arguments{
 \item{token}{Token obtained with \code{\link{get_token}}.}

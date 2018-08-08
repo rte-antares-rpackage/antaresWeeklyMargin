@@ -6,8 +6,8 @@
 \alias{offset_opts}
 \title{Create Load TS for France}
 \usage{
-create_wm_load_fr(path, start, start_prev_hebdo, type = c("prevu", "premis",
-  "offset"), offset_options = offset_opts(),
+create_wm_load_fr(path, start, start_prev_hebdo, type = c("prevu",
+  "premis", "offset"), offset_options = offset_opts(),
   opts = antaresRead::simOptions())
 
 offset_opts(peak_morning = c(NA, NA, "13:00", "13:00", "13:00", "13:00",

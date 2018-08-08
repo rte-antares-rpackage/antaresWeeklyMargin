@@ -4,8 +4,8 @@
 \alias{get_hydraulique_fil_de_l_eau_eclusee}
 \title{Get hydraulique data drom eco2mix}
 \usage{
-get_hydraulique_fil_de_l_eau_eclusee(from = NULL, to = NULL, user = NULL,
-  proxy_pwd = NULL)
+get_hydraulique_fil_de_l_eau_eclusee(from = NULL, to = NULL,
+  user = NULL, proxy_pwd = NULL)
 }
 \arguments{
 \item{from}{date from which to retrieve data, if \code{NULL} set to previous saturday before previous friday.}

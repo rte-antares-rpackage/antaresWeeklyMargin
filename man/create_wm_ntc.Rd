@@ -4,8 +4,9 @@
 \alias{create_wm_ntc}
 \title{Create Links for Weekly Margins simulation}
 \usage{
-create_wm_ntc(data, start = NULL, startday = "samedi", sort_links = TRUE,
-  force_date = FALSE, opts = antaresRead::simOptions())
+create_wm_ntc(data, start = NULL, startday = "samedi",
+  sort_links = TRUE, force_date = FALSE,
+  opts = antaresRead::simOptions())
 }
 \arguments{
 \item{data}{a \code{data.table} containing NTC datas.}

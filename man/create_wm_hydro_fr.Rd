@@ -4,9 +4,9 @@
 \alias{create_wm_hydro_fr}
 \title{Create FR Hydro setup for Weekly Margins simulation}
 \usage{
-create_wm_hydro_fr(path_capa_hydro, path_hydro, start, fictive_area = "lac",
-  dispo_pump = c(3200, 3200, 3020, 2860, 3020, 3180, 3180),
-  opts = antaresRead::simOptions())
+create_wm_hydro_fr(path_capa_hydro, path_hydro, start,
+  fictive_area = "lac", dispo_pump = c(3200, 3200, 3020, 2860, 3020,
+  3180, 3180), opts = antaresRead::simOptions())
 }
 \arguments{
 \item{path_capa_hydro}{Path to hydro capacities CSV file.}
