@@ -89,33 +89,19 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
     unitcount = 1L,
     enabled = TRUE,
     nominalcapacity = max(pmax, na.rm = TRUE),
-    # `min-stable-power` = ifelse(
-    #   test = num_equal(max(pmax, na.rm = TRUE), min(pmin, na.rm = TRUE)),
-    #   yes = min(pmin, na.rm = TRUE)*0.9,
-    #   no = min(pmin, na.rm = TRUE)
-    # ),
     `min-stable-power` = ifelse(
       test = min(pmin, na.rm = TRUE) < 0.1 * max(pmax, na.rm = TRUE),
       yes = 0, no = min(pmin, na.rm = TRUE)
     ),
-    # `must-run` =  (min(pmin, na.rm = TRUE) >= max(pmax, na.rm = TRUE)*0.9 |
-    #   ("S_CHARGE" %in% code_essai)) & #  | "RPN" %in% code_essai
-    #   !"DRTE" %in% code_essai,
-    `must-run` =  must_run(
-      pmin = pmin, 
-      pmax = pmax, 
-      code_essai = code_essai, 
-      type = co_comb[[first(comb_)]]
-    ),
+    `must-run` =  FALSE,
+    # `must-run` =  must_run(
+    #   pmin = pmin, 
+    #   pmax = pmax, 
+    #   code_essai = code_essai, 
+    #   type = co_comb[[first(comb_)]]
+    # ),
     prepro_modulation = list(
-      matrix(
-        data = c(
-          rep(1, times = 365 * 24 * 2), # two first columns
-          (pmax/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
-          # rep(0, times = 365 * 24 * 1) # fourth column
-          (pmin/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168) 
-        ), ncol = 4
-      )
+      matrix_modulation(pmin = pmin, pmax = pmax, type = co_comb[[first(comb_)]])
     )
   ), by = list(code_groupe)]
 
@@ -216,6 +202,29 @@ must_run <- function(pmin, pmax, code_essai, type) {
   }
   minpmin >= maxpmax*0.9
 }
+
+
+matrix_modulation <- function(pmin, pmax, type) {
+  if (type %in% c("N", "nuclear")) {
+    matrix(
+      data = c(
+        rep(1, times = 365 * 24 * 2), # two first columns
+        (pmax/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
+        # rep(0, times = 365 * 24 * 1) # fourth column
+        (pmin/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168) 
+      ), ncol = 4
+    )
+  } else {
+    matrix(
+      data = c(
+        rep(1, times = 365 * 24 * 2), # two first columns
+        (pmax/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
+        rep(0, times = 365 * 24 * 1) # fourth column
+      ), ncol = 4
+    )
+  }
+}
+
 
 
 

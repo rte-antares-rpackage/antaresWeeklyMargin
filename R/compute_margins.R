@@ -199,7 +199,7 @@ compute_pmin_clus <- function(area, mcYears = "all", opts) {
   
   # Cluster data
   datclus <- readAntares(clusters = area, mcYears = mcYears, opts = opts)
-  datclus <- datclus[, list(cluster, time, mcYear, NODU)]
+  datclus <- datclus[, list(cluster, time, mcYear, production, NODU)]
   datclus[, cluster := as.character(cluster)]
   
   # Modulation data
@@ -215,7 +215,11 @@ compute_pmin_clus <- function(area, mcYears = "all", opts) {
   pminthermal <- merge(x = pminthermal, y = datins, by = "cluster")
   
   pminthermal[, pmin_therm := NODU * minGenModulation * nominalcapacity]
-  res <- pminthermal[, list(pmin_therm = sum(pmin_therm, na.rm = TRUE)), by = list(mcYear, time)]
+  res <- pminthermal[, list(
+    pmin_therm = sum(pmin_therm, na.rm = TRUE),
+    production = sum(production, na.rm = TRUE),
+    nominalcapacity = sum(nominalcapacity, na.rm = TRUE)
+  ), by = list(mcYear, time)]
   
   return(res)
 }
