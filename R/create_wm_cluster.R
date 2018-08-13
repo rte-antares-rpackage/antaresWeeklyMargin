@@ -93,13 +93,13 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
       test = min(pmin, na.rm = TRUE) < 0.1 * max(pmax, na.rm = TRUE),
       yes = 0, no = min(pmin, na.rm = TRUE)
     ),
-    `must-run` =  FALSE,
-    # `must-run` =  must_run(
-    #   pmin = pmin, 
-    #   pmax = pmax, 
-    #   code_essai = code_essai, 
-    #   type = co_comb[[first(comb_)]]
-    # ),
+    # `must-run` =  FALSE,
+    `must-run` =  must_run(
+      pmin = pmin,
+      pmax = pmax,
+      code_essai = code_essai,
+      type = co_comb[[first(comb_)]]
+    ),
     prepro_modulation = list(
       matrix_modulation(pmin = pmin, pmax = pmax, type = co_comb[[first(comb_)]])
     )
@@ -188,16 +188,19 @@ must_run <- function(pmin, pmax, code_essai, type) {
   # minpmin <- min(pmin, na.rm = TRUE)
   maxpmax <- quantile(pmax, probs = 0.95, na.rm = TRUE)
   minpmin <- quantile(pmin, probs = 0.05, na.rm = TRUE)
-  if (type == "oil") {
-    return(FALSE)
-  }
-  if (num_equal(maxpmax, 0)) {
-    return(FALSE)
-  }
-  if ("S_CHARGE" %in% code_essai) {
-    return(TRUE)
-  }
-  if ("DRTE" %in% code_essai) {
+  # if (type == "oil") {
+  #   return(FALSE)
+  # }
+  # if (num_equal(maxpmax, 0)) {
+  #   return(FALSE)
+  # }
+  # if ("S_CHARGE" %in% code_essai) {
+  #   return(TRUE)
+  # }
+  # if ("DRTE" %in% code_essai) {
+  #   return(FALSE)
+  # }
+  if (!type %in% c("N", "nuclear")) {
     return(FALSE)
   }
   minpmin >= maxpmax*0.9
@@ -206,12 +209,19 @@ must_run <- function(pmin, pmax, code_essai, type) {
 
 matrix_modulation <- function(pmin, pmax, type) {
   if (type %in% c("N", "nuclear")) {
+    maxpmax <- quantile(pmax, probs = 0.95, na.rm = TRUE)
+    minpmin <- quantile(pmin, probs = 0.05, na.rm = TRUE)
+    if (minpmin >= maxpmax*0.9) {
+      values <- rep(0, 168)
+    } else {
+      values <- pmin/max(pmax, na.rm = TRUE)
+    }
     matrix(
       data = c(
         rep(1, times = 365 * 24 * 2), # two first columns
         (pmax/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
         # rep(0, times = 365 * 24 * 1) # fourth column
-        (pmin/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168) 
+        values, rep(0, 365 * 24 - 168) 
       ), ncol = 4
     )
   } else {

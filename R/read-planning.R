@@ -115,7 +115,7 @@ read_planning <- function(path) {
   if (missing(path)) {
     path <- choose_path()
   }
-  path <- select_file(path = path, pattern = ".", fileext = ".", multiple = TRUE, verbose = FALSE)
+  path <- select_file(path = path, pattern = ".", fileext = ".", multiple = TRUE, verbose = FALSE, recursive = TRUE)
   patterns <- c("GDFSUEZ", "UNIPER", "NOVAWATT", "GPHEBDOTOTAL", "Direct_Energie", "PSSPower", "Politique_S")
   names <- c("gdfsuez", "uniper", "novawatt", "trc", "directenergie", "psspower", "edf")
   dats <- lapply(

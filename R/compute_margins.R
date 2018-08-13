@@ -217,8 +217,7 @@ compute_pmin_clus <- function(area, mcYears = "all", opts) {
   pminthermal[, pmin_therm := NODU * minGenModulation * nominalcapacity]
   res <- pminthermal[, list(
     pmin_therm = sum(pmin_therm, na.rm = TRUE),
-    production = sum(production, na.rm = TRUE),
-    nominalcapacity = sum(nominalcapacity, na.rm = TRUE)
+    production = sum(production, na.rm = TRUE)
   ), by = list(mcYear, time)]
   
   return(res)
