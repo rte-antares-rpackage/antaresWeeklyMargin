@@ -83,10 +83,17 @@ compute_margins <- function(date, area = "fr",
     
   } else {
     
-    pminthermal <- compute_pmin_clus(area = area, mcYears = mcYears, opts = opts)
-    margin_area <- merge(x = data_area, y = pminthermal, by = c("time", "mcYear"))
-    margin_area[, margin_solo := pmin_therm +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
-    margin_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
+    # pminthermal <- compute_pmin_clus(area = area, mcYears = mcYears, opts = opts)
+    # margin_area <- merge(x = data_area, y = pminthermal, by = c("time", "mcYear"))
+    # margin_area[, margin_solo := pmin_therm +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
+    # margin_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
+    # setorder(x = margin_area, mcYear, time)
+    
+    cluster_area <- readAntares(clusters = area, mustRun = TRUE, mcYears = mcYears, opts = opts)
+    must_run_all <- cluster_area[, list(mustRunTotal = sum(mustRunTotal, na.rm = TRUE)), by = list(time, mcYear)]
+    margin_area <- merge(x = data_area, y = must_run_all, by = c("time", "mcYear"))
+    margin_area[, margin_solo := mustRunTotal + `H. ROR`+`MISC. NDG` + WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
+    margin_area[, margin_inter := margin_solo - (-1) * BALANCE + (-1) * `ROW BAL.`]
     setorder(x = margin_area, mcYear, time)
     
   }
