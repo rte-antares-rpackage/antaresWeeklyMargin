@@ -44,29 +44,40 @@ draw_margins <- function(data_margin,
   nb_MC <- ncol(data_margin) - 1
   nb_MC <- copy(nb_MC)
   
+  type_margin <- attr(x = data_margin, which = "margin")
+  is_up <- grepl(pattern = "upward", x = type_margin)
+  
   #Calcul des differentes percentiles
   centil1  <- apply(
     X = data_margin[, -1],
     MARGIN = 1,
-    FUN = quantile, probs = 1/100, type = 4
+    FUN = quantile, 
+    probs = `if`(is_up, 1/100, 99/100), 
+    type = 4
   )
   centil4  <- apply(
     X = data_margin[, -1],
     MARGIN = 1,
-    FUN = quantile, probs = 4/100, type = 4
+    FUN = quantile, 
+    probs = `if`(is_up, 4/100, 96/100), 
+    type = 4
   )
   centil10  <- apply(
     X = data_margin[, -1],
     MARGIN = 1,
-    FUN = quantile, probs = 10/100, type = 4
+    FUN = quantile, 
+    probs = `if`(is_up, 10/100, 90/100), 
+    type = 4
   )
   centil50  <- apply(
     X = data_margin[, -1],
     MARGIN = 1,
-    FUN = quantile, probs = 50/100, type = 4
+    FUN = quantile, 
+    probs = 50/100, 
+    type = 4
   )
 
-  type_margin <- attr(x = data_margin, which = "margin")
+  
   title <- NULL
   if (!is.null(type_margin)) {
     if (type_margin == "upward.solo") {
