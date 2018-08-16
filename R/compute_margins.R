@@ -6,6 +6,7 @@
 #' @param date Date of the study.
 #' @param area Area studied.
 #' @param margin Type of margin to compute, \code{upward} or \code{downward}, can be abbreviated.
+#' @param formula_cnes For downward margins, use CNES formula or not.
 #' @param mcYears Index of the Monte-Carlo years to import, by default all of them. Passed to \code{\link[antaresRead]{readAntares}}.
 #' @param virtual_areas List of virtuals areas.
 #' @param opts
@@ -45,6 +46,7 @@
 #' }
 compute_margins <- function(date, area = "fr", 
                             margin = c("upward", "downward"),
+                            formula_cnes = TRUE,
                             mcYears = "all",
                             virtual_areas = c("lac","pump_d", "turb_d","pump_w", "turb_w" ),
                             opts = antaresRead::simOptions()) {
@@ -92,7 +94,11 @@ compute_margins <- function(date, area = "fr",
     cluster_area <- readAntares(clusters = area, mustRun = TRUE, mcYears = mcYears, opts = opts)
     must_run_all <- cluster_area[, list(mustRunTotal = sum(mustRunTotal, na.rm = TRUE)), by = list(time, mcYear)]
     margin_area <- merge(x = data_area, y = must_run_all, by = c("time", "mcYear"))
-    margin_area[, margin_solo := mustRunTotal + `H. ROR`+`MISC. NDG` + WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
+    if (formula_cnes) {
+      margin_area[, margin_solo := mustRunTotal +`H. ROR`+`MISC. NDG`+ WIND + SOLAR - LOAD - (pumpingCapacity)]
+    } else {
+      margin_area[, margin_solo := mustRunTotal + `H. ROR`+`MISC. NDG` + WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
+    }
     margin_area[, margin_inter := margin_solo - (-1) * BALANCE + (-1) * `ROW BAL.`]
     setorder(x = margin_area, mcYear, time)
     
