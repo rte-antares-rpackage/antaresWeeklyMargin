@@ -188,6 +188,9 @@ must_run <- function(pmin, pmax, code_essai, type) {
   # minpmin <- min(pmin, na.rm = TRUE)
   maxpmax <- quantile(pmax, probs = 0.95, na.rm = TRUE)
   minpmin <- quantile(pmin, probs = 0.05, na.rm = TRUE)
+  if (num_equal(maxpmax, 0) & num_equal(minpmin, 0)) {
+    return(FALSE)
+  }
   # if (type == "oil") {
   #   return(FALSE)
   # }
