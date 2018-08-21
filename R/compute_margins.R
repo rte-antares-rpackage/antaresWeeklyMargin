@@ -99,7 +99,7 @@ compute_margins <- function(date, area = "fr",
     } else {
       margin_area[, margin_solo := mustRunTotal + `H. ROR`+`MISC. NDG` + WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
     }
-    margin_area[, margin_inter := margin_solo - (-1) * BALANCE + (-1) * `ROW BAL.`]
+    margin_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
     setorder(x = margin_area, mcYear, time)
     
   }
