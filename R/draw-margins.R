@@ -81,16 +81,16 @@ draw_margins <- function(data_margin,
   title <- NULL
   if (!is.null(type_margin)) {
     if (type_margin == "upward.solo") {
-      title <- paste("Initial Remaining Capacity", toupper(area))
+      title <- paste("Upward Margin - Initial Remaining Capacity", toupper(area))
     }
     if (type_margin == "upward.inter") {
-      title <- paste("Final Remaining Capacity", toupper(area))
+      title <- paste("Upward Margin - Final Remaining Capacity", toupper(area))
     }
     if (type_margin == "downward.solo") {
-      title <- paste("Initial Remaining Capacity", toupper(area))
+      title <- paste("Downward Margin - Initial Remaining Capacity", toupper(area))
     }
     if (type_margin == "downward.inter") {
-      title <- paste("Final Remaining Capacity", toupper(area))
+      title <- paste("Downward Margin - Final Remaining Capacity", toupper(area))
     }
   }
   if (!is.null(num_week)) {
