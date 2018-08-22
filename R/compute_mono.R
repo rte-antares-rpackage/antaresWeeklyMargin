@@ -91,8 +91,9 @@ compute_mono <- function(start = "2016-11-05", date = "2016-11-10 17:00:00", are
     flux_total <- flux_total[order(flux_total, decreasing = TRUE)]
     res$mono_france <- as.data.table(cbind(num_row, flux_total))
   }
-  
-  setattr(x = res, name = "mono.date", value = date)
+  for (i in seq_along(res)) {
+    setattr(x = res[[i]], name = "mono.date", value = date)
+  }
   return(res)
 }
 

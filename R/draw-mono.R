@@ -31,6 +31,7 @@ draw_mono <- function(data, area = "auto", main = "auto", label = "auto") {
   }
   if (!is.null(main) && main == "auto") {
     main <- sprintf("Monotone des flux FR - %s", toupper(area))
+    main <- paste(main, attr(data, "mono.date"))
   }
   dygraph(data = data, main = main) %>%
     dySeries(name = names(data)[2], label = label) %>%
