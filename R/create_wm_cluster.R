@@ -95,15 +95,17 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
     ),
     # `must-run` =  FALSE,
     `must-run` =  must_run(
-      pmin = pmin,
-      pmax = pmax,
+      pmin_ = pmin,
+      pmax_ = pmax,
       code_essai = code_essai,
       type = co_comb[[first(comb_)]]
     ),
     prepro_modulation = list(
-      matrix_modulation(pmin = pmin, pmax = pmax, type = co_comb[[first(comb_)]])
+      matrix_modulation(pmin_ = pmin, pmax_ = pmax, type = co_comb[[first(comb_)]])
     )
   ), by = list(code_groupe)]
+  
+  # browser()
 
   clusdata <- lapply(
     X = seq_len(nrow(clusdata)),
@@ -127,6 +129,7 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
       res
     }
   )
+  
   tryCreateCluster <- function(args) {
     # Sys.sleep(0.1)
     # try(stop("erreur"), silent = TRUE)
@@ -183,11 +186,11 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
 
 
 
-must_run <- function(pmin, pmax, code_essai, type) {
+must_run <- function(pmin_, pmax_, code_essai, type) {
   # maxpmax <- max(pmax, na.rm = TRUE)
   # minpmin <- min(pmin, na.rm = TRUE)
-  maxpmax <- quantile(pmax, probs = 0.95, na.rm = TRUE)
-  minpmin <- quantile(pmin, probs = 0.05, na.rm = TRUE)
+  maxpmax <- quantile(pmax_, probs = 0.95, na.rm = TRUE)
+  minpmin <- quantile(pmin_, probs = 0.05, na.rm = TRUE)
   if (num_equal(maxpmax, 0) & num_equal(minpmin, 0)) {
     return(FALSE)
   }
@@ -210,19 +213,19 @@ must_run <- function(pmin, pmax, code_essai, type) {
 }
 
 
-matrix_modulation <- function(pmin, pmax, type) {
+matrix_modulation <- function(pmin_, pmax_, type) {
   if (type %in% c("N", "nuclear")) {
-    maxpmax <- quantile(pmax, probs = 0.95, na.rm = TRUE)
-    minpmin <- quantile(pmin, probs = 0.05, na.rm = TRUE)
-    if (minpmin >= maxpmax*0.9) {
+    maxpmax <- quantile(pmax_, probs = 0.95, na.rm = TRUE)
+    minpmin <- quantile(pmin_, probs = 0.05, na.rm = TRUE)
+    if (!num_equal(maxpmax, 0) & minpmin >= maxpmax*0.9) {
       values <- rep(0, 168)
     } else {
-      values <- pmin/max(pmax, na.rm = TRUE)
+      values <- pmin_/max(pmax_, na.rm = TRUE)
     }
     matrix(
       data = c(
         rep(1, times = 365 * 24 * 2), # two first columns
-        (pmax/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
+        (pmax_/max(pmax_, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
         # rep(0, times = 365 * 24 * 1) # fourth column
         values, rep(0, 365 * 24 - 168) 
       ), ncol = 4
@@ -231,7 +234,7 @@ matrix_modulation <- function(pmin, pmax, type) {
     matrix(
       data = c(
         rep(1, times = 365 * 24 * 2), # two first columns
-        (pmax/max(pmax, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
+        (pmax_/max(pmax_, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
         rep(0, times = 365 * 24 * 1) # fourth column
       ), ncol = 4
     )
