@@ -53,11 +53,15 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = 
 
   if (nrow(fil_eau_ini) < 168){
     fill_info_aux <- fil_eau_ini[(nrow(fil_eau_ini) - 24 + 1):nrow(fil_eau_ini), ]
-    if (nrow(fil_eau_ini) == 120){
-      fill_info <- rbind(fill_info_aux, fill_info_aux)
-    } else if (nrow(fil_eau_ini) == 144){
-      fill_info <- fill_info_aux
-    }
+    # if (nrow(fil_eau_ini) == 120){
+    #   fill_info <- rbind(fill_info_aux, fill_info_aux)
+    # } else if (nrow(fil_eau_ini) == 144){
+    #   fill_info <- fill_info_aux
+    # }
+    fill_info <- rbindlist(lapply(
+      X = seq_len((168-nrow(fil_eau_ini)) / 24),
+      FUN = function(x) {fill_info_aux}
+    ))
     fil_eau_ini <- rbind(fil_eau_ini, fill_info)
     fil_eau_ini[, date_heure := seq.POSIXt(from = fil_eau_ini$date_heure[1], length.out = nrow(fil_eau_ini), by="1 hour")]
   }
