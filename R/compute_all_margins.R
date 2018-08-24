@@ -34,7 +34,12 @@ compute_all_margins <- function(date, mcYear, exclude = c("lu_be","lu_de"),
   areas <- getAreas(exclude = exclude, opts = opts)
   links <- getLinks(exclude = exclude, opts = opts)
   
-  data_all_areas <- readAntares(areas = areas, links = links, mcYears = mcYear, linkCapacity = TRUE)
+  data_all_areas <- readAntares(
+    areas = areas, links = links, 
+    mcYears = mcYear, linkCapacity = TRUE,
+    mustRun = margin == "downward",
+    clusters = if (margin == "downward") areas else NULL
+  )
   data_all <- removeVirtualAreas(x = data_all_areas, storageFlexibility = virtual_areas)
   
   if (margin == "upward") {
@@ -44,7 +49,18 @@ compute_all_margins <- function(date, mcYear, exclude = c("lu_be","lu_de"),
     #Pour corriger les probl?mes d'arrondi dans le calcul de marges
     data_all$areas[-1 <= margin_solo & margin_inter <= 1, margin_inter := 0]
   } else {
-    stop("Not implemented yet!", call. = FALSE)
+    
+    # stop("Not implemented yet!", call. = FALSE)
+    cluster_areas <- copy(data_all$clusters)
+    must_run_all <- cluster_areas[, list(mustRunTotal = sum(mustRunTotal, na.rm = TRUE)), by = list(time, mcYear, area)]
+    margin_area <- copy(data_all$areas[, .SD, .SDcols = setdiff(names(data_all$areas), "mustRunTotal")])
+    margin_area <- merge(x = margin_area, y = must_run_all, by = c("time", "mcYear", "area"))
+    # browser()
+    margin_area[, margin_solo := mustRunTotal + `H. ROR`+`MISC. NDG` + WIND + SOLAR - LOAD - (pumpingCapacity + pump_d + pump_w)]
+    margin_area[, margin_inter := margin_solo - BALANCE + `ROW BAL.`]
+    setorder(x = margin_area, mcYear, time)
+    data_all$areas <- margin_area
+    
   }
   
   addLoadFactorLink(data_all$links)
