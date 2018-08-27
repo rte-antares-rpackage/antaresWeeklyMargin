@@ -28,13 +28,9 @@ date_debut <- "2018-02-24"
 
 
 # datas
-marge_seul_fr <- readRDS(file = "datas/marge_fr_seule.rds")
-marge_seul_fr_e <- marge_seul_fr[, c(1, sample.int(n = 2040, size = 200) + 1)]
-data_fr <- readRDS("datas/data_fr.rds")
-marge_inter_fr <- readRDS(file = "datas/marge_fr_inter.rds")
-data_all <- readRDS(file = "datas/data_all_mc50.rds")
-# Monotone data
-mono_data <- readRDS(file = "datas/mono.rds")
+marges <- readRDS(file = "datas/marges.rds")
+marges_all <- readRDS(file = "datas/marges_all.rds")
+mono <- readRDS(file = "datas/mono.rds")
 load("datas/ml.rda")
 ```
 
@@ -57,7 +53,7 @@ h1, h2, h3, h4 {
 <br/>
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_series(data_fr, "LOAD")
+draw_series(marges$margin_area, "LOAD")
 ```
 
 <br/>
@@ -72,7 +68,7 @@ draw_series(data_fr, "LOAD")
 <br/>
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_series(data_fr, "WIND")
+draw_series(marges$margin_area, "WIND")
 ```
 
 <br/>
@@ -87,7 +83,7 @@ draw_series(data_fr, "WIND")
 <br/>
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_series(data_fr, "SOLAR")
+draw_series(marges$margin_area, "SOLAR")
 ```
 
 <br/>
@@ -112,13 +108,7 @@ draw_series(data_fr, "SOLAR")
 <br/>
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_upward_margin(
-  upward_margin = marge_seul_fr_e, 
-  area = "fr",
-  type = "seul",
-  nb_MC = ncol(marge_seul_fr_e) - 1, 
-  num_week = week
-)
+draw_margins(data_margin = marges$margin_area_solo)
 ```
 <br/>
 Legend:
@@ -135,7 +125,7 @@ Legend:
 Table of quantiles :
 
 ```{r, echo=FALSE}
-marg <- margins_quantiles(marge_seul_fr_e)
+marg <- margins_quantiles(marges$margin_area_solo)
 ft_margins_quantiles(marg, layout = "horizontal", language = "en")
 ```
 
@@ -152,13 +142,7 @@ ft_margins_quantiles(marg, layout = "horizontal", language = "en")
 
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_upward_margin(
-  upward_margin = marge_inter_fr, 
-  area = "fr",
-  type = "inter",
-  nb_MC = ncol(marge_inter_fr) - 1, 
-  num_week = week
-)
+draw_margins(data_margin = marges$margin_area_inter)
 ```
 <br/>
 Legend:
@@ -175,7 +159,7 @@ Legend:
 Table of quantiles :
 
 ```{r, echo=FALSE}
-marg_i <- margins_quantiles(marge_inter_fr)
+marg_i <- margins_quantiles(marges$margin_area_inter)
 ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
 ```
 
@@ -191,7 +175,7 @@ Risk of unserved energy in France.
 
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_stack_hist(marge_seul_fr, marge_inter_fr, "fr")
+draw_stack_hist(marges$margin_area_solo, marges$margin_area_inter, "fr")
 ```
 
 <br/>
@@ -220,7 +204,7 @@ Legend:
 <br/>
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_mono(mono_data$mono_france, main = paste0("Monotone des flux imports/exports pour France ", date_study))
+draw_mono(mono$mono_france)
 ```
 
 
@@ -233,7 +217,7 @@ draw_mono(mono_data$mono_france, main = paste0("Monotone des flux imports/export
 <br/>
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_mono(mono_data$mono_cwe)
+draw_mono(mono$mono_cwe)
 ```
 
 
@@ -252,7 +236,7 @@ draw_mono(mono_data$mono_cwe)
 <br/>
 
 ```{r out.width='100%', fig.height=6, comment=NA, results='asis', eval=require('dygraphs'), echo=FALSE}
-antaresViz::exchangesStack(data_all$links, area = "fr", interactive = FALSE)#$widgets[[1]]$widget[[1]]
+antaresViz::exchangesStack(marges_all$links, area = "fr", interactive = FALSE)
 ```
 
 <br/>
@@ -276,7 +260,7 @@ antaresViz::exchangesStack(data_all$links, area = "fr", interactive = FALSE)#$wi
 
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_prod_MC(data_fr, date_i = "2016-11-05", mc_year = year_mc)#$widgets[[1]]$widget[[1]]
+draw_prod_MC(marges$margin_area, date_i = "2016-11-05", mc_year = year_mc)#$widgets[[1]]$widget[[1]]
 ```
 
 <br/>
@@ -298,9 +282,9 @@ draw_prod_MC(data_fr, date_i = "2016-11-05", mc_year = year_mc)#$widgets[[1]]$wi
 
 ```{r out.width='100%', fig.height=6, eval=require('leaflet'), echo=FALSE}
 plotMap(
-  x = data_all, mapLayout = ml, interactive = FALSE,
+  x = marges_all, mapLayout = ml, interactive = FALSE,
   colLinkVar = "abs_loadFactor", sizeLinkVar = "FLOW LIN.",
-  colAreaVar = "marges_inter", labelAreaVar = "marges_inter",
+  colAreaVar = "margin_inter", labelAreaVar = "margin_inter",
   options = plotMapOptions(
     areaDefaultSize = 50,
     areaColorScaleOpts = colorScaleOptions(

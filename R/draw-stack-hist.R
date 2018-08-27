@@ -19,10 +19,10 @@
 #' }
 draw_stack_hist <- function(marge_seule, marge_inter, area = NULL) {
 
-  date <- marge_seule$DATE_UTC
+  date <- marge_seule$datetime
 
-  marge_seule <- marge_seule[, -c("DATE_UTC"), with = FALSE]
-  marge_inter <- marge_inter[, -c("DATE_UTC"), with = FALSE]
+  marge_seule <- marge_seule[, -c("datetime"), with = FALSE]
+  marge_inter <- marge_inter[, -c("datetime"), with = FALSE]
 
   marge_inter <- marge_inter[, lapply(.SD, function(x) { x[-1 <= x & x <= 0] <- 0; x })]
 
@@ -53,10 +53,10 @@ draw_stack_hist <- function(marge_seule, marge_inter, area = NULL) {
   code_scenario_ <- dcast(data = code_scenario_, formula = .id ~ couleurs, value.var = "freq", drop = FALSE)
   code_scenario_[is.na(code_scenario_)] <- 0
   code_scenario_[, .id := NULL]
-  code_scenario_[, DATE_UTC := date]
+  code_scenario_[, datetime := date]
   setcolorder(
     x = code_scenario_,
-    neworder = c("DATE_UTC", rev(c("RED", "BROWN", "ORANGE", "YELLOW", "GREEN")))
+    neworder = c("datetime", rev(c("RED", "BROWN", "ORANGE", "YELLOW", "GREEN")))
   )
   # setDF(code_scenario_)
   # str(code_scenario_)

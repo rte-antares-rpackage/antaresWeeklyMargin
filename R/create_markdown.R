@@ -2,11 +2,18 @@
 #' Create directory with SMTA markdown
 #'
 #' @param path Path to a directory, if directory doesn't exist, it will be created.
-#' @param format Format of markdown output : report or slides
+#' @param format Format of markdown output : report or slides.
+#' @param date_start Study start date.
+#' @param date_margins Date for margins computation.
+#' @param date_mono Date-time for representing monotone.
+#' @param opts
+#'   List of simulation parameters returned by the function
+#'   \code{antaresRead::setSimulationPath}  
 #'
 #' @export
 #'
 #' @importFrom rstudioapi navigateToFile
+#' @importFrom usethis use_template
 #'
 #' @examples
 #' \dontrun{
@@ -14,7 +21,9 @@
 #' create_markdown("SMTA_rapport", "report")
 #'
 #' }
-create_markdown <- function(path, format = c("report", "slides")) {
+create_markdown <- function(path, format = c("report", "slides"),
+                            date_start = NULL, date_margins = NULL, date_mono = NULL,
+                            opts = antaresRead::simOptions()) {
   format <- match.arg(format)
   if (!dir.exists(path)) {
     dir.create(path = path, recursive = TRUE)
@@ -25,6 +34,20 @@ create_markdown <- function(path, format = c("report", "slides")) {
       full.names = TRUE
     ),
     to = path, recursive = TRUE
+  )
+  usethis::use_template(
+    template = "data-report.R", 
+    save_as = file.path(path, "data-report.R"),
+    data = list(
+      path = path,
+      date_report = format(Sys.Date(), format = "%d/%m/%Y"),
+      simPath = opts$simPath,
+      date_start = date_start, 
+      date_margins = date_margins,
+      date_mono = date_mono
+    ), 
+    open = TRUE, 
+    package = "antaresWeeklyMargin"
   )
   rstudioapi::navigateToFile(file = file.path(path, "index.Rmd"))
   invisible()

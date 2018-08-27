@@ -4,12 +4,23 @@
 \alias{create_markdown}
 \title{Create directory with SMTA markdown}
 \usage{
-create_markdown(path, format = c("report", "slides"))
+create_markdown(path, format = c("report", "slides"),
+  date_start = NULL, date_margins = NULL, date_mono = NULL,
+  opts = antaresRead::simOptions())
 }
 \arguments{
 \item{path}{Path to a directory, if directory doesn't exist, it will be created.}
 
-\item{format}{Format of markdown output : report or slides}
+\item{format}{Format of markdown output : report or slides.}
+
+\item{date_start}{Study start date.}
+
+\item{date_margins}{Date for margins computation.}
+
+\item{date_mono}{Date-time for representing monotone.}
+
+\item{opts}{List of simulation parameters returned by the function
+\code{antaresRead::setSimulationPath}}
 }
 \description{
 Create directory with SMTA markdown

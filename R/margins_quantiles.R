@@ -19,15 +19,15 @@
 margins_quantiles <- function(margin) {
 
   margin <- copy(margin)
-  margin[, jour := format(DATE_UTC, format = "%A")]
-  margin[, date := format(DATE_UTC, format = "%Y-%m-%d")]
-  margin[, heure := format(DATE_UTC, format = "%Hh")]
+  margin[, jour := format(datetime, format = "%A")]
+  margin[, date := format(datetime, format = "%Y-%m-%d")]
+  margin[, heure := format(datetime, format = "%Hh")]
   margin <- margin[heure %chin% c("09h", "19h")]
 
   margin <- melt(
     data = margin,
-    id.vars = c("DATE_UTC", "date", "jour", "heure"),
-    measure.vars = setdiff(names(margin), c("DATE_UTC", "date", "jour", "heure"))
+    id.vars = c("datetime", "date", "jour", "heure"),
+    measure.vars = setdiff(names(margin), c("datetime", "date", "jour", "heure"))
   )
   margin <- margin[, list(
     mediane = median(value),
