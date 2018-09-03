@@ -35,7 +35,8 @@ read_edf_sheet <- function(path, sheet) {
   data <- data[, debut := NULL]
   data <- data[, fin := NULL]
   data <- data[, .id := NULL]
-
+  
+  
   # check code essai indispo
   data <- data[, val_indispo := check_code_essai(code_essai, "INDISPO", "INDISPO"), by = list(code_groupe, datetime)]
   data <- data[val_indispo == TRUE]
@@ -110,6 +111,11 @@ read_edf_sheet <- function(path, sheet) {
   data <- data[, val_epnuc := NULL]
 
   
+  # Anything than LIM
+  data <- data[, val_lim := check_lim(x = code_essai), by = list(code_groupe, datetime)]
+  data <- data[val_lim == TRUE]
+  data <- data[, val_lim := NULL]
+  
   
   # date header
   dates_h <- readxl::read_excel(path = path, sheet = sheet, n_max = 5)[4, 4]
@@ -133,6 +139,16 @@ check_code_essai <- function(x, code = "VP", possible.values = c("^VP", "^RVP.*"
     rep_len(x = TRUE, length.out = length(x))
   }
 }
+
+
+check_lim <- function(x) {
+  if (all(x == "LIM")) {
+    rep_len(x = TRUE, length.out = length(x))
+  } else {
+    x != "LIM"
+  }
+}
+
 
 check_lim_limit <- function(x) {
   if ("LIM" %in% x & "LIMIT" %in% x) {
