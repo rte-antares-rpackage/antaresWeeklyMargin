@@ -24,7 +24,7 @@ read_edf_sheet <- function(path, sheet) {
 
 
   # Delete REDEM
-  data <- data[!code_essai %like% "^REDEM.*"]
+  # data <- data[!code_essai %like% "^REDEM.*"]
 
   # expand dates
   data <- data[, .id := seq_len(.N)]
@@ -63,28 +63,33 @@ read_edf_sheet <- function(path, sheet) {
   
   # check code essai VP
   data <- data[, val_vp := check_code_essai(
-    x = code_essai, code = "VP", possible.values = c("^VP", "^RVP.*")
+    x = code_essai, code = "^VP", possible.values = c("^VP", "^RVP.*")
   ), by = list(code_groupe, datetime)]
   data <- data[val_vp == TRUE]
   data <- data[, val_vp := NULL]
   
+  # check code essai RVP
+  data <- data[, val_rvp := check_redem(x = code_essai), by = list(code_groupe, datetime)]
+  data <- data[val_rvp == TRUE]
+  data <- data[, val_rvp := NULL]
+  
   # check code essai VA
   data <- data[, val_va := check_code_essai(
-    x = code_essai, code = "VA", possible.values = c("^VA$")
+    x = code_essai, code = "^VA", possible.values = c("^VA$")
   ), by = list(code_groupe, datetime)]
   data <- data[val_va == TRUE]
   data <- data[, val_va := NULL]
   
   # check code essai VD
   data <- data[, val_vd := check_code_essai(
-    x = code_essai, code = "VD", possible.values = c("^VD", "^RVD.*")
+    x = code_essai, code = "^VD", possible.values = c("^VD", "^RVD.*")
   ), by = list(code_groupe, datetime)]
   data <- data[val_vd == TRUE]
   data <- data[, val_vd := NULL]
   
   # check code essai ASR
   data <- data[, val_asr := check_code_essai(
-    x = code_essai, code = "ASR", possible.values = c("^ASR", "^RASR.*")
+    x = code_essai, code = "^ASR", possible.values = c("^ASR", "^RASR.*")
   ), by = list(code_groupe, datetime)]
   data <- data[val_asr == TRUE]
   data <- data[, val_asr := NULL]
@@ -98,14 +103,14 @@ read_edf_sheet <- function(path, sheet) {
   
   # check code essai MODUL
   data <- data[, val_modul := check_code_essai(
-    x = code_essai, code = "MODUL", possible.values = c("^MODUL")
+    x = code_essai, code = "^MODUL", possible.values = c("^MODUL")
   ), by = list(code_groupe, datetime)]
   data <- data[val_modul == TRUE]
   data <- data[, val_modul := NULL]
 
   # check code essai EP NUC
   data <- data[, val_epnuc := check_code_essai(
-    x = code_essai, code = "EP NUC", possible.values = c("EP NUC")
+    x = code_essai, code = "^EP NUC", possible.values = c("EP NUC")
   ), by = list(code_groupe, datetime)]
   data <- data[val_epnuc == TRUE]
   data <- data[, val_epnuc := NULL]
@@ -132,9 +137,17 @@ read_edf_sheet <- function(path, sheet) {
 
 #' @importFrom stringr str_detect
 check_code_essai <- function(x, code = "VP", possible.values = c("^VP", "^RVP.*")) {
-  if (code %in% x) {
+  if (any(str_detect(string = x, pattern = code))) {
     lind <- lapply(X = possible.values, FUN = stringr::str_detect, string = x)
     Reduce(f = `|`, x = lind)
+  } else {
+    rep_len(x = TRUE, length.out = length(x))
+  }
+}
+
+check_redem <- function(x) {
+  if (any(str_detect(string = x, pattern = "^REDEM")) & any(str_detect(string = x, pattern = "^RVP"))) {
+    str_detect(string = x, pattern = "^RVP")
   } else {
     rep_len(x = TRUE, length.out = length(x))
   }
