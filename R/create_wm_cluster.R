@@ -194,18 +194,11 @@ must_run <- function(pmin_, pmax_, code_essai, type) {
   if (num_equal(maxpmax, 0) & num_equal(minpmin, 0)) {
     return(FALSE)
   }
-  # if (type == "oil") {
-  #   return(FALSE)
-  # }
-  # if (num_equal(maxpmax, 0)) {
-  #   return(FALSE)
-  # }
-  # if ("S_CHARGE" %in% code_essai) {
-  #   return(TRUE)
-  # }
-  # if ("DRTE" %in% code_essai) {
-  #   return(FALSE)
-  # }
+  
+  if (num_equal(max(pmax_, na.rm = TRUE), min(pmin_, na.rm = TRUE))) {
+    return(TRUE)
+  }
+  
   if (!type %in% c("N", "nuclear")) {
     return(FALSE)
   }
@@ -221,6 +214,9 @@ matrix_modulation <- function(pmin_, pmax_, type) {
       values <- rep(0, 168)
     } else {
       values <- pmin_/max(pmax_, na.rm = TRUE)
+    }
+    if (num_equal(max(pmax_, na.rm = TRUE), min(pmin_, na.rm = TRUE))) {
+      values <- rep(0, 168)
     }
     matrix(
       data = c(
