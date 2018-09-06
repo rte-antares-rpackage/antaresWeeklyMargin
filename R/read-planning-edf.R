@@ -38,23 +38,23 @@ read_edf_sheet <- function(path, sheet) {
   
   
   # check code essai indispo
-  data <- data[, val_indispo := check_code_essai(code_essai, "INDISPO", "INDISPO"), by = list(code_groupe, datetime)]
+  data <- data[, val_indispo := check_code_essai(code_essai, "^INDISPO$", "INDISPO"), by = list(code_groupe, datetime)]
   data <- data[val_indispo == TRUE]
   data <- data[, val_indispo := NULL]
 
   # check code essai fortuit
-  data <- data[, val_fortuit := check_code_essai(code_essai, "F", "^F$"), by = list(code_groupe, datetime)]
+  data <- data[, val_fortuit := check_code_essai(code_essai, "^F$", "^F$"), by = list(code_groupe, datetime)]
   data <- data[val_fortuit == TRUE]
   data <- data[, val_fortuit := NULL]
 
   # check code essai arret garanti prolonge
-  data <- data[, val_agp := check_code_essai(code_essai, "AGP", "^AGP$"), by = list(code_groupe, datetime)]
+  data <- data[, val_agp := check_code_essai(code_essai, "^AGP$", "^AGP$"), by = list(code_groupe, datetime)]
   data <- data[val_agp == TRUE]
   data <- data[, val_agp := NULL]
 
   # check code essai AND
   data <- data[, val_and := check_code_essai(
-    x = code_essai, code = "AND", possible.values = c("^AND")
+    x = code_essai, code = "^AND$", possible.values = c("^AND")
   ), by = list(code_groupe, datetime)]
   data <- data[val_and == TRUE]
   data <- data[, val_and := NULL]
@@ -63,7 +63,7 @@ read_edf_sheet <- function(path, sheet) {
   
   # check code essai VP
   data <- data[, val_vp := check_code_essai(
-    x = code_essai, code = "^VP", possible.values = c("^VP", "^RVP.*")
+    x = code_essai, code = "^VP$", possible.values = c("^VP", "^RVP.*")
   ), by = list(code_groupe, datetime)]
   data <- data[val_vp == TRUE]
   data <- data[, val_vp := NULL]
@@ -75,42 +75,42 @@ read_edf_sheet <- function(path, sheet) {
   
   # check code essai VA
   data <- data[, val_va := check_code_essai(
-    x = code_essai, code = "^VA", possible.values = c("^VA$")
+    x = code_essai, code = "^VA$", possible.values = c("^VA$")
   ), by = list(code_groupe, datetime)]
   data <- data[val_va == TRUE]
   data <- data[, val_va := NULL]
   
   # check code essai VD
   data <- data[, val_vd := check_code_essai(
-    x = code_essai, code = "^VD", possible.values = c("^VD", "^RVD.*")
+    x = code_essai, code = "^VD$", possible.values = c("^VD", "^RVD.*")
   ), by = list(code_groupe, datetime)]
   data <- data[val_vd == TRUE]
   data <- data[, val_vd := NULL]
   
   # check code essai ASR
   data <- data[, val_asr := check_code_essai(
-    x = code_essai, code = "^ASR", possible.values = c("^ASR", "^RASR.*")
+    x = code_essai, code = "^ASR$", possible.values = c("^ASR", "^RASR.*")
   ), by = list(code_groupe, datetime)]
   data <- data[val_asr == TRUE]
   data <- data[, val_asr := NULL]
   
   # check code essai DRTE
   data <- data[, val_drte := check_code_essai(
-    x = code_essai, code = "DRTE", possible.values = c("^DRTE")
+    x = code_essai, code = "^DRTE$", possible.values = c("^DRTE")
   ), by = list(code_groupe, datetime)]
   data <- data[val_drte == TRUE]
   data <- data[, val_drte := NULL]
   
   # check code essai MODUL
   data <- data[, val_modul := check_code_essai(
-    x = code_essai, code = "^MODUL", possible.values = c("^MODUL")
+    x = code_essai, code = "^MODUL$", possible.values = c("^MODUL")
   ), by = list(code_groupe, datetime)]
   data <- data[val_modul == TRUE]
   data <- data[, val_modul := NULL]
 
   # check code essai EP NUC
   data <- data[, val_epnuc := check_code_essai(
-    x = code_essai, code = "^EP NUC", possible.values = c("EP NUC")
+    x = code_essai, code = "^EP NUC$", possible.values = c("EP NUC")
   ), by = list(code_groupe, datetime)]
   data <- data[val_epnuc == TRUE]
   data <- data[, val_epnuc := NULL]
