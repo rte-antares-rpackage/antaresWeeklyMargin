@@ -1,12 +1,12 @@
 Package: antaresWeeklyMargin
-Title: Setup an Antares Study for Weekly Margin Simulation
-Version: 0.0.0.9791
+Title: Setup an 'Antares' Study for Weekly Margin Simulation
+Version: 0.0.1
 Authors@R: c(
     person("Victor", "Perrier", email = "victor.perrier@dreamRs.fr", role = c("aut", "cre")),
     person("Fabiola", "Aravena-Rojas", email = "fabiola.aravena-rojas@rte-france.com", role = c("aut")),
     person("RTE", role = c("cph", "fnd"))
   )
-Description: Preparation of an Antares study for weekly margin analysis, calculation and visualisation of results.
+Description: Preparation of an 'Antares' study for weekly margin analysis, calculation and visualisation of results.
 Depends: R (>= 3.1.0)
 License: GPL (>= 2) | file LICENSE
 Encoding: UTF-8
@@ -32,6 +32,7 @@ Imports:
     lubridate,
     zoo,
     usethis
+Remotes: rte-antares-rpackage/antaresEditObject
 RoxygenNote: 6.1.0
 Suggests: 
     testthat
