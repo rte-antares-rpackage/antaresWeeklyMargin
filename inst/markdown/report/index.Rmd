@@ -284,7 +284,7 @@ draw_prod_MC(marges$margin_area, date_i = "2016-11-05", mc_year = year_mc)#$widg
 plotMap(
   x = marges_all, mapLayout = ml, interactive = FALSE,
   colLinkVar = "abs_loadFactor", sizeLinkVar = "FLOW LIN.",
-  colAreaVar = "margin_inter", labelAreaVar = "margin_inter",
+  colAreaVar = "marges_inter", labelAreaVar = "marges_inter",
   options = plotMapOptions(
     areaDefaultSize = 50,
     areaColorScaleOpts = colorScaleOptions(
