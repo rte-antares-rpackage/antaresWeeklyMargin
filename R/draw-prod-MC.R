@@ -29,9 +29,9 @@ draw_prod_MC <- function(data, area = NULL, mc_year = NULL, date_i = NULL){
   set_prod_config(area)
 
   if (is.null(mc_year))
-    mc_year <- data$mcYear[1]
+    mc_year <- data_mc$mcYear[1]
 
-  data_mc <- data[mcYear == mc_year]
+  data_mc <- data_mc[mcYear == mc_year]
 
   if (!is.null(date_i)) {
     # date_debut <- as.POSIXct(paste0(date_i," 00:00:00"), format = "%Y-%m-%d %H:%M:%S", tz = "UTC")
