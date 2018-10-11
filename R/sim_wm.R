@@ -148,7 +148,23 @@ sim_wm <- function(date_prev, start_prev_hebdo,
     first.weekday = first.weekday,
     january.1st = "Monday", 
     leapyear = FALSE,
-    intra.modal = "No"
+    intra.modal = "No",
+    # Time series
+    generate = "thermal",
+    nbtimeseriesload = 1,
+    nbtimeserieshydro = 1,
+    nbtimeserieswind = 1,
+    nbtimeseriesthermal = 102,
+    nbtimeseriessolar = 1,
+    refreshtimeseries = "",
+    # intra.modal = "",
+    inter.modal = "",
+    refreshintervalload = 100,
+    refreshintervalhydro = 100,
+    refreshintervalwind = 100,
+    refreshintervalthermal = 100,
+    refreshintervalsolar = 100,
+    readonly = FALSE
   )
   
   opts <- updateOptimizationSettings(number.of.cores.mode = "maximum", opts = opts)
