@@ -73,6 +73,11 @@ read_edf_sheet <- function(path, sheet) {
   data <- data[val_rvp == TRUE]
   data <- data[, val_rvp := NULL]
   
+  # check code essai RVD
+  data <- data[, val_rvd := check_redem(x = code_essai, type = "RVD"), by = list(code_groupe, datetime)]
+  data <- data[val_rvd == TRUE]
+  data <- data[, val_rvd := NULL]
+  
   # check code essai VA
   data <- data[, val_va := check_code_essai(
     x = code_essai, code = "^VA$", possible.values = c("^VA$")
@@ -145,9 +150,9 @@ check_code_essai <- function(x, code = "VP", possible.values = c("^VP", "^RVP.*"
   }
 }
 
-check_redem <- function(x) {
-  if (any(str_detect(string = x, pattern = "^REDEM")) & any(str_detect(string = x, pattern = "^RVP"))) {
-    str_detect(string = x, pattern = "^RVP")
+check_redem <- function(x, type = "RVP") {
+  if (any(str_detect(string = x, pattern = "^REDEM")) & any(str_detect(string = x, pattern = paste0("^", type)))) {
+    str_detect(string = x, pattern = paste0("^", type))
   } else {
     rep_len(x = TRUE, length.out = length(x))
   }
