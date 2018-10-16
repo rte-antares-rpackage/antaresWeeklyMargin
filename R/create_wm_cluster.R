@@ -221,7 +221,7 @@ matrix_modulation <- function(pmin_, pmax_, type) {
     matrix(
       data = c(
         rep(1, times = 365 * 24 * 2), # two first columns
-        (pmax_/max(pmax_, na.rm = TRUE)), rep(0, 365 * 24 - 168), # [rep(1, 168)]
+        ceiling((pmax_/max(pmax_, na.rm = TRUE))*1000)/1000, rep(0, 365 * 24 - 168), # [rep(1, 168)]
         # rep(0, times = 365 * 24 * 1) # fourth column
         values, rep(0, 365 * 24 - 168) 
       ), ncol = 4
