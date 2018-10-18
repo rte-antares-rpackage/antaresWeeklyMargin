@@ -13,7 +13,12 @@ prevs
 
 # Nouvelle méthode : calcul automatique des pics et creux
 new_offset <- antaresWeeklyMargin:::compute_offset(prevs)
-new_offset
+# new_offset
+
+# valeurs de l'offset avant na.spline
+new_offset$offset_prev_raw
+# distrib de l'offset après na.spline
+hist(new_offset$offset_prev, main = "NEW")
 
 # Ancienne méthode : spécification des heures de pics et creux
 old_offset <- antaresWeeklyMargin:::prev_offset(prevs, offset_options = offset_opts(
@@ -22,7 +27,12 @@ old_offset <- antaresWeeklyMargin:::prev_offset(prevs, offset_options = offset_o
   offpeak_night = c(NA, NA, "04:00", "04:00", "04:00", "04:00", "04:00"),
   offpeak_day = c(NA, NA, "22:00", "22:00", "22:00", "22:00", "22:00")
 ))
-old_offset
+# old_offset
+
+# valeurs de l'offset avant na.spline
+old_offset$offset_prev_raw
+# distrib de l'offset après na.spline
+hist(old_offset$offset_prev, main = "OLD")
 
 
 

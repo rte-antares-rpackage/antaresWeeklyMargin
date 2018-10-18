@@ -164,7 +164,9 @@ prev_offset <- function(dat_prev, offset_options = offset_opts()) {
   prev_modif_new  <- cbind(datetime = prev_u$datetime,prev_modif_new) 
   prev_modif_new  <- prev_modif_new [, mean := round(apply(.SD, 1, mean),0), by = "datetime"]
   
-  conso_modif <- cbind(prev_modif_new, prev_u = prev_u$prevu)
+  conso_modif <- cbind(prev_modif_new, prev_u = prev_u$prevu,
+                       offset_prev = tab$offset_new, 
+                       offset_prev_raw = tab$offset_prev)
   return(conso_modif)
 }
 
@@ -208,6 +210,7 @@ compute_offset <- function(prevs) {
   
   
   # interpolation de l'offset
+  data_prevs[, offset_prev_raw := offset_prev]
   data_prevs[, offset_prev := round(zoo::na.spline(offset_prev))]
   
   vars_prev <- grep(pattern = "^prev", x = names(data_prevs), value = TRUE)
