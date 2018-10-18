@@ -9,7 +9,7 @@
 #' @return a \code{dygraphs} htmlwidget.
 #' @export
 #'
-#' @importFrom dygraphs dygraph dyRangeSelector dyLegend dyHighlight dyCSS
+#' @importFrom dygraphs dygraph dyLegend dyHighlight dyCSS
 #'  dySeries dyOptions dyAxis dyLimit %>%
 #' @importFrom data.table := as.xts.data.table
 #'
@@ -119,7 +119,6 @@ draw_margins <- function(data_margin,
     data = as.xts.data.table(data_margin),
     main = title
   ) %>%
-    dyRangeSelector() %>%
     dyHighlight(highlightCircleSize = 3)%>%
     dyCSS(css = system.file('www/css_dygraph.css', package = 'antaresWeeklyMargin'))%>%
     dySeries(name = "PERCENTIL_1", strokeWidth = 2) %>%

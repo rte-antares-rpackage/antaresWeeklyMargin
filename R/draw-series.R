@@ -16,7 +16,7 @@
 #'
 #' }
 #' @importFrom data.table dcast as.xts.data.table
-#' @importFrom dygraphs dygraph dyRangeSelector dyLegend dyHighlight dyCSS dyOptions dyAxis
+#' @importFrom dygraphs dygraph dyLegend dyHighlight dyCSS dyOptions dyAxis
 draw_series <- function(data, serie = "LOAD", mcYears = 1:51, main = serie) {
 
   stopifnot(inherits(x = data, what = "antaresDataTable"))
@@ -25,7 +25,6 @@ draw_series <- function(data, serie = "LOAD", mcYears = 1:51, main = serie) {
   dat <- dcast(data = dat, formula = time ~ mcYear, value.var = serie)
 
   dygraph(data = as.xts.data.table(dat), main = main) %>%
-    dyRangeSelector() %>%
     dyLegend(show = "always") %>%
     dyHighlight(highlightCircleSize = 3)%>%
     dyLegend(show = "always")%>%

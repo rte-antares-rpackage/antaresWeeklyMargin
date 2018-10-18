@@ -7,7 +7,7 @@
 #'
 #' @export
 #'
-#' @importFrom dygraphs dygraph dyRangeSelector dyOptions dyAxis %>%
+#' @importFrom dygraphs dygraph dyOptions dyAxis %>%
 #' @importFrom htmlwidgets JS
 #' @importFrom data.table data.table dcast setcolorder := as.xts.data.table
 #'
@@ -61,7 +61,6 @@ draw_stack_hist <- function(marge_seule, marge_inter, area = NULL) {
   # setDF(code_scenario_)
   # str(code_scenario_)
   graph <- dygraph(data = as.xts.data.table(code_scenario_), main = paste0("Remaining capacity ", toupper(area))) %>%
-    dyRangeSelector()%>%
     dyAxis(
       name = 'y', label = "Pourcentage (%)",
       rangePad = 0, axisLabelFormatter = htmlwidgets::JS("function(d) {return d + '%';}")
