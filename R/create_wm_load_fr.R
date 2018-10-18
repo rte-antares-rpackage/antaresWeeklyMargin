@@ -46,7 +46,7 @@ create_wm_load_fr <- function(path, start, start_prev_hebdo,
   prevs[is.na(prevs)] <- 0
   
   if(type == "premis") {
-    prevs <- prevs[, !c("datetime","prevCN","prevu")]
+    prevs <- prevs[, !c("datetime", "prevCN", "prevu")]
     matrix_conso <- as.data.table(matrix(data = c(rep(0L, 8760*51)), ncol = 51))
     matrix_conso[1:168, ] <- prevs  
   }
@@ -173,9 +173,54 @@ prev_offset <- function(dat_prev, offset_options = offset_opts()) {
 
 
 
-
-
-
+#' @importFrom data.table copy := hour
+#' @importFrom lubridate wday
+compute_offset <- function(prevs) {
+  data_prevs <- copy(prevs)
+  
+  # moyennes de toutes les prevs
+  data_prevs[, mean_prev := round(rowMeans(.SD)), .SDcols = setdiff(names(data_prevs), c("datetime", "prevCN","prevu"))]
+  data_prevs[, offset_prev := prevu - mean_prev]
+  
+  # data_prevs <- data_prevs[, list(datetime, mean_prev, offset_prev)]
+  
+  # PEAK
+  data_prevs[hour(datetime) >= 7 & hour(datetime) <= 14, offset_peak := datetime[which.max(mean_prev)], by = list(format(datetime, "%Y-%m-%d"))]
+  data_prevs[hour(datetime) >= 18 & hour(datetime) <= 23, offset_peak := datetime[which.max(mean_prev)], by = list(format(datetime, "%Y-%m-%d"))]
+  
+  # OFFPEAK
+  data_prevs[hour(datetime) >= 3 & hour(datetime) <= 7, offset_offpeak := datetime[which.min(mean_prev)], by = list(format(datetime, "%Y-%m-%d"))]
+  data_prevs[hour(datetime) >= 15 & hour(datetime) <= 23, offset_offpeak := datetime[which.min(mean_prev)], by = list(format(datetime, "%Y-%m-%d"))]
+  
+  # indice des pics et creux
+  data_prevs[, is_peak := datetime == offset_peak]
+  data_prevs[, is_offpeak := datetime == offset_offpeak]
+  data_prevs[is.na(is_peak), is_peak := FALSE]
+  data_prevs[is.na(is_offpeak), is_offpeak := FALSE]
+  # pas de pics/creux le weekend
+  data_prevs[lubridate::wday(datetime, week_start = 1) %in% c(6, 7), is_peak := FALSE]
+  data_prevs[lubridate::wday(datetime, week_start = 1) %in% c(6, 7), is_offpeak := FALSE]
+  
+  # ajustement des valuers de l'offset
+  data_prevs[!(is_peak), offset_prev := NA_real_]
+  data_prevs[(is_offpeak), offset_prev := 0]
+  data_prevs[lubridate::wday(datetime, week_start = 1) %in% c(6, 7), offset_prev := 0]
+  
+  
+  # interpolation de l'offset
+  data_prevs[, offset_prev := round(zoo::na.spline(offset_prev))]
+  
+  vars_prev <- grep(pattern = "^prev", x = names(data_prevs), value = TRUE)
+  vars_prev <- setdiff(vars_prev, c("prevCN", "prevu"))
+  
+  # ajout de l'offset
+  data_prevs[, (vars_prev) := .SD + offset_prev, .SDcols = vars_prev]
+  
+  # maj moyenne des prevs
+  data_prevs[, mean_prev := round(rowMeans(.SD)), .SDcols = vars_prev]
+  
+  return(data_prevs)
+}
 
 
 

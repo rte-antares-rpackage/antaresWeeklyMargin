@@ -18,4 +18,6 @@ utils::globalVariables(c(".SD", ".I", ".N", "groupe", "code_groupe",
                          "areaintypecode", "mapcodein", "mapcodeout", "file_date",
                          "margin_solo", "AVL DTG", "storageCapacity", "margin_inter", "abs_loadFactor", "loadFactor",
                          "creux_jour", "creux_nuit", "offset_new", "pointe_matin", "pointe_soir",
-                         "NODU", "minGenModulation", "nominalcapacity", "pumpingCapacity", "pmin_therm", "mustRunTotal", "production"))
+                         "NODU", "minGenModulation", "nominalcapacity", "pumpingCapacity", "pmin_therm", "mustRunTotal", "production",
+                         "is_offpeak", "is_peak", "mean_prev", "offset_offpeak", "offset_peak", "offset_prev",
+                         "prevu"))
