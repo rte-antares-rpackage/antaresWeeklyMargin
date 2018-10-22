@@ -137,8 +137,8 @@ compute_margins <- function(date, area = "fr",
       format = "%Y-%m-%d %H:%M:%S", tz = "Europe/Paris"
     )
   )
-  data_area[, time := NULL]
-  data_area <- merge(x = data_area, y = corr_time, by = "timeId")
+  margin_area[, time := NULL]
+  margin_area <- merge(x = margin_area, y = corr_time, by = "timeId")
   
   setattr(x = margin_area_solo, name = "margin", value = paste(margin, "solo", sep = "."))
   setattr(x = margin_area_inter, name = "margin", value = paste(margin, "inter", sep = "."))
