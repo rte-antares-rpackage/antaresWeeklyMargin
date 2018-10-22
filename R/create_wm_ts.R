@@ -64,7 +64,6 @@ create_wm_ts <- function(data, start = NULL, sort_ts = TRUE, opts = antaresRead:
   )
   data[, area := unlist(match_countries, use.names = FALSE)[chmatch(x = country, table = names(match_countries))]]
   data <- data[!is.na(area)]
-  sprintf("ENS%02d", 0:50)
 
   leftover <- as.data.table(matrix(data = rep(0, 51 * (8760 - 168)), ncol = 51))
   setnames(x = leftover, old = names(leftover), new = sprintf("ENS%02d", 0:50))

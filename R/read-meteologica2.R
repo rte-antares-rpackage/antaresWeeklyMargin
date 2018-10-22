@@ -35,6 +35,7 @@ read_meteologica2 <- function(path, country = NULL, date = NULL, time = NULL) {
   if (missing(path)) {
     path <- choose_path()
   }
+  path_mtlg <- normalizePath(path, mustWork = TRUE)
 
   if (dir.exists(path)) {
     old.wd <- getwd()
@@ -99,6 +100,7 @@ read_meteologica2 <- function(path, country = NULL, date = NULL, time = NULL) {
   )
   res <- rbindlist(l = res)
   res <- res[order(datetime, -file_name)]
+  res <- add_mtlg_areas(res, path_mtlg = path_mtlg)
   return(res)
 }
 
