@@ -9,9 +9,10 @@
 #'   \code{antaresRead::setSimulationPath}
 #'
 #' @export
+#' 
 #'
 #' @importFrom data.table chmatch %chin% as.data.table setnames copy fwrite uniqueN
-#' @importFrom antaresRead simOptions
+#' @importFrom antaresRead simOptions getAreas
 #'
 #' @examples
 #' \dontrun{
@@ -47,22 +48,7 @@ create_wm_ts <- function(data, start = NULL, sort_ts = TRUE, opts = antaresRead:
     stop("Not all groups have 168 observations !", call. = FALSE)
   }
 
-  match_countries <- list(
-    "Austria" = "at",
-    "Belgium" = "be",
-    "France" = "fr",
-    "Germany" = "de",
-    # "Ireland" = "ie",
-    "RepublicOfIreland" = "ie",
-    "NorthernIreland" = "ni",
-    "Italy" = "it",
-    "Netherlands" = "nl",
-    "Portugal" = "pt",
-    "Spain" = "es",
-    "Switzerland" = "ch",
-    "UK" = "gb"
-  )
-  data[, area := unlist(match_countries, use.names = FALSE)[chmatch(x = country, table = names(match_countries))]]
+
   data <- data[!is.na(area)]
 
   leftover <- as.data.table(matrix(data = rep(0, 51 * (8760 - 168)), ncol = 51))
@@ -75,6 +61,14 @@ create_wm_ts <- function(data, start = NULL, sort_ts = TRUE, opts = antaresRead:
   i <- 1
 
   for (area_ in unique(data$area)) {
+    
+    if (!area_ %in% getAreas(opts = opts)) {
+      warning(
+        paste0("Area '", area_, "' isn't a valid area in Antares study, skipping creating time series"), 
+        call. = FALSE
+      )
+      next()
+    }
 
     # Load
     path_load <- file.path(inputPath, "load", "series", sprintf("load_%s.txt", area_))
@@ -128,20 +122,25 @@ create_wm_ts <- function(data, start = NULL, sort_ts = TRUE, opts = antaresRead:
   if (sort_ts) {
     others_ts <- list(
       list(ts = "load", area = "lu_de"),
+      list(ts = "load", area = "lu"),
       list(ts = "solar", area = "lu_de"),
+      list(ts = "solar", area = "lu"),
       list(ts = "wind", area = "lu_de"),
+      list(ts = "wind", area = "lu"),
       list(ts = "wind", area = "ch"),
       list(ts = "solar", area = "ie"),
       list(ts = "solar", area = "ni")
     )
     for (i in seq_along(others_ts)) {
       other_ts <- others_ts[[i]]
-      cat(sprintf("\rReordering %s for %s...", other_ts$ts, other_ts$area))
-      reorder_hourly(
-        path = file.path(inputPath, other_ts$ts, "series", sprintf("%s_%s.txt", other_ts$ts, other_ts$area)),
-        start_wm = start,
-        start_sim = opts$start
-      )
+      if (other_ts$area %in% getAreas(opts = opts)) {
+        cat(sprintf("\rReordering %s for %s...", other_ts$ts, other_ts$area))
+        reorder_hourly(
+          path = file.path(inputPath, other_ts$ts, "series", sprintf("%s_%s.txt", other_ts$ts, other_ts$area)),
+          start_wm = start,
+          start_sim = opts$start
+        )
+      } 
     }
     cat("\rReordering time series - Done!\n")
   }
