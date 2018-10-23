@@ -6,6 +6,12 @@ output:
   html_document:
     toc: true
     toc_float: true
+params:
+  week: 9
+  n_scenario: 2040
+  year_mc: 50
+  date_study: "28-02-2018 10:00:00"
+  date_debut: "2018-02-24"
 ---
 
 ```{r setup, include=FALSE}
@@ -16,15 +22,12 @@ library( data.table )
 library( dygraphs )
 library( magrittr )
 
-# Week for upward margins
-week <- 9
-# Number of scenario
-n_scenario <- 2040
-# MC year studied
-year_mc <- 50
-# dates
-date_study <- "28-02-2018 10:00:00"
-date_debut <- "2018-02-24"
+# Parameters (dont edit here, but in header)
+week <- params$week
+n_scenario <- params$n_scenario
+year_mc <- params$year_mc
+date_study <- params$date_study
+date_debut <- params$date_debut
 
 
 # datas

@@ -6,6 +6,7 @@
 \usage{
 create_markdown(path, format = c("report", "slides"),
   date_start = NULL, date_margins = NULL, date_mono = NULL,
+  week = NULL, n_scenario = NULL, year_mc = NULL,
   opts = antaresRead::simOptions())
 }
 \arguments{
@@ -18,6 +19,12 @@ create_markdown(path, format = c("report", "slides"),
 \item{date_margins}{Date for margins computation.}
 
 \item{date_mono}{Date-time for representing monotone.}
+
+\item{week}{Number of the week studied.}
+
+\item{n_scenario}{Number of scenario used in analysis.}
+
+\item{year_mc}{Number of the Monte-Carlo year to focus on.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

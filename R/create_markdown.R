@@ -6,6 +6,9 @@
 #' @param date_start Study start date.
 #' @param date_margins Date for margins computation.
 #' @param date_mono Date-time for representing monotone.
+#' @param week Number of the week studied.
+#' @param n_scenario Number of scenario used in analysis.
+#' @param year_mc Number of the Monte-Carlo year to focus on.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}  
@@ -23,6 +26,7 @@
 #' }
 create_markdown <- function(path, format = c("report", "slides"),
                             date_start = NULL, date_margins = NULL, date_mono = NULL,
+                            week = NULL, n_scenario = NULL, year_mc = NULL,
                             opts = antaresRead::simOptions()) {
   format <- match.arg(format)
   if (!dir.exists(path)) {
@@ -44,7 +48,8 @@ create_markdown <- function(path, format = c("report", "slides"),
       simPath = opts$simPath,
       date_start = date_start, 
       date_margins = date_margins,
-      date_mono = date_mono
+      date_mono = date_mono,
+      week = week, n_scenario = n_scenario, year_mc = year_mc
     ), 
     open = TRUE, 
     package = "antaresWeeklyMargin"

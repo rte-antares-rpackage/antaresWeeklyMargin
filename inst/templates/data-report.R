@@ -53,7 +53,15 @@ saveRDS(object = mono, file = "{{path}}/datas/mono.rds")
 
 
 
+# Creation rapport --------------------------------------------------------
 
+rmarkdown::render("TEST_RAPPORT/index.Rmd", params = list(
+  week = {{week}}, # Week for upward margins
+  n_scenario = {{n_scenario}}, # Number of scenario
+  year_mc = {{year_mc}}, # MC year studied
+  date_study = "{{date_margins}}",
+  date_debut = "{{date_start}}"
+))
 
 
 
