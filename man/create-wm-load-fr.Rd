@@ -7,7 +7,7 @@
 \title{Create Load TS for France}
 \usage{
 create_wm_load_fr(path, start, start_prev_hebdo, type = c("prevu",
-  "premis", "offset"), offset_options = offset_opts(),
+  "premis", "offset"), offset_options = NULL,
   opts = antaresRead::simOptions())
 
 offset_opts(peak_morning = c(NA, NA, "13:00", "13:00", "13:00", "13:00",
@@ -25,7 +25,7 @@ offset_opts(peak_morning = c(NA, NA, "13:00", "13:00", "13:00", "13:00",
 
 \item{type}{Forecast to use \code{"prevu"}, \code{"premis"} or \code{"offset"}.}
 
-\item{offset_options}{Peak and off-peak if \code{type = "offset"}.}
+\item{offset_options}{DEPRECATED. Peak and off-peak if \code{type = "offset"}.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}

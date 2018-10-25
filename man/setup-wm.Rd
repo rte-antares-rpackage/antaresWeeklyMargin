@@ -8,11 +8,10 @@
 \title{Setup a WM simulation before running Antares}
 \usage{
 sim_wm(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(),
-  n_mcyears = 2040, type_load = "prevu",
-  load_offset_options = offset_opts(), dispo_pump = c(3520, 3520, 3520,
-  3520, 3520, 3520, 3520), simulation_source = NULL,
-  simulation_dest = NULL, copy_study = TRUE,
-  opts = antaresRead::simOptions())
+  n_mcyears = 2040, type_load = "prevu", load_offset_options = NULL,
+  dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520, 3520),
+  simulation_source = NULL, simulation_dest = NULL,
+  copy_study = TRUE, opts = NULL)
 
 path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
   cnes = "cnes", planning = "planning", forfait_oa = "forfait_oa",
@@ -32,7 +31,7 @@ force_path(...)
 
 \item{type_load}{Forecast to use \code{"prevu"}, \code{"premis"} or \code{"offset"}.}
 
-\item{load_offset_options}{Peak and off-peak if \code{type_load = "offset"}, see \code{\link{offset_opts}}.}
+\item{load_offset_options}{DEPRECATED. Peak and off-peak if \code{type_load = "offset"}, see \code{\link{offset_opts}}.}
 
 \item{dispo_pump}{Pumpage availability.}
 

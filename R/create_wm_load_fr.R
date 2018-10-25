@@ -5,7 +5,7 @@
 #' @param start Beginning of the simulation.
 #' @param start_prev_hebdo Beginning of previsions.
 #' @param type Forecast to use \code{"prevu"}, \code{"premis"} or \code{"offset"}.
-#' @param offset_options Peak and off-peak if \code{type = "offset"}.
+#' @param offset_options DEPRECATED. Peak and off-peak if \code{type = "offset"}.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -22,7 +22,7 @@
 #' }
 create_wm_load_fr <- function(path, start, start_prev_hebdo,
                               type = c("prevu", "premis", "offset"), 
-                              offset_options = offset_opts(),
+                              offset_options = NULL,
                               opts = antaresRead::simOptions()) {
   
   inputPath <- opts$inputPath
@@ -52,7 +52,7 @@ create_wm_load_fr <- function(path, start, start_prev_hebdo,
   }
   
   if(type == "offset") {
-    offset <- prev_offset(prevs, offset_options = offset_options)
+    offset <- compute_offset(prevs)
     offset <- offset[, .SD, .SDcols = c("prev", paste0("prev", 1:50))]
     matrix_conso <- as.data.table(matrix(data = c(rep(0, 8760*51)), ncol = 51))
     matrix_conso[1:168, ] <- offset  

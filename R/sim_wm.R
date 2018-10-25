@@ -6,7 +6,7 @@
 #' @param path_inputs A \code{list} with path to inputs directories, obtained with \code{path_sim_wm}.
 #' @param n_mcyears Number of MC years in the study, default to \code{2040}.
 #' @param type_load Forecast to use \code{"prevu"}, \code{"premis"} or \code{"offset"}.
-#' @param load_offset_options Peak and off-peak if \code{type_load = "offset"}, see \code{\link{offset_opts}}.
+#' @param load_offset_options DEPRECATED. Peak and off-peak if \code{type_load = "offset"}, see \code{\link{offset_opts}}.
 #' @param dispo_pump Pumpage availability.
 #' @param simulation_source Path to source simulation for creating Hydro for other areas.
 #'  If provided a copy of this simulation will be performed.
@@ -56,15 +56,18 @@
 sim_wm <- function(date_prev, start_prev_hebdo, 
                    path_inputs = path_sim_wm(), 
                    n_mcyears = 2040,
-                   type_load = "prevu", load_offset_options = offset_opts(),
+                   type_load = "prevu", load_offset_options = NULL,
                    dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520, 3520),
                    simulation_source = NULL,
                    simulation_dest = NULL,
                    copy_study = TRUE,
-                   opts = antaresRead::simOptions()) {
+                   opts = NULL) {
   
-  if (is.null(simulation_source) & copy_study)
+  if (is.null(simulation_source) & copy_study) {
+    if (is.null(opts))
+      opts <- antaresRead::simOptions()
     simulation_source <- opts$studyPath
+  }
   if (!is.null(simulation_source)) {
     cat(info_text("Copying study"))
     new_path <- copy_sim_wm(path_sim = simulation_source, dir_dest = simulation_dest)
@@ -92,7 +95,7 @@ sim_wm <- function(date_prev, start_prev_hebdo,
     start = date_prev, 
     start_prev_hebdo = start_prev_hebdo, 
     type = type_load, 
-    offset_options = load_offset_options,
+    offset_options = NULL,
     opts = opts
   )
   
