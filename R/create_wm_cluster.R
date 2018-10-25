@@ -93,13 +93,13 @@ create_wm_cluster <- function(data, start = NULL, rm_prev_clus = TRUE, sort_othe
       test = min(pmin, na.rm = TRUE) < 0.1 * max(pmax, na.rm = TRUE),
       yes = 0, no = min(pmin, na.rm = TRUE)
     ),
-    # `must-run` =  FALSE,
-    `must-run` =  must_run(
-      pmin_ = pmin,
-      pmax_ = pmax,
-      code_essai = code_essai,
-      type = co_comb[[first(comb_)]]
-    ),
+    `must-run` =  FALSE,
+    # `must-run` =  must_run(
+    #   pmin_ = pmin,
+    #   pmax_ = pmax,
+    #   code_essai = code_essai,
+    #   type = co_comb[[first(comb_)]]
+    # ),
     prepro_modulation = list(
       matrix_modulation(pmin_ = pmin, pmax_ = pmax, type = co_comb[[first(comb_)]])
     )
@@ -210,14 +210,14 @@ matrix_modulation <- function(pmin_, pmax_, type) {
   if (type %in% c("N", "nuclear")) {
     maxpmax <- quantile(pmax_, probs = 0.95, na.rm = TRUE)
     minpmin <- quantile(pmin_, probs = 0.05, na.rm = TRUE)
-    if (!num_equal(maxpmax, 0) & minpmin >= maxpmax*0.9) {
-      values <- rep(0, 168)
-    } else {
+    # if (!num_equal(maxpmax, 0) & minpmin >= maxpmax*0.9) {
+    #   values <- rep(0, 168)
+    # } else {
       values <- pmin_/max(pmax_, na.rm = TRUE)
-    }
-    if (num_equal(max(pmax_, na.rm = TRUE), min(pmin_, na.rm = TRUE))) {
-      values <- rep(0, 168)
-    }
+    # }
+    # if (num_equal(max(pmax_, na.rm = TRUE), min(pmin_, na.rm = TRUE))) {
+    #   values <- rep(0, 168)
+    # }
     matrix(
       data = c(
         rep(1, times = 365 * 24 * 2), # two first columns
