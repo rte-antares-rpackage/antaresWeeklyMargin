@@ -4,8 +4,8 @@
 \alias{create_wm_hydro_areas}
 \title{Create Others Areas Hydro setup for Weekly Margins simulation}
 \usage{
-create_wm_hydro_areas(start, areas = c("at", "be", "ch", "es", "gb",
-  "ie", "it", "pt", "de"), simulation_source = "PDH 2017-2018 - Copie/",
+create_wm_hydro_areas(start, areas = NULL,
+  simulation_source = "PDH 2017-2018 - Copie/",
   opts = antaresRead::simOptions())
 }
 \arguments{

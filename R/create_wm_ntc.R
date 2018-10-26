@@ -69,11 +69,15 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
 
   matrix_ntc <- as.data.table(matrix(data = c(rep(0, 8760 * 3), rep(0.5, 8760 * 2)), ncol = 5))
 
-  for (i in liste_pays){
+  for (i in liste_pays) {
 
     cat(sprintf("%s - Writing NTC for %s\n", paste0(round(which(liste_pays == i)/length(liste_pays)*100), "%"), i))
 
-    nom_pays <- grep(pattern = toupper(i), x = names(ntc_planet), value = TRUE)
+    if (i == "itn") {
+      nom_pays <- grep(pattern = "IT", x = names(ntc_planet), value = TRUE)
+    } else {
+      nom_pays <- grep(pattern = toupper(i), x = names(ntc_planet), value = TRUE)
+    }
     ntc_pays <- ntc_planet[, .SD, .SDcols = c("date_heure", nom_pays)]
 
     if (i < "fr") {

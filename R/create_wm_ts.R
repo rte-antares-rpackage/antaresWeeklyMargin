@@ -40,10 +40,10 @@ create_wm_ts <- function(data, start = NULL, sort_ts = TRUE, opts = antaresRead:
     vars_en <- sprintf("ENS%02d", 0:50)
     data <- data[country == "UK", (vars_en) := lapply(.SD, sum), by = list(datetime, country, type), .SDcols = vars_en]
     data <- data[order(datetime, -file_name)]
-    data <- unique(data, by = c("datetime", "country", "type"))
+    data <- unique(data, by = c("datetime", "area", "type"))
   }
 
-  n_168 <- data[, .N, by = list(country, type)]
+  n_168 <- data[, .N, by = list(area, type)]
   if (!all(n_168$N == 168)) {
     stop("Not all groups have 168 observations !", call. = FALSE)
   }
@@ -57,7 +57,7 @@ create_wm_ts <- function(data, start = NULL, sort_ts = TRUE, opts = antaresRead:
   empty <- as.data.table(matrix(data = rep(0, 51 * 8760), ncol = 51))
   setnames(x = empty, old = names(empty), new = sprintf("ENS%02d", 0:50))
 
-  total <- uniqueN(data[, list(country, type)])
+  total <- uniqueN(data[, list(area, type)])
   i <- 1
 
   for (area_ in unique(data$area)) {
