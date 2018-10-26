@@ -25,9 +25,16 @@
 #'
 #' }
 create_wm_hydro_areas <- function(start,
-                                  areas = c("at", "be", "ch", "es", "gb", "ie", "it", "pt", "de"),
+                                  areas = NULL,
                                   simulation_source = "PDH 2017-2018 - Copie/",
                                   opts = antaresRead::simOptions()) {
+  
+  if (is.null(areas)) {
+    areas <- getAreas(
+      select = c("at", "be", "ch", "es", "gb", "ie", "it", "pt", "de", "itn", "itcn", "itcs", "its", "itsic", "itsar"),
+      opts = opts
+    )
+  }
 
   inputPath <- opts$inputPath
 

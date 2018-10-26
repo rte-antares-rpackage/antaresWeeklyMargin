@@ -21,7 +21,7 @@
 clear_wm_study <- function(opts = simOptions()) {
   
   # clear areas
-  area2remove <- getAreas(opts = opts, select = c("dsr", "rs"), regexpSelect = TRUE)
+  area2remove <- getAreas(opts = opts, select = c("dsr", "rs", "ir_", "rrrc", "model_description"), regexpSelect = TRUE)
   if (length(area2remove) < 1) {
     cat("No area to remove\n")
   } else {
