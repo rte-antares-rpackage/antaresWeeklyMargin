@@ -12,6 +12,7 @@
 #'  If provided a copy of this simulation will be performed.
 #' @param simulation_dest Name of the directory where to copy the study. Warning: content of directory will be deleted!
 #' @param copy_study Make a copy of the whole study before modifying Antares inputs.
+#' @param flow_based Logical, is this a flow based study ? If \code{TRUE}, NTC steps are ignored.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -61,6 +62,7 @@ sim_wm <- function(date_prev, start_prev_hebdo,
                    simulation_source = NULL,
                    simulation_dest = NULL,
                    copy_study = TRUE,
+                   flow_based = FALSE,
                    opts = NULL) {
   
   if (is.null(simulation_source) & copy_study) {
@@ -115,9 +117,14 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   ntc <- fread(file = list.files(path = path_inputs$ntc, full.names = TRUE))
   opts <- create_wm_ntc(data = ntc, start = start_prev_hebdo, opts = opts, startday = startday, force_date = TRUE)
   
-  cat(info_text("Create NTC TP"))
-  ntc_tp <- read_ntc(path = path_inputs$ntc_tp)
-  opts <- create_wm_ntc_tp(data = ntc_tp, start = start_prev_hebdo, opts = opts)
+  if (!isTRUE(flow_based)) {
+    cat(info_text("Create NTC TP"))
+    ntc_tp <- read_ntc(path = path_inputs$ntc_tp)
+    opts <- create_wm_ntc_tp(data = ntc_tp, start = start_prev_hebdo, opts = opts)
+  } else {
+    cat(info_text("Skipping NTC TP"))
+  }
+  
   
   # HYDRAULIQUE RESERVOIR + STEP
   # dispo_pump_d <- c(3520,3520,3520,3520,3520,3520,3520)
@@ -145,7 +152,7 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   cat(info_text("Updating study's settings"))
   opts <- updateGeneralSettings(
     nbyears = n_mcyears, 
-    simulation.end = 7, 
+    # simulation.end = 7, 
     year.by.year = TRUE, 
     opts = opts, 
     first.weekday = first.weekday,

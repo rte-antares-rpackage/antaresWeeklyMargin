@@ -11,7 +11,7 @@ sim_wm(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(),
   n_mcyears = 2040, type_load = "prevu", load_offset_options = NULL,
   dispo_pump = c(3520, 3520, 3520, 3520, 3520, 3520, 3520),
   simulation_source = NULL, simulation_dest = NULL,
-  copy_study = TRUE, opts = NULL)
+  copy_study = TRUE, flow_based = FALSE, opts = NULL)
 
 path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
   cnes = "cnes", planning = "planning", forfait_oa = "forfait_oa",
@@ -41,6 +41,8 @@ If provided a copy of this simulation will be performed.}
 \item{simulation_dest}{Name of the directory where to copy the study. Warning: content of directory will be deleted!}
 
 \item{copy_study}{Make a copy of the whole study before modifying Antares inputs.}
+
+\item{flow_based}{Logical, is this a flow based study ? If \code{TRUE}, NTC steps are ignored.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}
