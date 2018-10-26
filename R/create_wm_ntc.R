@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @importFrom data.table copy as.data.table := setnames
-#' @importFrom antaresRead simOptions getLinks
+#' @importFrom antaresRead simOptions getLinks getAreas
 #' @importFrom antaresEditObject editLink
 #' @importFrom utils write.table
 #'
@@ -59,7 +59,13 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
   }
   
 
-  liste_pays <- c("be", "ch", "de", "es", "gb", "it")
+  areas_opts <- getAreas(opts = opts)
+  if ("itn" %in% areas_opts) {
+    liste_pays <- c("be", "ch", "de", "es", "gb", "itn")
+  } else {
+    liste_pays <- c("be", "ch", "de", "es", "gb", "it")
+  }
+  
 
   matrix_ntc <- as.data.table(matrix(data = c(rep(0, 8760 * 3), rep(0.5, 8760 * 2)), ncol = 5))
 
