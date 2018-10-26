@@ -115,7 +115,14 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   # NTC
   cat(info_text("Create NTC"))
   ntc <- fread(file = list.files(path = path_inputs$ntc, full.names = TRUE))
-  opts <- create_wm_ntc(data = ntc, start = start_prev_hebdo, opts = opts, startday = startday, force_date = TRUE)
+  opts <- create_wm_ntc(
+    data = ntc,
+    start = start_prev_hebdo, 
+    opts = opts, 
+    startday = startday, 
+    force_date = TRUE, 
+    flow_based = flow_based
+  )
   
   if (!isTRUE(flow_based)) {
     cat(info_text("Create NTC TP"))

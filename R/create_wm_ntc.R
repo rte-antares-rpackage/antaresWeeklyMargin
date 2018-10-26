@@ -8,6 +8,7 @@
 #' @param startday Day of week to start simulation.
 #' @param sort_links Reorder other links to match the desired week.
 #' @param force_date Force date in data to match \code{startday}.
+#' @param flow_based Logical, is this a flow based study ? If \code{TRUE}, links with Be, Nl and De aren't edited.
 #' @param opts
 #'   List of simulation parameters returned by the function
 #'   \code{antaresRead::setSimulationPath}
@@ -32,7 +33,10 @@
 #' create_wm_ntc(ntc, start = "2018-01-04")
 #'
 #' }
-create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = TRUE, force_date = FALSE, opts = antaresRead::simOptions()) {
+create_wm_ntc <- function(data, start = NULL, startday = "samedi",
+                          sort_links = TRUE, force_date = FALSE,
+                          flow_based = FALSE,
+                          opts = antaresRead::simOptions()) {
 
   inputPath <- opts$inputPath
 
@@ -64,6 +68,10 @@ create_wm_ntc <- function(data, start = NULL, startday = "samedi", sort_links = 
     liste_pays <- c("be", "ch", "de", "es", "gb", "itn")
   } else {
     liste_pays <- c("be", "ch", "de", "es", "gb", "it")
+  }
+  
+  if (isTRUE(flow_based)) {
+    liste_pays <- setdiff(liste_pays, c("be", "de", "nl"))
   }
   
 

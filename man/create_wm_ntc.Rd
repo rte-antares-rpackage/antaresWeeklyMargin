@@ -5,7 +5,7 @@
 \title{Create Links for Weekly Margins simulation}
 \usage{
 create_wm_ntc(data, start = NULL, startday = "samedi",
-  sort_links = TRUE, force_date = FALSE,
+  sort_links = TRUE, force_date = FALSE, flow_based = FALSE,
   opts = antaresRead::simOptions())
 }
 \arguments{
@@ -19,6 +19,8 @@ and next \code{startday}-1, by default between \code{samedi} and \code{vendredi}
 \item{sort_links}{Reorder other links to match the desired week.}
 
 \item{force_date}{Force date in data to match \code{startday}.}
+
+\item{flow_based}{Logical, is this a flow based study ? If \code{TRUE}, links with Be, Nl and De aren't edited.}
 
 \item{opts}{List of simulation parameters returned by the function
 \code{antaresRead::setSimulationPath}}
