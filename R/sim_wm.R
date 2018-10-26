@@ -227,11 +227,11 @@ path_sim_wm <- function(path_dir = "inputs",
     planning = planning,
     forfait_oa = forfait_oa,
     ntc = ntc,
-    ntc_tp = ntc_tp,
+    # ntc_tp = ntc_tp,
     capa_hydro = capa_hydro,
     hydro = hydro
   )
-  lapply(
+  paths <- lapply(
     X = setNames(paths, names(paths)),
     FUN = function(x) {
       if ("AsIs" %in% class(x)) {
@@ -241,6 +241,8 @@ path_sim_wm <- function(path_dir = "inputs",
       }
     }
   )
+  paths$ntc_tp<- normalizePath(path = ntc_tp, mustWork = FALSE)
+  return(paths)
 }
 
 
