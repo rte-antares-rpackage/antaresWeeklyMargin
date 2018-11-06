@@ -60,7 +60,7 @@ create_wm_load_fr <- function(path, start, start_prev_hebdo,
   
   if(type == "prevu"){
     prevs <- prevs[, c("prevu")]
-    matrix_conso <- as.data.table(matrix(data = c(rep(0L, 8760*1)), ncol = 1))
+    matrix_conso <- as.data.table(matrix(data = c(rep(0L, 8760*51)), ncol = 51))
     matrix_conso[1:168, ] <- prevs 
   }
   
