@@ -356,5 +356,82 @@ update_sb <- function(n_mc, type = c("prevu", "premis", "offset"), opts) {
 
 
 
+#' Run Time-series Generator for Weekly margin Simulation
+#'
+#' @param path_solver Character containing the Antares Solver path.
+#' @param opts List of simulation parameters returned by the function
+#'   \code{antaresRead::setSimulationPath}.
+#'
+#' @export
+#' 
+#' @importFrom antaresEditObject runTsGenerator updateGeneralSettings
+#'
+run_ts_wm <- function(path_solver = getOption("antares.solver"), opts = antaresRead::simOptions()) {
+  runTsGenerator(
+    path_solver = path_solver, 
+    show_output_on_console = TRUE,
+    opts = opts
+  )
+  updateGeneralSettings(
+    # Time series
+    generate = "",
+    opts = opts
+  )
+}
 
+
+#' Flow Based setup for Weekly Margin Simulation
+#'
+#' @param path_data Path to the folder containing data used for Flow Based.
+#' @param start_prev_hebdo Date of forecasts, with format \code{\%Y-\%m-\%d}.
+#' @param opts List of simulation parameters returned by the function
+#'   \code{antaresRead::setSimulationPath}.
+#'
+#' @export
+#' 
+#' @importFrom antaresFlowbased createFBTS setFlowbasedPath initFlowBased
+#' @importFrom data.table fread
+#' @importFrom lubridate wday
+#' @importFrom antaresEditObject updateGeneralSettings
+#'
+flow_based_wm <- function(path_data, start_prev_hebdo, opts = antaresRead::simOptions()) {
+  ## Lecture matrice proba
+  proba <- readRDS(file = file.path(path_data, "data_flowbased/probaMatrix_BP.RDS"))
+  
+  ## Definition capacites installes
+  capa <- fread(file.path(path_data, "data_flowbased/Installed_capacityBP2016.txt"))
+  multiplier <- data.frame(
+    variable = c("fr@load", "de@wind", "de@solar"),
+    coef = c(24, 24*capa[Type=="Wind",]$Value, 24*capa[Type=="PV",]$Value)
+  )
+  
+  ## Definition calendrier
+  firstDay <- lubridate::wday(start_prev_hebdo, week_start = 1)
+  interSeasonBegin <- as.Date(c("2018-02-10", "2018-05-05"))
+  interSeasonEnd <- as.Date(c("2018-02-20", "2018-05-20"))
+  
+  
+  ## Creation time series FB
+  createFBTS(opts = opts,
+             probabilityMatrix = proba, multiplier = multiplier,
+             interSeasonBegin = interSeasonBegin, interSeasonEnd = interSeasonEnd,
+             firstDay = firstDay,
+             outputPath = file.path(path_data, "data_flowbased/model_flowbased/"))
+  
+  
+  
+  ## Choix du modele
+  fb_opts <- setFlowbasedPath(path = file.path(path_data, "data_flowbased/model_flowbased/"))
+  # runAppError()
+  
+  ## Initialisation etude
+  initFlowBased(scenarios = rep(1:51, times=40), opts = opts, fb_opts = fb_opts$path)
+  
+  updateGeneralSettings(
+    simulation.end = 7,
+    opts = opts
+  )
+  
+  return(invisible())
+}
 
