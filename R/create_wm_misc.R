@@ -13,6 +13,7 @@
 #' @importFrom data.table copy as.data.table := setnames
 #' @importFrom antaresRead simOptions getAreas
 #' @importFrom utils write.table
+#' @importFrom lubridate month
 #'
 #' @examples
 #' \dontrun{
@@ -42,7 +43,13 @@ create_wm_misc <- function(data, start = NULL, sort_misc = TRUE, opts = antaresR
   #MISCGEN
   misc <- data[, !c("date", "heure", "hydraulique_tiers", "eolien", "photovoltaique", "hydraulique_edf")]
 
-  misc <- misc[ , CHP := cogeneration_mdse_dispatchable_ + cogeneration_continue]
+  misc[ , CHP := cogeneration_mdse_dispatchable_ + cogeneration_continue]
+  
+  if (!is.null(start)) {
+    if (lubridate::month(start) >= 10 | lubridate::month(start) <= 3) {
+      misc[ , CHP := CHP + 1000]
+    }
+  }
 
   matrix_misc <- as.data.table(matrix(data = c(rep(0, 8760*8)), ncol = 8))
   setnames(
