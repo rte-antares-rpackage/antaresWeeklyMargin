@@ -329,7 +329,7 @@ update_sb <- function(n_mc, type = c("prevu", "premis", "offset"), opts) {
     sbuilder_load <- scenarioBuilder(
       n_scenario = 51,
       n_mc = n_mc,
-      areas_rand = c("lu_be","lu_de", "pump_d","pump_w", "turb_d","turb_w", "lac", "fr"), 
+      areas_rand = c("lu_be","lu_de", "pump_d","pump_w", "turb_d","turb_w", "lac"), 
       opts = opts
     )
   } else {
