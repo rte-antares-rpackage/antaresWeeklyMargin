@@ -4,11 +4,14 @@
 \alias{create_wm_ror}
 \title{Create ROR for Weekly Margins simulation}
 \usage{
-create_wm_ror(data, start = NULL, startday = "samedi",
-  sort_areas = TRUE, opts = antaresRead::simOptions())
+create_wm_ror(data_forfait, data_eco2mix, start = NULL,
+  startday = "samedi", sort_areas = TRUE,
+  opts = antaresRead::simOptions())
 }
 \arguments{
-\item{data}{a \code{data.table} obtained from \code{\link{read_forfait_oa}}.}
+\item{data_forfait}{a \code{data.table} obtained from \code{\link{read_forfait_oa}}.}
+
+\item{data_eco2mix}{eco2mix data.}
 
 \item{start}{Starting day of the simulation, data between previous \code{startday}
 and next \code{startday}-1, by default between \code{samedi} and \code{vendredi}.}

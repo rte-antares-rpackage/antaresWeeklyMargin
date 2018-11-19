@@ -107,7 +107,24 @@ sim_wm <- function(date_prev, start_prev_hebdo,
   
   cat(info_text("Create ROR"))
   oa <- read_forfait_oa(path = path_inputs$forfait_oa)
-  opts <- create_wm_ror(data = oa, start= date_prev,  startday = startday, opts = opts)
+  # data eco2mix
+  # if (is.null(path_inputs$eco2mix)) {
+  #   setup_eco2mix(path_inputs)
+  # }
+  if (!dir.exists(path_inputs$eco2mix)) {
+    message("eco2mix files not found! Downloading...")
+    setup_eco2mix(path_inputs$inputs)
+  }
+  if (!check_files_eco2mix(path_inputs$eco2mix)) {
+    message("eco2mix files not found! Downloading...")
+    setup_eco2mix(path_inputs$inputs)
+  }
+  eco2mix <- read_hydraulique_fil_de_l_eau_eclusee(
+    path_tr = file.path(path_inputs$eco2mix, "eCO2mix_RTE_En-cours-TR.xls"),
+    path_cons = file.path(path_inputs$eco2mix, "eCO2mix_RTE_En-cours-Consolide.xls"),
+    start = date_prev, startday = startday
+  )
+  opts <- create_wm_ror(data_forfait = oa, data_eco2mix = eco2mix, start = date_prev,  startday = startday, opts = opts)
   
   cat(info_text("Create MISC"))
   opts <- create_wm_misc(data = oa, start = start_prev_hebdo, opts = opts)
@@ -211,6 +228,7 @@ sim_wm <- function(date_prev, start_prev_hebdo,
 #' @param ntc_tp Sub-directory containing NTC transparency files.
 #' @param capa_hydro Sub-directory containing Hydraulic capacity transparency files.
 #' @param hydro Sub-directory containing hydro files.
+#' @param eco2mix Sub-directory containing eco2mix files.
 #'
 #' @return For \code{path_sim_wm} a named \code{list}.
 #' @export
@@ -227,7 +245,9 @@ path_sim_wm <- function(path_dir = "inputs",
                         ntc = "ntc",
                         ntc_tp = "ntc_tp",
                         capa_hydro = "capa_hydro",
-                        hydro = "hydro") {
+                        hydro = "hydro",
+                        eco2mix = "eco2mix") {
+  path_dir <- normalizePath(path = path_dir, mustWork = TRUE)
   paths <- list(
     meteologica = meteologica,
     cnes = cnes,
@@ -248,7 +268,9 @@ path_sim_wm <- function(path_dir = "inputs",
       }
     }
   )
-  paths$ntc_tp<- normalizePath(path = ntc_tp, mustWork = FALSE)
+  paths$ntc_tp <- normalizePath(path = ntc_tp, mustWork = FALSE)
+  paths$eco2mix <- normalizePath(path = file.path(path_dir, eco2mix), mustWork = FALSE)
+  paths$inputs <- path_dir
   return(paths)
 }
 

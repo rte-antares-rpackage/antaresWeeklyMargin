@@ -1,7 +1,8 @@
 
 #' Create ROR for Weekly Margins simulation
 #'
-#' @param data a \code{data.table} obtained from \code{\link{read_forfait_oa}}.
+#' @param data_forfait a \code{data.table} obtained from \code{\link{read_forfait_oa}}.
+#' @param data_eco2mix eco2mix data.
 #' @param start Starting day of the simulation, data between previous \code{startday}
 #'  and next \code{startday}-1, by default between \code{samedi} and \code{vendredi}.
 #' @param startday Day of week to start simulation.
@@ -29,7 +30,7 @@
 #' create_wm_ror(data = oa, start = "2018-01-04")
 #'
 #' }
-create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = TRUE, opts = antaresRead::simOptions()) {
+create_wm_ror <- function(data_forfait, data_eco2mix, start = NULL, startday = "samedi", sort_areas = TRUE, opts = antaresRead::simOptions()) {
 
   inputPath <- opts$inputPath
 
@@ -46,8 +47,9 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = 
   date_fin_fil <- get_previous(endday, date = start)
 
   # Get data
-  cat("Retrieving data from API...")
-  fil_eau_ini <- get_hydraulique_fil_de_l_eau_eclusee(from = date_ini_fil, to = date_fin_fil)
+  # cat("Retrieving data from API...")
+  # fil_eau_ini <- get_hydraulique_fil_de_l_eau_eclusee(from = date_ini_fil, to = date_fin_fil)
+  fil_eau_ini <- copy(data_eco2mix)
   fil_eau_ini[, date := NULL]
   cat("\rRetrieving data from API - Done!\n")
 
@@ -69,7 +71,7 @@ create_wm_ror <- function(data, start = NULL, startday = "samedi", sort_areas = 
   fil_eau_ini[, date_heure := date_heure + 7 * 24 * 60 * 60]
 
   cat("Writing ROR for fr...")
-  forfaits_oa <- copy(data)
+  forfaits_oa <- copy(data_forfait)
 
   hydro_tiers <- forfaits_oa[date_heure >= as.POSIXct(start), c("date_heure","hydraulique_tiers")]
   fil_eau <- merge(x = fil_eau_ini, y = hydro_tiers, by = "date_heure")

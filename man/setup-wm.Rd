@@ -16,7 +16,7 @@ sim_wm(date_prev, start_prev_hebdo, path_inputs = path_sim_wm(),
 path_sim_wm(path_dir = "inputs", meteologica = "meteologica",
   cnes = "cnes", planning = "planning", forfait_oa = "forfait_oa",
   ntc = "ntc", ntc_tp = "ntc_tp", capa_hydro = "capa_hydro",
-  hydro = "hydro")
+  hydro = "hydro", eco2mix = "eco2mix")
 
 force_path(...)
 }
@@ -64,6 +64,8 @@ If provided a copy of this simulation will be performed.}
 \item{capa_hydro}{Sub-directory containing Hydraulic capacity transparency files.}
 
 \item{hydro}{Sub-directory containing hydro files.}
+
+\item{eco2mix}{Sub-directory containing eco2mix files.}
 
 \item{...}{Character vectors indicating path to a directory,
 use this to specify a path outside the \code{"path_dir"} directory.}
