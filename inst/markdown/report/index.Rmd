@@ -233,7 +233,7 @@ draw_mono(mono$mono_cwe)
 
 <br/>
 
-### Analysis scenario `r year_mc` – Flows 
+### Analysis scenario `r year_mc` - Flows 
 
 
 <br/>
@@ -256,14 +256,14 @@ antaresViz::exchangesStack(marges_all$links, area = "fr", interactive = FALSE)
 <br/>
 <br/>
 
-### Analysis scenario `r year_mc` – Production
+### Analysis scenario `r year_mc` - Production
 
 
 <br/>
 
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_prod_MC(marges$margin_area, date_i = "2016-11-05", mc_year = year_mc)#$widgets[[1]]$widget[[1]]
+draw_prod_MC(marges$margin_area, date_i = date_study, mc_year = year_mc)#$widgets[[1]]$widget[[1]]
 ```
 
 <br/>
@@ -279,7 +279,7 @@ draw_prod_MC(marges$margin_area, date_i = "2016-11-05", mc_year = year_mc)#$widg
 <br/>
 <br/>
 
-### Analysis scenario `r year_mc` – Map
+### Analysis scenario `r year_mc` - Map
 
 <br/>
 
@@ -287,7 +287,7 @@ draw_prod_MC(marges$margin_area, date_i = "2016-11-05", mc_year = year_mc)#$widg
 plotMap(
   x = marges_all, mapLayout = ml, interactive = FALSE,
   colLinkVar = "abs_loadFactor", sizeLinkVar = "FLOW LIN.",
-  colAreaVar = "marges_inter", labelAreaVar = "marges_inter",
+  colAreaVar = "margin_inter", labelAreaVar = "margin_inter",
   options = plotMapOptions(
     areaDefaultSize = 50,
     areaColorScaleOpts = colorScaleOptions(
