@@ -1,6 +1,6 @@
 Package: antaresWeeklyMargin
 Title: Setup an 'Antares' Study for Weekly Margin Simulation
-Version: 0.0.2
+Version: 0.0.2.900
 Authors@R: c(
     person("Victor", "Perrier", email = "victor.perrier@dreamRs.fr", role = c("aut", "cre")),
     person("Fabiola", "Aravena-Rojas", email = "fabiola.aravena-rojas@rte-france.com", role = c("aut")),
@@ -32,7 +32,8 @@ Imports:
     rstudioapi,
     lubridate,
     zoo,
-    usethis
+    usethis,
+    rmarkdown
 Remotes: rte-antares-rpackage/antaresEditObject,
          rte-antares-rpackage/antaresFlowbased
 RoxygenNote: 6.1.1

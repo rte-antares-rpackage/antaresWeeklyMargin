@@ -1,0 +1,301 @@
+---
+title: "<img style='float:right;' src='imgs/RTE_logo.png'></img><h5>Semaine S09/2018</h5><h2>Rejeu : Calcul des marges hebdomadaires, CNES - R&D</h2><h5>CNES :<br/>michel.driessens@rte-france.com<br/>theo.darquennes@rte-france.com<br/>R&D : <br/>fabiola.aravena-rojas@rte-france.com<br/>frederic.breant@rte-france.com<br/>victor.perrier@rte-france.com<br/>sebastien.finet@rte-france.com<br/></h5>"
+author: ""
+date: ""
+output:
+  html_document:
+    toc: true
+    toc_float: true
+params:
+  week: 9
+  n_scenario: 2040
+  year_mc: 50
+  date_study: "28-02-2018 10:00:00"
+  date_debut: "2018-02-24"
+---
+
+```{r setup, include=FALSE}
+# packages
+library( antaresViz )
+library( antaresWeeklyMargin )
+library( data.table )
+library( dygraphs )
+library( magrittr )
+
+# Parameters (dont edit here, but in header)
+week <- params$week
+n_scenario <- params$n_scenario
+year_mc <- params$year_mc
+date_study <- params$date_study
+date_debut <- params$date_debut
+
+
+# datas
+load("datas/ml.rda")
+```
+
+<style>
+h1, h2, h3, h4 {
+ color: #00A7DE;
+}
+</style>
+
+<br/><br/><br/><br/><br/>
+
+
+# Hypothesis
+
+
+<br/>
+
+## Load
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_series(marges$margin_area, "LOAD")
+```
+
+<br/>
+
+51 Forecast scenarios Meteologica
+
+
+<br/>
+
+## Wind Production
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_series(marges$margin_area, "WIND")
+```
+
+<br/>
+
+51 Forecast scenarios Meteologica
+
+
+<br/>
+
+## Solar Production
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_series(marges$margin_area, "SOLAR")
+```
+
+<br/>
+
+51 Forecast scenarios Meteologica
+
+
+<br/>
+
+# Results : margins analysis
+
+
+<br/>
+
+### Initial Remaining Capacity - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
+
+<br/>
+
+ * A large number of scenarios with negative values of initial remaining capacity during peak-hours on weekdays
+ * Deterministic forecast is consistent with the results
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_margins(data_margin = marges$margin_area_solo)
+```
+<br/>
+Legend:
+
+ * <span style="color: red;">1% of scenarii</span>
+ * <span style="color: orange;">4% of scenarii</span>
+ * <span style="color: blue;">10% of scenarii</span>
+ * <span style="color: green;">50% of scenarii</span>
+ * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
+
+<br/>
+<br/>
+
+Table of quantiles :
+
+```{r, echo=FALSE}
+marg <- margins_quantiles(marges$margin_area_solo)
+ft_margins_quantiles(marg, layout = "horizontal", language = "en")
+```
+
+
+<br/>
+
+### Final Remaining Capacity - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
+
+<br/>
+
+ * Variability of final remaining capacity for France increases with time
+
+<br/>
+
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_margins(data_margin = marges$margin_area_inter)
+```
+<br/>
+Legend:
+
+ * <span style="color: red;">1% of scenarii</span>
+ * <span style="color: orange;">4% of scenarii</span>
+ * <span style="color: blue;">10% of scenarii</span>
+ * <span style="color: green;">50% of scenarii</span>
+ * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
+
+<br/>
+<br/>
+
+Table of quantiles :
+
+```{r, echo=FALSE}
+marg_i <- margins_quantiles(marges$margin_area_inter)
+ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
+```
+
+<br/>
+
+### Remaining Capacity Analysis - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
+
+<br/>
+
+Risk of unserved energy in France.
+
+<br/>
+
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_stack_hist(marges$margin_area_solo, marges$margin_area_inter, "fr")
+```
+
+<br/>
+Legend:
+
+ * <span style="color: #008000;">available power in the country > needs</span>
+ * <span style="color: #FFFF00;">imports are required</span>
+ * <span style="color: #FFA500;">power still available in the country, but final remaining capacity = 0</span>
+ * <span style="color: #CD853F;">imports are required & final remaining capacity = 0</span>
+ * <span style="color: #FF0000;">inadequacy</span>
+
+
+<br/>
+<br/>
+
+
+# Detailed results : scenarii analysis
+
+
+
+<br/>
+<br/>
+
+### Imports / Exports
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_mono(mono$mono_france)
+```
+
+
+<br/>
+<br/>
+
+
+### Flux FR -> CW
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_mono(mono$mono_cwe)
+```
+
+
+<br/>
+<br/>
+
+
+# Example of scenario `r year_mc`
+
+
+<br/>
+
+### Analysis scenario `r year_mc` - Flows 
+
+
+<br/>
+
+```{r out.width='100%', fig.height=6, comment=NA, results='asis', eval=require('dygraphs'), echo=FALSE}
+antaresViz::exchangesStack(marges_all$links, area = "fr", interactive = FALSE)
+```
+
+<br/>
+
+
+<ul>
+<li>France exports during the weekend.</li>
+<li>During the weekdays France is a net importer.</li>
+<li>During the day France exports to Belgium, except during hours of inadequacy as it was the case of 10 Nov 2016 17:00 UTC (no more flows between the 2 countries)</li>
+</ul>
+
+
+
+<br/>
+<br/>
+
+### Analysis scenario `r year_mc` - Production
+
+
+<br/>
+
+
+```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_prod_MC(marges$margin_area, date_i = date_study, mc_year = year_mc)#$widgets[[1]]$widget[[1]]
+```
+
+<br/>
+
+<ul>
+<li>In France, thermal production is low because of unavailability of nuclear plants.</li>
+<li>Because of that, France is a net importer during the weekdays.</li>
+<li>We can also observe time steps where there are unsupplied energy.</li>
+<li>Water is pumped during off-peak hours but it is not enough to avoid inadequacy.</li>
+</ul>
+
+
+<br/>
+<br/>
+
+### Analysis scenario `r year_mc` - Map
+
+<br/>
+
+```{r out.width='100%', fig.height=6, eval=require('leaflet'), echo=FALSE}
+plotMap(
+  x = marges_all, mapLayout = ml, interactive = FALSE,
+  colLinkVar = "abs_loadFactor", sizeLinkVar = "FLOW LIN.",
+  colAreaVar = "margin_inter", labelAreaVar = "margin_inter",
+  options = plotMapOptions(
+    areaDefaultSize = 50,
+    areaColorScaleOpts = colorScaleOptions(
+      breaks = c(-3000, 0, 0.1, 70000),
+      colors = c("#ff0000", "#cd853f", "#008000", "#008000")
+    ),
+    linkColorScaleOpts = colorScaleOptions(
+      breaks = c(0, 0.25, 0.5, 0.75, 0.999, 1),
+      colors = c("#88cc8a","#a4ce3b","#ffff30", "#f49518", "#ff0000")
+    )
+  )
+)
+```
+
