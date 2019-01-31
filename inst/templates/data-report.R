@@ -38,7 +38,7 @@ saveRDS(object = marges, file = "{{path}}/datas/marges.rds")
 
 # Marges data all ---------------------------------------------------------
 
-marges_all <- compute_all_margins(date = "{{date_margins}}", mcYear = 50)
+marges_all <- compute_all_margins(date = "{{date_margins}}", mcYear = {{year_mc}})
 
 saveRDS(object = marges_all, file = "{{path}}/datas/marges_all.rds")
 

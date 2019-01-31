@@ -103,10 +103,6 @@ draw_series(marges$margin_area, "SOLAR")
 
 ### Initial Remaining Capacity - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
 
-<br/>
-
- * A large number of scenarios with negative values of initial remaining capacity during peak-hours on weekdays
- * Deterministic forecast is consistent with the results
 
 <br/>
 
@@ -139,10 +135,6 @@ ft_margins_quantiles(marg, layout = "horizontal", language = "en")
 
 <br/>
 
- * Variability of final remaining capacity for France increases with time
-
-<br/>
-
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
 draw_margins(data_margin = marges$margin_area_inter)
@@ -169,10 +161,6 @@ ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
 <br/>
 
 ### Remaining Capacity Analysis - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
-
-<br/>
-
-Risk of unserved energy in France.
 
 <br/>
 
@@ -242,15 +230,6 @@ draw_mono(mono$mono_cwe)
 antaresViz::exchangesStack(marges_all$links, area = "fr", interactive = FALSE)
 ```
 
-<br/>
-
-
-<ul>
-<li>France exports during the weekend.</li>
-<li>During the weekdays France is a net importer.</li>
-<li>During the day France exports to Belgium, except during hours of inadequacy as it was the case of 10 Nov 2016 17:00 UTC (no more flows between the 2 countries)</li>
-</ul>
-
 
 
 <br/>
@@ -265,15 +244,6 @@ antaresViz::exchangesStack(marges_all$links, area = "fr", interactive = FALSE)
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
 draw_prod_MC(marges$margin_area, date_i = date_study, mc_year = year_mc)#$widgets[[1]]$widget[[1]]
 ```
-
-<br/>
-
-<ul>
-<li>In France, thermal production is low because of unavailability of nuclear plants.</li>
-<li>Because of that, France is a net importer during the weekdays.</li>
-<li>We can also observe time steps where there are unsupplied energy.</li>
-<li>Water is pumped during off-peak hours but it is not enough to avoid inadequacy.</li>
-</ul>
 
 
 <br/>
