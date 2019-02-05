@@ -5,8 +5,8 @@
 \title{Create directory with SMTA markdown}
 \usage{
 create_markdown(path, format = c("report", "slides"),
-  date_start = NULL, date_margins = NULL, date_mono = NULL,
-  week = NULL, n_scenario = NULL, year_mc = NULL,
+  date_start = NULL, date_study = NULL, week = NULL,
+  n_scenario = NULL, year_mc = NULL,
   opts = antaresRead::simOptions())
 }
 \arguments{
@@ -16,9 +16,7 @@ create_markdown(path, format = c("report", "slides"),
 
 \item{date_start}{Study start date.}
 
-\item{date_margins}{Date for margins computation.}
-
-\item{date_mono}{Date-time for representing monotone.}
+\item{date_study}{Date for margins computation.}
 
 \item{week}{Number of the week studied.}
 

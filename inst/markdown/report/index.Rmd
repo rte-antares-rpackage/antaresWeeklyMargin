@@ -1,5 +1,5 @@
 ---
-title: "<img style='float:right;' src='imgs/RTE_logo.png'></img><h5>Semaine S09/2018</h5><h2>Rejeu : Calcul des marges hebdomadaires, CNES - R&D</h2><h5>CNES :<br/>michel.driessens@rte-france.com<br/>theo.darquennes@rte-france.com<br/>R&D : <br/>fabiola.aravena-rojas@rte-france.com<br/>frederic.breant@rte-france.com<br/>victor.perrier@rte-france.com<br/>sebastien.finet@rte-france.com<br/></h5>"
+title: "<img style='float:right;' src='imgs/RTE_logo.png'></img><h2>Rejeu : Calcul des marges hebdomadaires, CNES - R&D</h2><h5>CNES :<br/>michel.driessens@rte-france.com<br/>theo.darquennes@rte-france.com<br/>R&D : <br/>fabiola.aravena-rojas@rte-france.com<br/>frederic.breant@rte-france.com<br/>victor.perrier@rte-france.com<br/>sebastien.finet@rte-france.com<br/></h5>"
 author: ""
 date: ""
 output:
@@ -242,7 +242,7 @@ antaresViz::exchangesStack(marges_all$links, area = "fr", interactive = FALSE)
 
 
 ```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_prod_MC(marges$margin_area, date_i = date_study, mc_year = year_mc)#$widgets[[1]]$widget[[1]]
+draw_prod_MC(marges$margin_area, date_i = date_debut, mc_year = year_mc)#$widgets[[1]]$widget[[1]]
 ```
 
 

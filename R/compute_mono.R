@@ -81,8 +81,11 @@ compute_mono <- function(start = "2016-11-05", date = "2016-11-10 17:00:00", are
     res$mono_cwe <- as.data.table(cbind(num_row,cwe_flux))
   }
   
-  areas_indirect <- c("be - fr", "de - fr", "ch - fr", "es - fr")
-  areas_direct <- c("fr - gb", "fr - it")
+  # areas_indirect <- c("be - fr", "de - fr", "ch - fr", "es - fr")
+  # areas_direct <- c("fr - gb", "fr - it")
+  areas_direct <- grep(pattern = "^fr", x = links_fr, value = TRUE)
+  areas_indirect <- grep(pattern = "fr$", x = links_fr, value = TRUE)
+  
   if (all(areas_indirect %in% links_fr) & all(areas_direct %in% links_fr)) {
     flux_ind <- apply(X = flux_etude[, .SD, .SDcols = areas_indirect], MARGIN = 1, FUN = sum)
     flux_dir <- apply(X = flux_etude[, .SD, .SDcols = areas_direct], MARGIN = 1, FUN = sum)

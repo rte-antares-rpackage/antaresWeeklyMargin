@@ -4,8 +4,7 @@
 #' @param path Path to a directory, if directory doesn't exist, it will be created.
 #' @param format Format of markdown output : report or slides.
 #' @param date_start Study start date.
-#' @param date_margins Date for margins computation.
-#' @param date_mono Date-time for representing monotone.
+#' @param date_study Date for margins computation.
 #' @param week Number of the week studied.
 #' @param n_scenario Number of scenario used in analysis.
 #' @param year_mc Number of the Monte-Carlo year to focus on.
@@ -25,7 +24,7 @@
 #'
 #' }
 create_markdown <- function(path, format = c("report", "slides"),
-                            date_start = NULL, date_margins = NULL, date_mono = NULL,
+                            date_start = NULL, date_study = NULL, 
                             week = NULL, n_scenario = NULL, year_mc = NULL,
                             opts = antaresRead::simOptions()) {
   format <- match.arg(format)
@@ -47,8 +46,7 @@ create_markdown <- function(path, format = c("report", "slides"),
       date_report = format(Sys.Date(), format = "%d/%m/%Y"),
       simPath = opts$simPath,
       date_start = date_start, 
-      date_margins = date_margins,
-      date_mono = date_mono,
+      date_study = date_study,
       week = week, n_scenario = n_scenario, year_mc = year_mc
     ), 
     open = TRUE, 

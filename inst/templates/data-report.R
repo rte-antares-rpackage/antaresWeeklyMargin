@@ -29,7 +29,7 @@ opts <- setSimulationPath(path = "{{simPath}}")
 
 # Marges ------------------------------------------------------------------
 
-marges <- compute_margins(date = "{{date_margins}}", area = "fr", margin = "upward")
+marges <- compute_margins(date = "{{date_start}}", area = "fr", margin = "upward")
 
 saveRDS(object = marges, file = "{{path}}/datas/marges.rds")
 
@@ -38,7 +38,7 @@ saveRDS(object = marges, file = "{{path}}/datas/marges.rds")
 
 # Marges data all ---------------------------------------------------------
 
-marges_all <- compute_all_margins(date = "{{date_margins}}", mcYear = {{year_mc}})
+marges_all <- compute_all_margins(date = "{{date_start}}", mcYear = {{year_mc}})
 
 saveRDS(object = marges_all, file = "{{path}}/datas/marges_all.rds")
 
@@ -46,7 +46,7 @@ saveRDS(object = marges_all, file = "{{path}}/datas/marges_all.rds")
 
 # Monotones ---------------------------------------------------------------
 
-mono <- compute_mono(start = "{{date_start}}", date = "{{date_mono}}")
+mono <- compute_mono(start = "{{date_start}}", date = "{{date_study}}")
 
 saveRDS(object = mono, file = "{{path}}/datas/mono.rds")
 
@@ -59,7 +59,7 @@ rmarkdown::render("{{path}}/index.Rmd", params = list(
   week = {{week}}, # Week for upward margins
   n_scenario = {{n_scenario}}, # Number of scenario
   year_mc = {{year_mc}}, # MC year studied
-  date_study = "{{date_margins}}",
+  date_study = "{{date_study}}",
   date_debut = "{{date_start}}"
 ))
 

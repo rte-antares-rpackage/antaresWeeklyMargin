@@ -4,17 +4,15 @@
 \alias{render_report}
 \title{Render Weekly Margin Report}
 \usage{
-render_report(output_file = "index.html", date_start, date_margins,
-  date_mono, week, n_scenario, year_mc, opts = antaresRead::simOptions())
+render_report(output_file = "index.html", date_start, date_study, week,
+  n_scenario, year_mc, opts = antaresRead::simOptions())
 }
 \arguments{
 \item{output_file}{PAth to output file generated.}
 
 \item{date_start}{Study start date.}
 
-\item{date_margins}{Date for margins computation.}
-
-\item{date_mono}{Date-time for representing monotone.}
+\item{date_study}{Date for margins computation.}
 
 \item{week}{Number of the week studied.}
 
