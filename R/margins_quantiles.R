@@ -103,6 +103,7 @@ ft_margins_quantiles <- function(margin, layout = c("horizontal", "vertical"), l
 
   if (layout == "horizontal") {
     margin <- dcast(data = margin, formula = variable ~ jour + heure, value.var = "value")
+    margin <- as.data.frame(margin)
     ft <- regulartable( data = margin, col_keys = names(margin) )
     typology <- data.frame(
       col_keys = names(margin),
@@ -126,6 +127,7 @@ ft_margins_quantiles <- function(margin, layout = c("horizontal", "vertical"), l
     margin <- margin[order(jour, heure)]
     margin <- dcast(data = margin, formula = jour + heure ~ variable, value.var = "value")
     setnames(x = margin, old = c("jour", "heure"), new = var_t)
+    margin <- as.data.frame(margin)
     ft <- regulartable( data = margin, col_keys = names(margin) )
     ft <- merge_v(ft, part = "body", j = 1)
     ft <- bg(

@@ -29,10 +29,14 @@ opts <- setSimulationPath(path = "{{simPath}}")
 
 # Marges ------------------------------------------------------------------
 
-marges <- compute_margins(date = "{{date_start}}", area = "fr", margin = "upward")
+marges_up <- compute_margins(date = "{{date_start}}", area = "fr", margin = "upward")
 
-saveRDS(object = marges, file = "{{path}}/datas/marges.rds")
+saveRDS(object = marges_up, file = "{{path}}/datas/marges_up.rds")
 
+
+marges_down  <- compute_margins(date =  "{{date_start}}", area = "fr", margin = "downward", formula_cnes = TRUE)
+
+saveRDS(object = marges_down, file = "{{path}}/datas/marges_down.rds")
 
 
 
