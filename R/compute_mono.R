@@ -87,11 +87,12 @@ compute_mono <- function(start = "2016-11-05", date = "2016-11-10 17:00:00", are
   areas_indirect <- grep(pattern = "fr$", x = links_fr, value = TRUE)
   
   if (all(areas_indirect %in% links_fr) & all(areas_direct %in% links_fr)) {
-    flux_ind <- apply(X = flux_etude[, .SD, .SDcols = areas_indirect], MARGIN = 1, FUN = sum)
-    flux_dir <- apply(X = flux_etude[, .SD, .SDcols = areas_direct], MARGIN = 1, FUN = sum)
+    flux_etude[, flux_ind := rowSums(.SD), .SDcols = areas_indirect]
+    flux_etude[, flux_dir := rowSums(.SD), .SDcols = areas_direct]
     
-    flux_total <- flux_dir + flux_ind * -1
-    flux_total <- flux_total[order(flux_total, decreasing = TRUE)]
+    flux_etude[, flux_total := flux_dir + flux_ind * -1]
+    
+    flux_total <- sort(flux_etude$flux_total, decreasing = TRUE)
     res$mono_france <- as.data.table(cbind(num_row, flux_total))
   }
   for (i in seq_along(res)) {
