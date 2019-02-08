@@ -20,4 +20,4 @@ utils::globalVariables(c(".SD", ".I", ".N", "groupe", "code_groupe",
                          "creux_jour", "creux_nuit", "offset_new", "pointe_matin", "pointe_soir",
                          "NODU", "minGenModulation", "nominalcapacity", "pumpingCapacity", "pmin_therm", "mustRunTotal", "production",
                          "is_offpeak", "is_peak", "mean_prev", "offset_offpeak", "offset_peak", "offset_prev",
-                         "prevu", "offset_prev_raw", "id", "weight", "Type"))
+                         "prevu", "offset_prev_raw", "id", "weight", "Type", "cut_somme", "somme"))
