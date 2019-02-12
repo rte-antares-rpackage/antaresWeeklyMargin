@@ -247,25 +247,6 @@ marg_i <- margins_quantiles(marges_down$margin_area_inter)
 ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
 ```
 
-<br/>
-
-### Remaining Capacity Analysis - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
-
-<br/>
-
-
-```{r down-stack, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_stack_hist(marges_down$margin_area_solo, marges_up$margin_area_inter, "fr")
-```
-
-<br/>
-Legend:
-
- * <span style="color: #008000;">available power in the country > needs</span>
- * <span style="color: #FFFF00;">imports are required</span>
- * <span style="color: #FFA500;">power still available in the country, but final remaining capacity = 0</span>
- * <span style="color: #CD853F;">imports are required & final remaining capacity = 0</span>
- * <span style="color: #FF0000;">inadequacy</span>
 
 
 <br/>
