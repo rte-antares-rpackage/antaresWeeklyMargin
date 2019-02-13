@@ -5,7 +5,7 @@
 \title{Draw Exchange scenario}
 \usage{
 draw_scenario(data, var_value = "somme", var_date = "time",
-  grid_size = 100)
+  grid_size = 100, h = 6000)
 }
 \arguments{
 \item{data}{A \code{data.table}.}
@@ -15,6 +15,8 @@ draw_scenario(data, var_value = "somme", var_date = "time",
 \item{var_date}{Name of variable with datetime.}
 
 \item{grid_size}{Size of discretization grid.}
+
+\item{h}{Bandwidth, default to 6000, see \code{\link[ggplot2]{stat_density_2d}}.}
 }
 \description{
 Draw Exchange scenario

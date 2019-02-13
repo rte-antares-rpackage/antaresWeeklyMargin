@@ -5,6 +5,7 @@
 #' @param var_value Name of variable with values to represent.
 #' @param var_date Name of variable with datetime.
 #' @param grid_size Size of discretization grid.
+#' @param h Bandwidth, default to 6000, see \code{\link[ggplot2]{stat_density_2d}}.
 #'
 #' @export
 #' 
@@ -14,7 +15,7 @@
 #' @importFrom stats median
 #' @importFrom utils tail
 #'
-draw_scenario <- function(data, var_value = "somme", var_date = "time", grid_size = 100) {
+draw_scenario <- function(data, var_value = "somme", var_date = "time", grid_size = 100, h = 6000) {
   data <- copy(data)
   old_vars <- c(var_value, var_date)
   if (!all(old_vars %in% names(data))) {
@@ -47,7 +48,7 @@ draw_scenario <- function(data, var_value = "somme", var_date = "time", grid_siz
     stat_density_2d(
       data = data,
       mapping = aes_string(x = "time", y = "cut_somme", fill = "stat(level)"), 
-      geom = "polygon", h = 6000
+      geom = "polygon", h = h
     ) +
     scale_x_datetime(limits = range(data$time) + c(-1/2*60*60*6, 1/2*60*60*6)) +
     scale_y_continuous(limits = range(data$cut_somme, na.rm = TRUE) + c(-2000, 2000)) +
