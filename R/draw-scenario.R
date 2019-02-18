@@ -12,6 +12,7 @@
 #' @importFrom data.table copy setnames
 #' @importFrom ggplot2 ggplot aes_string stat_density_2d stat scale_fill_distiller labs
 #'  scale_x_datetime scale_y_continuous geom_line theme_minimal theme element_line geom_ribbon
+#'  guide_colorbar unit
 #' @importFrom stats median
 #' @importFrom utils tail
 #'
@@ -52,10 +53,25 @@ draw_scenario <- function(data, var_value = "somme", var_date = "time", grid_siz
     ) +
     scale_x_datetime(limits = range(data$time) + c(-1/2*60*60*6, 1/2*60*60*6)) +
     scale_y_continuous(limits = range(data$cut_somme, na.rm = TRUE) + c(-2000, 2000)) +
-    scale_fill_distiller(palette = "RdYlBu", guide = "none") +
+    scale_fill_distiller(
+      palette = "RdYlBu", 
+      # guide = "none"
+      guide = guide_colorbar(
+        title = "Indice de densit\u00e9 de sc\u00e9narii",
+        direction = "horizontal",
+        barheight = unit(2, units = "mm"),
+        barwidth = unit(60, units = "mm"),
+        draw.ulim = FALSE,
+        title.position = 'top',
+        # some shifting around
+        title.hjust = 0.5,
+        label.hjust = 0.5
+      )
+    ) +
     theme_minimal() +
     theme(
       # panel.background = element_rect(fill = NA),
+      legend.position = "bottom",
       panel.ontop = TRUE,
       panel.grid = element_line(color = "black", linetype = "dotted")
     ) +
