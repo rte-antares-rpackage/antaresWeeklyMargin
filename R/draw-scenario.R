@@ -48,7 +48,7 @@ draw_scenario <- function(data, var_value = "somme", var_date = "time", grid_siz
     ) +
     stat_density_2d(
       data = data,
-      mapping = aes_string(x = "time", y = "cut_somme", fill = "stat(level)"), 
+      mapping = aes_string(x = "time", y = "cut_somme", fill = "stat(nlevel)*100"), 
       geom = "polygon", h = h
     ) +
     scale_x_datetime(limits = range(data$time) + c(-1/2*60*60*6, 1/2*60*60*6)) +
