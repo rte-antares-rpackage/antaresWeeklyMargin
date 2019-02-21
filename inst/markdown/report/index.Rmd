@@ -256,6 +256,14 @@ ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
 # Detailed results : scenarii analysis
 
 
+### Distribution of border exchanges for France
+
+
+```{r scenarii, echo=FALSE, fig.width=9, fig.height=7}
+draw_scenario(mono$scenarii, var_value = "flux_total", var_date = "time", h = 6000)
+```
+
+
 
 <br/>
 <br/>

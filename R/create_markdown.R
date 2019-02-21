@@ -24,8 +24,8 @@
 #'
 #' }
 create_markdown <- function(path, format = c("report", "slides"),
-                            date_start = NULL, date_study = NULL, 
-                            week = NULL, n_scenario = NULL, year_mc = NULL,
+                            date_start, date_study, 
+                            week, n_scenario, year_mc,
                             opts = antaresRead::simOptions()) {
   format <- match.arg(format)
   if (!dir.exists(path)) {

@@ -34,12 +34,14 @@ compute_all_margins <- function(date, mcYear, exclude = c("lu_be","lu_de"),
   areas <- getAreas(exclude = exclude, opts = opts)
   links <- getLinks(exclude = exclude, opts = opts)
   
-  data_all_areas <- readAntares(
-    areas = areas, links = links, 
-    mcYears = mcYear, linkCapacity = TRUE,
-    mustRun = margin == "downward",
-    clusters = if (margin == "downward") areas else NULL
-  )
+  suppressWarnings({
+    data_all_areas <- readAntares(
+      areas = areas, links = links, 
+      mcYears = mcYear, linkCapacity = TRUE,
+      mustRun = margin == "downward",
+      clusters = if (margin == "downward") areas else NULL
+    )
+  })
   data_all <- removeVirtualAreas(x = data_all_areas, storageFlexibility = virtual_areas)
   
   if (margin == "upward") {

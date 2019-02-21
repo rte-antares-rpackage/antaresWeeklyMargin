@@ -4,9 +4,8 @@
 \alias{create_markdown}
 \title{Create directory with SMTA markdown}
 \usage{
-create_markdown(path, format = c("report", "slides"),
-  date_start = NULL, date_study = NULL, week = NULL,
-  n_scenario = NULL, year_mc = NULL,
+create_markdown(path, format = c("report", "slides"), date_start,
+  date_study, week, n_scenario, year_mc,
   opts = antaresRead::simOptions())
 }
 \arguments{

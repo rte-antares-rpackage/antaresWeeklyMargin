@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @importFrom antaresRead getLinks readAntares
-#' @importFrom data.table data.table dcast.data.table as.data.table
+#' @importFrom data.table data.table dcast.data.table as.data.table setorder
 #'
 #' @examples
 #' \dontrun{
@@ -36,18 +36,21 @@ compute_mono <- function(start = "2016-11-05", date = "2016-11-10 17:00:00", are
   )
   
   # Extraire les donnees de sortie d'ANTARES pour chaque pays
-  data_pays <- readAntares(
-    areas = area,
-    links = links_fr,
-    select = "FLOW LIN.",
-    mcYears = mcYears, 
-    linkCapacity = TRUE, 
-    opts = opts
-  )
+  suppressWarnings({
+    data_pays <- readAntares(
+      areas = area,
+      links = links_fr,
+      select = "FLOW LIN.",
+      mcYears = mcYears, 
+      linkCapacity = TRUE, 
+      opts = opts
+    )
+  })
   
   pays_links <- data_pays$links
-  pays_links <- pays_links[order(mcYear), ]
-  pays_links$time <- new_time$DateTime
+  # pays_links <- pays_links[order(mcYear), ]
+  setorder(pays_links, mcYear)
+  pays_links[, time := rep(new_time$DateTime, length.out = .N)]
   
   flux <- pays_links[, .SD, .SDcols = c("time", "mcYear", "link", "FLOW LIN.")]
   
@@ -98,6 +101,21 @@ compute_mono <- function(start = "2016-11-05", date = "2016-11-10 17:00:00", are
   for (i in seq_along(res)) {
     setattr(x = res[[i]], name = "mono.date", value = date)
   }
+  
+  # scenarii part
+  # Transposition de la table
+  scenarii <- dcast.data.table(
+    data = flux, mcYear + time ~ link, 
+    value.var = "FLOW LIN."
+  )
+  
+  # Somme des echanges
+  scenarii[, flux_ind := rowSums(.SD), .SDcols = areas_indirect]
+  scenarii[, flux_dir := rowSums(.SD), .SDcols = areas_direct]
+  scenarii[, flux_total := flux_dir + flux_ind * -1]
+  
+  res$scenarii <- scenarii
+  
   return(res)
 }
 

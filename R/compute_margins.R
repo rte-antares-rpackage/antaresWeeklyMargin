@@ -56,16 +56,18 @@ compute_margins <- function(date, area = "fr",
   links_virtual_area <- make_links(area, virtual_areas)
   links_virtual_area <- links_virtual_area[links_virtual_area %in% getLinks(areas = area, opts = opts)]
   
-  data_study <- readAntares(
-    areas = area, 
-    links = links_virtual_area,
-    select = c("FLOW LIN.", "AVL DTG", "MISC. NDG", "H. ROR", "WIND", "SOLAR", "LOAD",
-               "MISC. DTG", "BALANCE", "NUCLEAR", "GAS", "COAL", "LIGNITE", "OIL",
-               "MIX. FUEL", "ROW BAL.", "FLOW LIN.", "LOLD", "LOLP", "UNSP. ENRG"), 
-    mcYears = mcYears, 
-    linkCapacity = length(links_virtual_area) > 0,
-    opts = opts
-  )
+  suppressWarnings({
+    data_study <- readAntares(
+      areas = area, 
+      links = links_virtual_area,
+      select = c("FLOW LIN.", "AVL DTG", "MISC. NDG", "H. ROR", "WIND", "SOLAR", "LOAD",
+                 "MISC. DTG", "BALANCE", "NUCLEAR", "GAS", "COAL", "LIGNITE", "OIL",
+                 "MIX. FUEL", "ROW BAL.", "FLOW LIN.", "LOLD", "LOLP", "UNSP. ENRG"), 
+      mcYears = mcYears, 
+      linkCapacity = length(links_virtual_area) > 0,
+      opts = opts
+    )
+  })
   
   
   
