@@ -2,18 +2,20 @@
 % Please edit documentation in R/margins_quantiles.R
 \name{margins_quantiles}
 \alias{margins_quantiles}
-\title{Compute margins' quantiles}
+\title{Compute margins quantiles for a couple of hours}
 \usage{
-margins_quantiles(margin)
+margins_quantiles(margin, hours = c("09h", "19h"))
 }
 \arguments{
 \item{margin}{a \code{data.table} containing margins.}
+
+\item{hours}{Couple of hours.}
 }
 \value{
 a \code{data.table}
 }
 \description{
-Compute margins' quantiles
+Compute margins quantiles for a couple of hours
 }
 \examples{
 \dontrun{

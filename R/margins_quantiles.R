@@ -1,8 +1,9 @@
 
 
-#' Compute margins' quantiles
+#' Compute margins quantiles for a couple of hours
 #'
 #' @param margin a \code{data.table} containing margins.
+#' @param hours Couple of hours.
 #'
 #' @return a \code{data.table}
 #' @export
@@ -16,13 +17,13 @@
 #'
 #' @importFrom data.table copy melt %chin% :=
 #' @importFrom stats median quantile
-margins_quantiles <- function(margin) {
+margins_quantiles <- function(margin, hours = c("09h", "19h")) {
 
   margin <- copy(margin)
   margin[, jour := format(datetime, format = "%A")]
   margin[, date := format(datetime, format = "%Y-%m-%d")]
   margin[, heure := format(datetime, format = "%Hh")]
-  margin <- margin[heure %chin% c("09h", "19h")]
+  margin <- margin[heure %chin% hours]
 
   margin <- melt(
     data = margin,

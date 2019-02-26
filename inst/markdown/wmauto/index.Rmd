@@ -52,8 +52,8 @@ h1, h2, h3, h4 {
 
 <br/>
 
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_series(marges$margin_area, "LOAD")
+```{r series-load, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_series(marges_up$margin_area, "LOAD")
 ```
 
 <br/>
@@ -67,8 +67,8 @@ draw_series(marges$margin_area, "LOAD")
 
 <br/>
 
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_series(marges$margin_area, "WIND")
+```{r series-wind, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_series(marges_up$margin_area, "WIND")
 ```
 
 <br/>
@@ -82,8 +82,8 @@ draw_series(marges$margin_area, "WIND")
 
 <br/>
 
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_series(marges$margin_area, "SOLAR")
+```{r series-solar, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_series(marges_up$margin_area, "SOLAR")
 ```
 
 <br/>
@@ -93,22 +93,18 @@ draw_series(marges$margin_area, "SOLAR")
 
 <br/>
 
-# Results : margins analysis
+# Results : upward margins analysis
 
 
 <br/>
 
 ### Initial Remaining Capacity - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
 
-<br/>
-
- * A large number of scenarios with negative values of initial remaining capacity during peak-hours on weekdays
- * Deterministic forecast is consistent with the results
 
 <br/>
 
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_margins(data_margin = marges$margin_area_solo)
+```{r up-margins-solo, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_margins(data_margin = marges_up$margin_area_solo)
 ```
 <br/>
 Legend:
@@ -124,8 +120,8 @@ Legend:
 
 Table of quantiles :
 
-```{r, echo=FALSE}
-marg <- margins_quantiles(marges$margin_area_solo)
+```{r up-quantiles-solo, echo=FALSE}
+marg <- margins_quantiles(marges_up$margin_area_solo)
 ft_margins_quantiles(marg, layout = "horizontal", language = "en")
 ```
 
@@ -136,13 +132,9 @@ ft_margins_quantiles(marg, layout = "horizontal", language = "en")
 
 <br/>
 
- * Variability of final remaining capacity for France increases with time
 
-<br/>
-
-
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_margins(data_margin = marges$margin_area_inter)
+```{r up-margins-inter, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_margins(data_margin = marges_up$margin_area_inter)
 ```
 <br/>
 Legend:
@@ -158,8 +150,8 @@ Legend:
 
 Table of quantiles :
 
-```{r, echo=FALSE}
-marg_i <- margins_quantiles(marges$margin_area_inter)
+```{r up-quantiles-inter, echo=FALSE}
+marg_i <- margins_quantiles(marges_up$margin_area_inter)
 ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
 ```
 
@@ -169,13 +161,9 @@ ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
 
 <br/>
 
-Risk of unserved energy in France.
 
-<br/>
-
-
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_stack_hist(marges$margin_area_solo, marges$margin_area_inter, "fr")
+```{r up-stack, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_stack_hist(marges_up$margin_area_solo, marges_up$margin_area_inter, "fr")
 ```
 
 <br/>
@@ -186,6 +174,75 @@ Legend:
  * <span style="color: #FFA500;">power still available in the country, but final remaining capacity = 0</span>
  * <span style="color: #CD853F;">imports are required & final remaining capacity = 0</span>
  * <span style="color: #FF0000;">inadequacy</span>
+
+
+<br/>
+<br/>
+
+
+
+# Results : downward margins analysis
+
+
+<br/>
+
+### Initial Remaining Capacity - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
+
+
+<br/>
+
+```{r down-margins-solo, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_margins(data_margin = marges_down$margin_area_solo)
+```
+<br/>
+Legend:
+
+ * <span style="color: red;">1% of scenarii</span>
+ * <span style="color: orange;">4% of scenarii</span>
+ * <span style="color: blue;">10% of scenarii</span>
+ * <span style="color: green;">50% of scenarii</span>
+ * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
+
+<br/>
+<br/>
+
+Table of quantiles :
+
+```{r down-quantiles-solo, echo=FALSE}
+marg <- margins_quantiles(marges_down$margin_area_solo, hours = c("04h", "16h"))
+ft_margins_quantiles(marg, layout = "horizontal", language = "en")
+```
+
+
+<br/>
+
+### Final Remaining Capacity - <span style="font-size: 80%;"><img src="imgs/fr.svg" width="28" height="21" style="vertical-align: 0px;"/> FR</span>
+
+<br/>
+
+
+```{r down-margins-inter, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_margins(data_margin = marges_down$margin_area_inter)
+```
+<br/>
+Legend:
+
+ * <span style="color: red;">1% of scenarii</span>
+ * <span style="color: orange;">4% of scenarii</span>
+ * <span style="color: blue;">10% of scenarii</span>
+ * <span style="color: green;">50% of scenarii</span>
+ * <span style="color: #A4A4A4">`r n_scenario` scenarii</span>
+
+<br/>
+<br/>
+
+Table of quantiles :
+
+```{r down-quantiles-inter, echo=FALSE}
+marg_i <- margins_quantiles(marges_down$margin_area_inter, hours = c("04h", "16h"))
+ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
+```
+
 
 
 <br/>
@@ -211,7 +268,7 @@ draw_scenario(mono$scenarii, var_value = "flux_total", var_date = "time", h = 60
 
 <br/>
 
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+```{r mono-fr, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
 draw_mono(mono$mono_france)
 ```
 
@@ -224,7 +281,7 @@ draw_mono(mono$mono_france)
 
 <br/>
 
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+```{r mono-cwe, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
 draw_mono(mono$mono_cwe)
 ```
 
@@ -243,18 +300,9 @@ draw_mono(mono$mono_cwe)
 
 <br/>
 
-```{r out.width='100%', fig.height=6, comment=NA, results='asis', eval=require('dygraphs'), echo=FALSE}
+```{r exchanges, out.width='100%', fig.height=6, comment=NA, results='asis', eval=require('dygraphs'), echo=FALSE}
 antaresViz::exchangesStack(marges_all$links, area = "fr", interactive = FALSE)
 ```
-
-<br/>
-
-
-<ul>
-<li>France exports during the weekend.</li>
-<li>During the weekdays France is a net importer.</li>
-<li>During the day France exports to Belgium, except during hours of inadequacy as it was the case of 10 Nov 2016 17:00 UTC (no more flows between the 2 countries)</li>
-</ul>
 
 
 
@@ -267,18 +315,9 @@ antaresViz::exchangesStack(marges_all$links, area = "fr", interactive = FALSE)
 <br/>
 
 
-```{r out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
-draw_prod_MC(marges$margin_area, date_i = date_study, mc_year = year_mc)#$widgets[[1]]$widget[[1]]
+```{r prod-mc, out.width='100%', fig.height=6, eval=require('dygraphs'), echo=FALSE}
+draw_prod_MC(marges_up$margin_area, date_i = date_debut, mc_year = year_mc)#$widgets[[1]]$widget[[1]]
 ```
-
-<br/>
-
-<ul>
-<li>In France, thermal production is low because of unavailability of nuclear plants.</li>
-<li>Because of that, France is a net importer during the weekdays.</li>
-<li>We can also observe time steps where there are unsupplied energy.</li>
-<li>Water is pumped during off-peak hours but it is not enough to avoid inadequacy.</li>
-</ul>
 
 
 <br/>
@@ -288,7 +327,7 @@ draw_prod_MC(marges$margin_area, date_i = date_study, mc_year = year_mc)#$widget
 
 <br/>
 
-```{r out.width='100%', fig.height=6, eval=require('leaflet'), echo=FALSE}
+```{r map, out.width='100%', fig.height=6, eval=require('leaflet'), echo=FALSE}
 plotMap(
   x = marges_all, mapLayout = ml, interactive = FALSE,
   colLinkVar = "abs_loadFactor", sizeLinkVar = "FLOW LIN.",
