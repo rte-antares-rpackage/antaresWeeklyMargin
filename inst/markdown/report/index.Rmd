@@ -213,7 +213,7 @@ Legend:
 Table of quantiles :
 
 ```{r down-quantiles-solo, echo=FALSE}
-marg <- margins_quantiles(marges_down$margin_area_solo, hours = c("04h", "16h"))
+marg <- margins_quantiles(marges_down$margin_area_solo, hours = c("04h", "16h"), type = "downward")
 ft_margins_quantiles(marg, layout = "horizontal", language = "en")
 ```
 
@@ -243,7 +243,7 @@ Legend:
 Table of quantiles :
 
 ```{r down-quantiles-inter, echo=FALSE}
-marg_i <- margins_quantiles(marges_down$margin_area_inter, hours = c("04h", "16h"))
+marg_i <- margins_quantiles(marges_down$margin_area_inter, hours = c("04h", "16h"), type = "downward")
 ft_margins_quantiles(marg_i, layout = "horizontal", language = "en")
 ```
 

@@ -4,12 +4,15 @@
 \alias{margins_quantiles}
 \title{Compute margins quantiles for a couple of hours}
 \usage{
-margins_quantiles(margin, hours = c("09h", "19h"))
+margins_quantiles(margin, hours = c("09h", "19h"), type = c("upward",
+  "downward"))
 }
 \arguments{
 \item{margin}{a \code{data.table} containing margins.}
 
 \item{hours}{Couple of hours.}
+
+\item{type}{Type of margin.}
 }
 \value{
 a \code{data.table}

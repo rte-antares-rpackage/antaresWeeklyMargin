@@ -4,6 +4,7 @@
 #'
 #' @param margin a \code{data.table} containing margins.
 #' @param hours Couple of hours.
+#' @param type Type of margin.
 #'
 #' @return a \code{data.table}
 #' @export
@@ -17,8 +18,8 @@
 #'
 #' @importFrom data.table copy melt %chin% :=
 #' @importFrom stats median quantile
-margins_quantiles <- function(margin, hours = c("09h", "19h")) {
-
+margins_quantiles <- function(margin, hours = c("09h", "19h"), type = c("upward", "downward")) {
+  type <- match.arg(type)
   margin <- copy(margin)
   margin[, jour := format(datetime, format = "%A")]
   margin[, date := format(datetime, format = "%Y-%m-%d")]
@@ -30,12 +31,21 @@ margins_quantiles <- function(margin, hours = c("09h", "19h")) {
     id.vars = c("datetime", "date", "jour", "heure"),
     measure.vars = setdiff(names(margin), c("datetime", "date", "jour", "heure"))
   )
-  margin <- margin[, list(
-    mediane = median(value),
-    q1 = quantile(value, probs = 1/100),
-    q4 = quantile(value, probs = 4/100),
-    q10 = quantile(value, probs = 10/100)
-  ), by = list(date, jour, heure)]
+  if (type == "upward") {
+    margin <- margin[, list(
+      mediane = median(value),
+      q1 = quantile(value, probs = 1/100),
+      q4 = quantile(value, probs = 4/100),
+      q10 = quantile(value, probs = 10/100)
+    ), by = list(date, jour, heure)]
+  } else {
+    margin <- margin[, list(
+      mediane = median(value),
+      q1 = quantile(value, probs = 99/100),
+      q4 = quantile(value, probs = 96/100),
+      q10 = quantile(value, probs = 90/100)
+    ), by = list(date, jour, heure)]
+  }
   melt(
     data = margin,
     id.vars = c("jour", "date", "heure"),
