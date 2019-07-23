@@ -1,17 +1,21 @@
-[![Travis-CI Build Status](https://travis-ci.org/rte-antares-rpackage/antaresWeeklyMargin.svg?branch=master)](https://travis-ci.org/rte-antares-rpackage/antaresWeeklyMargin)
-
 # antaresWeeklyMargin
-
 
 > Process data for Weekly Margin simulation.
 
+[![Travis-CI Build Status](https://travis-ci.org/rte-antares-rpackage/antaresWeeklyMargin.svg?branch=master)](https://travis-ci.org/rte-antares-rpackage/antaresWeeklyMargin)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+
+
+
+## Installation
 
 You can install the package from Github like this :
 
 
 ```r
 # Install package from Github
-source("https://install-github.me/rte-antares-rpackage/antaresWeeklyMargin")
+remotes::install_github("rte-antares-rpackage/antaresWeeklyMargin")
 
 library( "antaresWeeklyMargin" )
 ```
